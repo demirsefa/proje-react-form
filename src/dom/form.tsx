@@ -1,6 +1,6 @@
 import React, { HTMLProps, ReactNode } from "react";
 import { FormContextProvider, useLoading, useOnSubmit } from "../form-context";
-import { FormRefreshType } from "../models/form-refresh-type";
+import { FormRefreshType } from "../models";
 
 export interface FormDomProps extends HTMLProps<HTMLFormElement> {
 	children: ReactNode;

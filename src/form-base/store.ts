@@ -1,9 +1,9 @@
-import { Debounce } from "../utils/debounce";
 import { ActionProps, ActionType } from "./action-type";
 import { throwNotRegistered } from "./throw-not-registered";
 import { CreateInputOptions } from "./create-input-options";
-import { InputState } from "../models/input-state";
 import { StoreState } from "./store-state";
+import { Debounce } from "../utils";
+import { InputState } from "../models";
 
 type SubscribeType = (state: StoreState) => void;
 

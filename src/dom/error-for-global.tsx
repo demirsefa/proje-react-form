@@ -1,5 +1,5 @@
 import React from "react";
-import { useErrorForGlobal } from "../form-context/use-error-for-global";
+import { useErrorForGlobal } from "../form-context";
 
 export  function ErrorForGlobal({ errorMessage = "Something went wrong" }: { errorMessage?: string }) {
 	const error = useErrorForGlobal();

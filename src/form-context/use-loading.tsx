@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFormBase } from "./use-form-context";
-import { StoreState } from "../form-base/store-state";
+import { StoreState } from "../form-base";
 
 export function useLoading() {
 	const formBase = useFormBase();

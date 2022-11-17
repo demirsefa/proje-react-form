@@ -1,5 +1,5 @@
 import { email, max, maxLength, min, minLength, phone, repeatPassword, url } from "./validate-utis";
-import { IValidationStore } from "../models/i-validation-store";
+import { IValidationStore } from "../models";
 
 type validateFunc = ((value: any, payload: any) => boolean) | ((value: number) => boolean);
 

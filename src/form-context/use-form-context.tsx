@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FormContext } from "./form-context";
-import { throwContextError } from "../utils/context-error";
-import { FormBase } from "../form-base/form-base";
+import { FormBase } from "../form-base";
+import { throwContextError } from "../utils";
 
 export function useFormBase(): FormBase {
 	const context = useContext(FormContext);

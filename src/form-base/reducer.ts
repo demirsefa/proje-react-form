@@ -7,7 +7,7 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 	console.log("reducer",state,action)
 	switch (action.type) {
 		case ActionType.SET_LOADING:
-			state.formState.loading = true;
+			state.formState.loading = action.payload;
 			return state;
 		case ActionType.CLEAR_GLOBAL_ERROR:
 			state.formState.error = null;
