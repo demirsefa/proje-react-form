@@ -1,9 +1,10 @@
 import { ActionProps, ActionType, InputStateProps, NewValueProps } from "./action-type";
 import { throwNotRegistered } from "./throw-not-registered";
-import { FormRefreshType } from "../models/form-refresh-type";
 import { StoreState } from "./store-state";
+import { FormRefreshType } from "../models";
 
 export function reducer(state: StoreState, action: ActionProps): StoreState {
+	console.log("reducer",state,action)
 	switch (action.type) {
 		case ActionType.SET_LOADING:
 			state.formState.loading = true;

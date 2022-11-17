@@ -1,9 +1,9 @@
-import { FormRefreshType } from "../models/form-refresh-type";
 import { reducer } from "./reducer";
 import { ActionType } from "./action-type";
 import { CreateInputOptions } from "./create-input-options";
 import { Store } from "./store";
 import { Validator } from "../validator";
+import { FormRefreshType } from "../models";
 
 export class FormBase {
 	private store: Store;
@@ -35,6 +35,7 @@ export class FormBase {
 	public onSubmit(fn: (data: any) => Promise<void> | void) {
 		const data = this.store.getData();
 		const validate = this.validate(data);
+		console.log("check",this.store.getFormState());
 		if (this.store.getFormState().loading) {
 			console.warn("Double click detect");
 		}
@@ -58,6 +59,7 @@ export class FormBase {
 							});
 						})
 						.finally(() => {
+							console.log("final");
 							this.store.dispatch({
 								type: ActionType.SET_LOADING,
 								payload: false,
