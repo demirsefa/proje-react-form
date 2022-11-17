@@ -1,7 +1,7 @@
 import { Debounce } from "../utils/debounce";
 import { ActionProps, ActionType } from "./action-type";
 import { throwNotRegistered } from "./throw-not-registered";
-import { CreateInputOptions } from "./createInputOptions";
+import { CreateInputOptions } from "./create-input-options";
 import { InputState } from "../models/input-state";
 import { StoreState } from "./store-state";
 

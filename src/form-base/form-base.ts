@@ -1,7 +1,7 @@
 import { FormRefreshType } from "../models/form-refresh-type";
 import { reducer } from "./reducer";
 import { ActionType } from "./action-type";
-import { CreateInputOptions } from "./createInputOptions";
+import { CreateInputOptions } from "./create-input-options";
 import { Store } from "./store";
 import { Validator } from "../validator";
 
