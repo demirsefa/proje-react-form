@@ -22,11 +22,7 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 		case ActionType.SET_INPUT_ERROR:
 			if (action.payload.name) {
 				const currentInputState = state.inputStates[action.payload.name];
-				currentInputState.error = {
-					type: action.payload.type,
-					payload: action.payload.payload,
-					value: action.payload.value,
-				};
+				currentInputState.error = action.payload;
 			}
 			return state;
 		case ActionType.NEW_FORCED_VALUE: {

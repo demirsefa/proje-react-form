@@ -3,10 +3,10 @@ import { ActionType } from "./action-type";
 import { CreateInputOptions } from "./create-input-options";
 import { Store } from "./store";
 import { Validator } from "../validator";
-import { FormRefreshType } from "../models";
+import { FormRefreshType, InputState } from "../models";
 
 export class FormBase {
-	private store: Store;
+	private readonly store: Store;
 	private inputs: Record<string, { onBlur: () => void; onChange: (value: any) => void }> = {};
 
 	constructor({ refreshType = FormRefreshType.blur }: { refreshType?: FormRefreshType }) {
@@ -73,7 +73,7 @@ export class FormBase {
 		} else {
 			this.store.dispatch({
 				type: ActionType.SET_INPUT_ERROR,
-				payload: { name: validate.name, type: validate.type, payload: validate.payload, value: validate.value },
+				payload:validate,
 			});
 		}
 	}
@@ -87,17 +87,7 @@ export class FormBase {
 					this.store.dispatch({ type: ActionType.NEW_VALUE, payload: { value, name: options.name } });
 					if (formState.refreshType === FormRefreshType.instant) {
 						const error = this.validateInput(options.name, value);
-						if (error) {
-							this.store.dispatch({
-								type: ActionType.SET_INPUT_ERROR,
-								payload: { value, name: options.name, payload: error.payload, type: error.type },
-							});
-						} else if (inputState.error && !error) {
-							this.store.dispatch({
-								type: ActionType.CLEAN_INPUT_ERROR,
-								payload: { value, name: options.name },
-							});
-						}
+						this.dispatchError(value,inputState, error);
 					}
 				},
 				onBlur: () => {
@@ -105,17 +95,7 @@ export class FormBase {
 					if (formState.refreshType === FormRefreshType.blur) {
 						const value = this.store.getInputState(options.name)?.value;
 						const error = this.validateInput(options.name, value);
-						if (error) {
-							this.store.dispatch({
-								type: ActionType.SET_INPUT_ERROR,
-								payload: { value, name: options.name, payload: error.payload, type: error.type },
-							});
-						} else if (inputState.error && !error) {
-							this.store.dispatch({
-								type: ActionType.CLEAN_INPUT_ERROR,
-								payload: { value, name: options.name },
-							});
-						}
+						this.dispatchError(value,inputState, error);
 					}
 				},
 			};
@@ -123,19 +103,16 @@ export class FormBase {
 		return this.inputs[options.name];
 	}
 
-	public getValidation(name: string): ((v: Validator) => Validator) | undefined {
-		const inputState = this.store.getInputState(name);
-		return inputState?.validation;
-	}
-
 	public deleteInput(name: string) {
+		this.store.deleteInput(name);
 		//todo
 	}
 
 	private validateInput(name: string, value: any) {
+		const inputState = this.store.getInputState(name);
+		if (!inputState||!inputState?.validation) return null;
+		const validationFn = inputState.validation;
 		const validator = new Validator(this.store);
-		const validationFn = this.getValidation(name);
-		if (!validationFn) return null;
 		const validation = validationFn(validator);
 		const vKeys = Object.keys(validation.validations);
 		for (let j = 0; j < vKeys.length; j++) {
@@ -147,21 +124,37 @@ export class FormBase {
 
 	//todo: error make multiple
 	private validate(data: any) {
+		const errors=[];
 		const keys = Object.keys(data);
 		for (let i = 0; i < keys.length; i++) {
-			const key = keys[i];
+			const name = keys[i];
+			const inputState = this.store.getInputState(name);
+			if (!inputState||!inputState?.validation) continue;
+			const validationFn = inputState?.validation;
 			const validator = new Validator(this.store);
-			const validationFn = this.getValidation(key);
-			if (!validationFn) continue;
 			const validation = validationFn(validator);
 			const vKeys = Object.keys(validation.validations);
 			for (let j = 0; j < vKeys.length; j++) {
 				const vKey = vKeys[j];
 				const vObj = validation.validations[vKey];
-				if (!vObj.fn(data[key], vObj.payload))
-					return { name: key, type: vKey, value: data[key], payload: vObj.payload };
+				if (!vObj.fn(data[name], vObj.payload))
+					errors.push( { name: name, type: vKey, value: data[name], payload: vObj.payload });
 			}
 		}
 		return null;
+	}
+
+	private dispatchError(value:number,inputState:InputState,error: undefined|null | { payload: any; name: string; type: string; value: any }) {
+		if (error) {
+			this.store.dispatch({
+				type: ActionType.SET_INPUT_ERROR,
+				payload: { value, name: inputState.name, payload: error.payload, type: error.type },
+			});
+		} else if (inputState.error && !error) {
+			this.store.dispatch({
+				type: ActionType.CLEAN_INPUT_ERROR,
+				payload: { value, name: inputState.name },
+			});
+		}
 	}
 }
