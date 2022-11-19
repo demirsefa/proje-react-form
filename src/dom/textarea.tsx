@@ -1,13 +1,9 @@
 import React, { HTMLProps } from "react";
 import { useInput } from "../form-context";
-import { Validator } from "../validator";
+import { TextareaProps } from "../models";
 
-interface InputProps extends HTMLProps<HTMLTextAreaElement> {
-	name: string;
-	validation: (vc: Validator) => Validator;
-}
 
-export function TextArea(props: InputProps) {
+export function TextArea(props: TextareaProps) {
 	const { name, validation, ...htmlProps } = props;
 	const { onChange, onBlur } = useInput({
 		name,

@@ -35,7 +35,6 @@ export class FormBase {
 	public onSubmit(fn: (data: any) => Promise<void> | void) {
 		const data = this.store.getData();
 		const validate = this.validate(data);
-		console.log("check",this.store.getFormState());
 		if (this.store.getFormState().loading) {
 			console.warn("Double click detect");
 		}
@@ -59,7 +58,6 @@ export class FormBase {
 							});
 						})
 						.finally(() => {
-							console.log("final");
 							this.store.dispatch({
 								type: ActionType.SET_LOADING,
 								payload: false,

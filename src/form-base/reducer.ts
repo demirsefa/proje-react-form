@@ -4,7 +4,6 @@ import { StoreState } from "./store-state";
 import { FormRefreshType } from "../models";
 
 export function reducer(state: StoreState, action: ActionProps): StoreState {
-	console.log("reducer",state,action)
 	switch (action.type) {
 		case ActionType.SET_LOADING:
 			state.formState.loading = action.payload;
@@ -21,7 +20,6 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 			return state;
 
 		case ActionType.SET_INPUT_ERROR:
-			console.log("Error");
 			if (action.payload.name) {
 				const currentInputState = state.inputStates[action.payload.name];
 				currentInputState.error = {
@@ -61,7 +59,6 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 		}
 
 		case ActionType.BLURRED: {
-			console.log("blurred");
 			const payload = action.payload as InputStateProps;
 			const currentInputState = state.inputStates[payload.name];
 			if (!currentInputState) {

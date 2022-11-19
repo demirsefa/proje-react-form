@@ -1,11 +1,6 @@
 import React, { HTMLProps } from "react";
 import { useInput } from "../form-context";
-import { Validator } from "../validator";
-
-interface InputProps extends HTMLProps<HTMLInputElement> {
-	name: string;
-	validation?: (vc: Validator) => Validator;
-}
+import { InputProps } from "../models";
 
 export function Input(props: InputProps) {
 	const { name, validation, ...htmlProps } = props;

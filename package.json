@@ -1,6 +1,6 @@
 {
   "name": "proje-react-form",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "author": "SEFA DEMİR",
   "license": "ISC",
@@ -14,11 +14,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/demirsefa/projeform.git"
+    "url": "git+https://github.com/demirsefa/proje-react-form.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/demirsefa/projeform/issues"
+    "url": "https://github.com/demirsefa/proje-react-form/issues"
   },
   "homepage": "https://github.com/demirsefa/projeform#readme",
   "dependencies": {
