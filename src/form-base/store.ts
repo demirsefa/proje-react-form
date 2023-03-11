@@ -1,15 +1,14 @@
-import { ActionProps, ActionType } from "./action-type";
-import { throwNotRegistered } from "./throw-not-registered";
-import { CreateInputOptions } from "./create-input-options";
-import { StoreState } from "./store-state";
-import { Debounce } from "../utils";
-import { InputState } from "../models";
+import { ActionProps, ActionType, EventType } from "../models/action-type";
+import { CreateInputOptions } from "../models/create-input-options";
+import { Debounce, throwNotRegistered } from "../utils";
+import { InputState, StoreState } from "../models";
 
 type SubscribeType = (state: StoreState) => void;
 
 export class Store {
 	private listeners: SubscribeType[] = [];
 	private debounce?: Debounce;
+	lastEvent: EventType = { actionType: ActionType.INIT, index: 0 };
 
 	constructor(private state: StoreState, private reducer: (state: StoreState, action: ActionProps) => StoreState) {
 		this.debounce = new Debounce(state.formState.debounceNumber);
@@ -23,6 +22,7 @@ export class Store {
 	}
 
 	public dispatch(action: ActionProps) {
+		this.lastEvent = { actionType: action.type, index: this.lastEvent.index + 1 };
 		this.state = this.reducer(this.state, action);
 		if (
 			action.type === ActionType.NEW_VALUE &&
@@ -70,10 +70,12 @@ export class Store {
 		return this.state.inputStates[name];
 	}
 
-	public createInput(options: CreateInputOptions) {
-		return (this.state.inputStates[options.name] = {
-			name: options.name,
+	public createInput(name: string, options: CreateInputOptions) {
+		return (this.state.inputStates[name] = {
+			name: name,
 			value: options.defaultValue,
+			fragmentId: options.fragmentId,
+			validateLoading: false,
 			_refreshValue: options.defaultValue,
 			blurNumber: 0,
 			validateRequired: false,
@@ -94,7 +96,23 @@ export class Store {
 		return this.state.formState;
 	}
 
-	private broadcast() {
+	public broadcast() {
 		this.listeners.forEach((l) => l(this.state));
+	}
+
+	getState() {
+		return this.state;
+	}
+
+	getDataByFragment(fragmentNumber: number) {
+		let data: Record<string, any> = {};
+		const keys = Object.keys(this.state.inputStates);
+		for (let i = 0; i < keys.length; i++) {
+			const inputState = this.state.inputStates[keys[i]];
+			if (inputState.fragmentId === fragmentNumber) {
+				data[inputState.name] = inputState.value;
+			}
+		}
+		return data;
 	}
 }

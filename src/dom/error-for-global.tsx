@@ -1,8 +1,10 @@
 import React from "react";
-import { useErrorForGlobal } from "../form-context";
+import { useContextFormBase } from "../form-context";
+import { useErrorForGlobal } from "../form-base";
 
-export  function ErrorForGlobal({ errorMessage = "Something went wrong" }: { errorMessage?: string }) {
-	const error = useErrorForGlobal();
-	if (!error&&error.length) return null;
+export function ErrorForGlobal({ errorMessage = "Something went wrong" }: { errorMessage?: string }) {
+	const formBase = useContextFormBase();
+	const error = useErrorForGlobal(formBase);
+	if (!error) return null;
 	return <p>{errorMessage}</p>;
 }

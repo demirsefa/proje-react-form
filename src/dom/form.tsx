@@ -1,29 +1,19 @@
-import React, { HTMLProps, ReactNode } from "react";
-import { FormContextProvider, useLoading, useOnSubmit } from "../form-context";
-import { FormRefreshType } from "../models";
-
-export interface FormDomProps extends HTMLProps<HTMLFormElement> {
-	children: ReactNode;
-	onSubmit: (data: any) => Promise<void> | Promise<any> | void;
-}
-
-export interface FormContextProps {
-	children: ReactNode;
-	refreshType?: FormRefreshType;
-}
-
-export interface FormProps extends FormContextProps, FormDomProps {}
+import React, { useMemo } from "react";
+import { FormContextProvider, useContextFormBase } from "../form-context";
+import { useLoading } from "../form-base";
+import { Confirm, ConfirmInner, FormDomProps, FormProps } from "../models";
 
 function InnerForm(props: FormDomProps) {
-	const onSubmit = useOnSubmit();
-	const isLoading = useLoading();
+	const formBase = useContextFormBase();
+	const isLoading = useLoading(formBase);
+
 	return (
 		<form
 			{...props}
 			onSubmit={(e) => {
 				e.preventDefault();
 				if (!isLoading) {
-					onSubmit(props.onSubmit);
+					formBase.onSubmit(props.onSubmit);
 				}
 			}}
 		/>
@@ -31,9 +21,9 @@ function InnerForm(props: FormDomProps) {
 }
 
 export function Form(props: FormProps) {
-	const { refreshType, ...formProps } = props;
+	const { refreshType, formBase, ...formProps } = props;
 	return (
-		<FormContextProvider refreshType={refreshType}>
+		<FormContextProvider formBase={formBase} refreshType={refreshType}>
 			<InnerForm {...formProps}>{props.children}</InnerForm>
 		</FormContextProvider>
 	);

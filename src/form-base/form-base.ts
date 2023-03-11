@@ -1,18 +1,23 @@
 import { reducer } from "./reducer";
-import { ActionType } from "./action-type";
-import { CreateInputOptions } from "./create-input-options";
+import { ActionType } from "../models/action-type";
+import { CreateInputOptions } from "../models/create-input-options";
 import { Store } from "./store";
 import { Validator } from "../validator";
-import { FormRefreshType, InputState } from "../models";
+import { ConfirmInner, FormRefreshType, FormUtils, InputState } from "../models";
 
 export class FormBase {
 	private readonly store: Store;
-	private inputs: Record<string, { onBlur: () => void; onChange: (value: any) => void }> = {};
+	confirmRequired: ConfirmInner | null = null;
+	confirmPause: boolean = false;
+	fragmentNumber: number = 0;
 
 	constructor({ refreshType = FormRefreshType.blur }: { refreshType?: FormRefreshType }) {
 		this.store = new Store(
 			{
 				formState: {
+					formStatus: "CLEAN",
+					formAttemptGlobalError: 0,
+					formAttemptError: 0,
 					error: null,
 					readyToSubmit: false,
 					confirmed: false,
@@ -32,7 +37,8 @@ export class FormBase {
 		return this.store;
 	}
 
-	public onSubmit(fn: (data: any) => Promise<void> | void) {
+	public onSubmit(fn: (data: any, utils: FormUtils) => Promise<void> | void) {
+		if (this.confirmPause) return;
 		const data = this.store.getData();
 		const validate = this.validate(data);
 		if (this.store.getFormState().loading) {
@@ -43,11 +49,17 @@ export class FormBase {
 				this.store.dispatch({
 					type: ActionType.CLEAR_GLOBAL_ERROR,
 				});
-				const result = fn(data);
+
+				const result = fn(data, {
+					confirm: (_fn: ConfirmInner) => {
+						this.confirmRequired = _fn;
+						this.confirmPause = true;
+						this.store.broadcast();
+					},
+				});
 				if (result && result.then !== undefined) {
 					this.store.dispatch({
-						type: ActionType.SET_LOADING,
-						payload: true,
+						type: ActionType.SET_LOADING_ON,
 					});
 					const promise: Promise<any> = result as Promise<any>;
 					promise
@@ -57,10 +69,14 @@ export class FormBase {
 								payload: e,
 							});
 						})
+						.then(() => {
+							this.store.dispatch({
+								type: ActionType.SET_SUCCESS,
+							});
+						})
 						.finally(() => {
 							this.store.dispatch({
-								type: ActionType.SET_LOADING,
-								payload: false,
+								type: ActionType.SET_LOADING_OFF,
 							});
 						});
 				}
@@ -71,36 +87,37 @@ export class FormBase {
 				});
 			}
 		} else {
-			this.store.dispatch({
-				type: ActionType.SET_INPUT_ERROR,
-				payload:validate,
-			});
+			for (let i = 0; i < validate.length; i++) {
+				const e = validate[i];
+				this.store.dispatch({
+					type: ActionType.SET_INPUT_ERROR,
+					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
+				});
+			}
 		}
 	}
 
-	public createInput(options: CreateInputOptions) {
-		if (!this.store.checkInputExist(options.name)) {
-			const inputState = this.store.createInput(options);
-			const formState = this.store.getFormState();
-			this.inputs[options.name] = {
-				onChange: (value: any) => {
-					this.store.dispatch({ type: ActionType.NEW_VALUE, payload: { value, name: options.name } });
-					if (formState.refreshType === FormRefreshType.instant) {
-						const error = this.validateInput(options.name, value);
-						this.dispatchError(value,inputState, error);
-					}
-				},
-				onBlur: () => {
-					this.store.dispatch({ type: ActionType.BLURRED, payload: { name: options.name } });
-					if (formState.refreshType === FormRefreshType.blur) {
-						const value = this.store.getInputState(options.name)?.value;
-						const error = this.validateInput(options.name, value);
-						this.dispatchError(value,inputState, error);
-					}
-				},
-			};
-		}
-		return this.inputs[options.name];
+	public createInput(name: string, options: CreateInputOptions) {
+		const inputState = this.store.createInput(name, options);
+		const formState = this.store.getFormState();
+		return {
+			onChange: async (value: any) => {
+				this.store.dispatch({ type: ActionType.NEW_VALUE, payload: { value, name } });
+				if (formState.refreshType === FormRefreshType.instant) {
+					const error = await this.validateInput(name, value);
+
+					this.dispatchError(value, inputState, error);
+				}
+			},
+			onBlur: async () => {
+				this.store.dispatch({ type: ActionType.BLURRED, payload: { name } });
+				if (formState.refreshType === FormRefreshType.blur) {
+					const value = this.store.getInputState(name)?.value;
+					const error = await this.validateInput(name, value);
+					this.dispatchError(value, inputState, error);
+				}
+			},
+		};
 	}
 
 	public deleteInput(name: string) {
@@ -108,43 +125,76 @@ export class FormBase {
 		//todo
 	}
 
-	private validateInput(name: string, value: any) {
+	private async validateInput(name: string, value: any) {
 		const inputState = this.store.getInputState(name);
-		if (!inputState||!inputState?.validation) return null;
+		if (!inputState || !inputState?.validation) return null;
 		const validationFn = inputState.validation;
-		const validator = new Validator(this.store);
+		const validator = new Validator(this.store, "validator_" + name);
 		const validation = validationFn(validator);
 		const vKeys = Object.keys(validation.validations);
 		for (let j = 0; j < vKeys.length; j++) {
 			const vKey = vKeys[j];
 			const vObj = validation.validations[vKey];
-			if (!vObj.fn(value, vObj.payload)) return { name: name, type: vKey, value, payload: vObj.payload };
+			const obj = vObj.fn(value, vObj.payload);
+			// @ts-ignore
+			if (!obj) return { name: name, type: vKey, value, payload: vObj.payload };
+			// @ts-ignore
+			if (obj && obj.then) {
+				this.store.dispatch({
+					type: ActionType.ASYNC_VALIDATION,
+					payload: { name: inputState.name, value: true },
+				});
+				const result = await obj;
+				if (!result) {
+					return { name: name, type: vKey, value, payload: vObj.payload };
+				}
+			}
 		}
 	}
-
+	public validateFragment(fragmentNumber: number, fn: any) {
+		const data = this.store.getDataByFragment(fragmentNumber);
+		const errors = this.validate(data);
+		if (!errors || errors.length === 0) {
+			fn && fn();
+		} else {
+			for (let i = 0; i < errors.length; i++) {
+				const e = errors[i];
+				this.store.dispatch({
+					type: ActionType.SET_INPUT_ERROR,
+					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
+				});
+			}
+		}
+	}
 	//todo: error make multiple
 	private validate(data: any) {
-		const errors=[];
+		const errors = [];
 		const keys = Object.keys(data);
 		for (let i = 0; i < keys.length; i++) {
 			const name = keys[i];
 			const inputState = this.store.getInputState(name);
-			if (!inputState||!inputState?.validation) continue;
+			if (!inputState || !inputState?.validation) continue;
 			const validationFn = inputState?.validation;
-			const validator = new Validator(this.store);
+			const validator = new Validator(this.store, "validator_" + name);
 			const validation = validationFn(validator);
 			const vKeys = Object.keys(validation.validations);
 			for (let j = 0; j < vKeys.length; j++) {
 				const vKey = vKeys[j];
 				const vObj = validation.validations[vKey];
-				if (!vObj.fn(data[name], vObj.payload))
-					errors.push( { name: name, type: vKey, value: data[name], payload: vObj.payload });
+				if (!vObj.fn(data[name], vObj.payload)) {
+					errors.push({ name: name, type: vKey, value: data[name], payload: vObj.payload });
+					break;
+				}
 			}
 		}
-		return null;
+		return errors;
 	}
 
-	private dispatchError(value:number,inputState:InputState,error: undefined|null | { payload: any; name: string; type: string; value: any }) {
+	private dispatchError(
+		value: number,
+		inputState: InputState,
+		error: undefined | null | { payload: any; name: string; type: string; value: any }
+	) {
 		if (error) {
 			this.store.dispatch({
 				type: ActionType.SET_INPUT_ERROR,
@@ -156,5 +206,33 @@ export class FormBase {
 				payload: { value, name: inputState.name },
 			});
 		}
+		if (inputState.validateLoading) {
+			this.store.dispatch({
+				type: ActionType.ASYNC_VALIDATION,
+				payload: { name: inputState.name, value: false },
+			});
+		}
+	}
+
+	getData() {
+		return this.getStore().getData();
+	}
+
+	confirm(data: Record<string, any>) {
+		this.confirmPause = false;
+		if (this.confirmRequired) this.confirmRequired(data);
+		this.store.broadcast();
+	}
+
+	confirmCancel() {
+		this.confirmPause = false;
+		this.confirmRequired = null;
+		this.store.broadcast();
+	}
+
+	getFragmentNumber() {
+		const fragmentNumber = this.fragmentNumber;
+		this.fragmentNumber++;
+		return fragmentNumber;
 	}
 }

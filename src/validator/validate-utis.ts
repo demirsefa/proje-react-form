@@ -5,7 +5,8 @@ export function required(value: any): boolean {
 }
 
 export function min(value: any, payload: number): boolean {
-	return typeof value === "number" && value > payload;
+	let _value = Number(value);
+	return !isNaN(_value) && _value > payload;
 }
 
 export function minLength(value: any, payload: number): boolean {
@@ -13,7 +14,8 @@ export function minLength(value: any, payload: number): boolean {
 }
 
 export function max(value: any, payload: number) {
-	return typeof value === "number" && value < payload;
+	let _value = Number(value);
+	return !isNaN(_value) && _value < payload;
 }
 
 export function maxLength(value: any, payload: number): boolean {
@@ -37,4 +39,8 @@ export function repeatPassword(value: any, payload?: string): boolean {
 //inspired: https://stackoverflow.com/a/3809435
 export function url(value: any): boolean {
 	return typeof value === "string" && !!value.match(urlHttpRegex);
+}
+
+export function customRegex(value: any, regex: RegExp): boolean {
+	return typeof value === "string" && regex.test(value);
 }

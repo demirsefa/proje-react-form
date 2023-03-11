@@ -1,2 +1,3 @@
-export * from "./context-error";
-export * from "./debounce"
+export * from "./throw-context-error";
+export * from "./throw-not-registered";
+export * from "./debounce";

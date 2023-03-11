@@ -1,30 +1,40 @@
-import { ActionProps, ActionType, InputStateProps, NewValueProps } from "./action-type";
-import { throwNotRegistered } from "./throw-not-registered";
-import { StoreState } from "./store-state";
-import { FormRefreshType } from "../models";
+import { ActionProps, ActionType, InputStateProps, NewValueProps } from "../models/action-type";
+import { throwNotRegistered } from "../utils";
+import { FormRefreshType, StoreState } from "../models";
 
 export function reducer(state: StoreState, action: ActionProps): StoreState {
 	switch (action.type) {
-		case ActionType.SET_LOADING:
-			state.formState.loading = action.payload;
-			return state;
+		case ActionType.SET_LOADING_ON:
+			state.formState.loading = true;
+			break;
+		case ActionType.SET_LOADING_OFF:
+			state.formState.loading = false;
+			break;
 		case ActionType.CLEAR_GLOBAL_ERROR:
+			state.formState.formStatus = "CLEAN";
 			state.formState.error = null;
-			return state;
+			break;
 		case ActionType.SET_GLOBAL_ERROR:
+			state.formState.formStatus = "GLOBAL-ERROR";
+			state.formState.formAttemptGlobalError++;
 			state.formState.error = action.payload;
-			return state;
+			break;
 		case ActionType.CLEAN_INPUT_ERROR:
 			const currentInputState = state.inputStates[action.payload.name];
 			currentInputState.error = null;
-			return state;
-
+			if (state.formState.formStatus !== "GLOBAL-ERROR") {
+				if (Object.values(state.inputStates).reduce((sum, value) => sum && value)) {
+					state.formState.formStatus = "CLEAN";
+				}
+			}
+			break;
 		case ActionType.SET_INPUT_ERROR:
 			if (action.payload.name) {
 				const currentInputState = state.inputStates[action.payload.name];
 				currentInputState.error = action.payload;
+				currentInputState.validateLoading = false;
 			}
-			return state;
+			break;
 		case ActionType.NEW_FORCED_VALUE: {
 			const payload = action.payload as NewValueProps;
 			const value = payload.value;
@@ -33,9 +43,10 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 				throw throwNotRegistered(payload.name);
 			}
 			currentInputState.value = value;
-			return state;
+			break;
 		}
 		case ActionType.NEW_VALUE: {
+			state.formState.formStatus = "DIRTY";
 			const payload = action.payload as NewValueProps;
 			const value = payload.value;
 			const currentInputState = state.inputStates[payload.name];
@@ -51,7 +62,7 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 						currentInputState.value = value;
 				}
 			}
-			return state;
+			break;
 		}
 
 		case ActionType.BLURRED: {
@@ -61,9 +72,22 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 				throw throwNotRegistered(payload.name);
 			}
 			currentInputState.value = currentInputState._refreshValue;
-			return state;
+			break;
+		}
+		case ActionType.SET_SUCCESS: {
+			state.formState.formStatus = "SUCCESS";
+			break;
+		}
+		case ActionType.ASYNC_VALIDATION: {
+			if (action.payload.name) {
+				const currentInputState = state.inputStates[action.payload.name];
+				currentInputState.validateLoading = action.payload.value;
+			}
+			break;
 		}
 		default:
 			throw new Error("Unexpected Action Type");
 	}
+
+	return state;
 }

@@ -1,9 +1,15 @@
 import React from "react";
-import { useErrorForInput } from "../form-context";
-import { getDefaultText } from "../validator";
+import { useContextFormBase } from "../form-context";
+import { getErrorDefaultText } from "../validator";
+import { useErrorForInput } from "../form-base";
 
-export  function ErrorForInput({ name }: { name: string }) {
-	const error = useErrorForInput(name);
-	if (!error) return null;
-	return <p>{getDefaultText(error)}</p>;
+export function ErrorForInput({ name }: { name: string }) {
+	const formBase = useContextFormBase();
+	const { error, loading } = useErrorForInput(formBase, name);
+	return (
+		<p>
+			{error ? getErrorDefaultText(error) : null}
+			{loading ? <span>Loading</span> : null}
+		</p>
+	);
 }
