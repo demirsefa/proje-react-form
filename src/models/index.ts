@@ -10,4 +10,4 @@ export * from "./store-state";
 export * from "./form-context-props";
 export * from "./form-dom-props";
 export * from "./form-utils";
-export { FragmentContextProps } from "./fragment-context-props";
+export type { FragmentContextProps } from "./fragment-context-props";

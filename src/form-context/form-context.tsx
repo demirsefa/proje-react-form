@@ -1,6 +1,6 @@
 import React, { createContext, useMemo } from "react";
-import { FormContextProps } from "../dom";
 import { FormBase } from "../form-base";
+import { FormContextProps } from "../models";
 
 export const FormContext = createContext<{ formBase: FormBase } | null>(null);
 

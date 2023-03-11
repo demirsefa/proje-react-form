@@ -12,8 +12,7 @@ interface UseInputProps {
 //https://stackoverflow.com/a/72542787
 export function useInput(props: UseInputProps): { onBlur: () => void; onChange: (value: any) => void } {
 	const formBase = useFormBase();
-	const input = formBase.createInput({
-		name: props.name,
+	const input = formBase.createInput(props.name, {
 		defaultValue: props.defaultValue,
 		validation: props.validation,
 	});

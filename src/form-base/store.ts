@@ -6,9 +6,9 @@ import { InputState, StoreState } from "../models";
 type SubscribeType = (state: StoreState) => void;
 
 export class Store {
+	lastEvent: EventType = { actionType: ActionType.INIT, index: 0 };
 	private listeners: SubscribeType[] = [];
 	private debounce?: Debounce;
-	lastEvent: EventType = { actionType: ActionType.INIT, index: 0 };
 
 	constructor(private state: StoreState, private reducer: (state: StoreState, action: ActionProps) => StoreState) {
 		this.debounce = new Debounce(state.formState.debounceNumber);

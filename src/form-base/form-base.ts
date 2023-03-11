@@ -6,10 +6,10 @@ import { Validator } from "../validator";
 import { ConfirmInner, FormRefreshType, FormUtils, InputState } from "../models";
 
 export class FormBase {
-	private readonly store: Store;
 	confirmRequired: ConfirmInner | null = null;
 	confirmPause: boolean = false;
 	fragmentNumber: number = 0;
+	private readonly store: Store;
 
 	constructor({ refreshType = FormRefreshType.blur }: { refreshType?: FormRefreshType }) {
 		this.store = new Store(
@@ -125,6 +125,44 @@ export class FormBase {
 		//todo
 	}
 
+	public validateFragment(fragmentNumber: number, fn: any) {
+		const data = this.store.getDataByFragment(fragmentNumber);
+		const errors = this.validate(data);
+		if (!errors || errors.length === 0) {
+			fn && fn();
+		} else {
+			for (let i = 0; i < errors.length; i++) {
+				const e = errors[i];
+				this.store.dispatch({
+					type: ActionType.SET_INPUT_ERROR,
+					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
+				});
+			}
+		}
+	}
+
+	getData() {
+		return this.getStore().getData();
+	}
+
+	confirm(data: Record<string, any>) {
+		this.confirmPause = false;
+		if (this.confirmRequired) this.confirmRequired(data);
+		this.store.broadcast();
+	}
+
+	confirmCancel() {
+		this.confirmPause = false;
+		this.confirmRequired = null;
+		this.store.broadcast();
+	}
+
+	getFragmentNumber() {
+		const fragmentNumber = this.fragmentNumber;
+		this.fragmentNumber++;
+		return fragmentNumber;
+	}
+
 	private async validateInput(name: string, value: any) {
 		const inputState = this.store.getInputState(name);
 		if (!inputState || !inputState?.validation) return null;
@@ -151,21 +189,7 @@ export class FormBase {
 			}
 		}
 	}
-	public validateFragment(fragmentNumber: number, fn: any) {
-		const data = this.store.getDataByFragment(fragmentNumber);
-		const errors = this.validate(data);
-		if (!errors || errors.length === 0) {
-			fn && fn();
-		} else {
-			for (let i = 0; i < errors.length; i++) {
-				const e = errors[i];
-				this.store.dispatch({
-					type: ActionType.SET_INPUT_ERROR,
-					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
-				});
-			}
-		}
-	}
+
 	//todo: error make multiple
 	private validate(data: any) {
 		const errors = [];
@@ -212,27 +236,5 @@ export class FormBase {
 				payload: { name: inputState.name, value: false },
 			});
 		}
-	}
-
-	getData() {
-		return this.getStore().getData();
-	}
-
-	confirm(data: Record<string, any>) {
-		this.confirmPause = false;
-		if (this.confirmRequired) this.confirmRequired(data);
-		this.store.broadcast();
-	}
-
-	confirmCancel() {
-		this.confirmPause = false;
-		this.confirmRequired = null;
-		this.store.broadcast();
-	}
-
-	getFragmentNumber() {
-		const fragmentNumber = this.fragmentNumber;
-		this.fragmentNumber++;
-		return fragmentNumber;
 	}
 }

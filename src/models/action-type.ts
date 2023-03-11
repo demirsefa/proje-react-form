@@ -12,6 +12,7 @@ export enum ActionType {
 	SET_SUCCESS = "SET_SUCCESS",
 	ASYNC_VALIDATION = "ASYNC_VALIDATION",
 }
+
 export interface EventType {
 	index: number;
 	actionType: ActionType;

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { FormBase } from "../";
-import { StoreState } from "../../models";
-import { EventType } from "../../models/action-type";
 
 export function useConfirm(formBase: FormBase) {
 	const [confirmContinue, setConfirmContinue] = useState(false);

@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { FormContextProvider, useContextFormBase } from "../form-context";
 import { useLoading } from "../form-base";
-import { Confirm, ConfirmInner, FormDomProps, FormProps } from "../models";
+import { FormDomProps, FormProps } from "../models";
 
 function InnerForm(props: FormDomProps) {
 	const formBase = useContextFormBase();
