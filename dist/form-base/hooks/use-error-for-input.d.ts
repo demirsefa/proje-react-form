@@ -1,9 +1,6 @@
 import { FormBase } from "../form-base";
-
-export declare function useErrorForInput(
-	formBase: FormBase,
-	name: string
-): {
-	error: any;
-	loading: any;
+import { ValidateError } from "../../models";
+export declare function useErrorForInput(formBase: FormBase, name: string): {
+    error: ValidateError | undefined;
+    loading: any;
 };

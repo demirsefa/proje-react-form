@@ -1,4 +1,3 @@
-/// <reference types="react" />
-import { InputProps } from "../models";
-
-export declare function Input(inputProps: InputProps): JSX.Element;
+import React from "react";
+import { InputProps } from "./models/input.props";
+export declare const Input: React.MemoExoticComponent<(inputProps: InputProps) => JSX.Element>;

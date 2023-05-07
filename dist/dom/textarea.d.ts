@@ -1,4 +1,3 @@
-/// <reference types="react" />
-import { TextareaProps } from "../models";
-
-export declare function Textarea(textareaProps: TextareaProps): JSX.Element;
+import React from "react";
+import { TextareaProps } from "./models/textarea.props";
+export declare const Textarea: React.MemoExoticComponent<(textareaProps: TextareaProps) => JSX.Element>;

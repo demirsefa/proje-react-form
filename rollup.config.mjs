@@ -5,7 +5,7 @@ import external from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 
 export default {
-	input: "src/index.tsx",
+	input: "src/index.ts",
 	output: [
 		{
 			file: "dist/index.cjs.js",

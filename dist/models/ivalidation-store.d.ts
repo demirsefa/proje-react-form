@@ -1,6 +1,5 @@
-import { FormData } from "./form-data";
-
-export interface IvalidationStore {
-	getData: () => FormData | undefined;
-	getValidationData: () => FormData | undefined;
+import { FormRawData } from "./response-data";
+export interface IValidationStore {
+    getRawData: () => FormRawData;
+    getValidationData: () => FormRawData | undefined;
 }

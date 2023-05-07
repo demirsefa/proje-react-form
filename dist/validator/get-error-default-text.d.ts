@@ -1,1 +1,2 @@
-export declare function getErrorDefaultText(error: { name: string; type: string; value: any; payload: any }): any;
+import { ValidateError } from "../models";
+export declare function getErrorDefaultText(error: ValidateError): any;

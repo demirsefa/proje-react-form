@@ -10,7 +10,6 @@ import {
 } from "../models/action-type";
 import { throwNotRegistered } from "../utils";
 import { FormRefreshType, InputState, StoreState } from "../models";
-import logError from "../../helpers/log-error";
 
 export function reducer(state: StoreState, action: ActionProps): StoreState {
 	function setError(currentInputState: InputState) {
@@ -131,7 +130,7 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 						}
 					});
 				} else {
-					logError(error);
+					console.error(error);
 					if (error instanceof Error || !error.name) {
 						state.formState.error = error;
 					} else {

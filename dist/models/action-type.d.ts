@@ -1,32 +1,45 @@
 export declare enum ActionType {
-	INIT = "INIT",
-	NEW_VALUE = "NEW_VALUE",
-	BLURRED = "BLURRED",
-	NEW_FORCED_VALUE = "NEW_FORCED_VALUE",
-	SET_INPUT_ERROR = "SET_INPUT_ERROR",
-	CLEAN_INPUT_ERROR = "CLEAN_INPUT_ERROR",
-	SET_LOADING_ON = "SET_LOADING_ON",
-	SET_LOADING_OFF = "SET_LOADING_OFF",
-	SET_GLOBAL_ERROR = "SET_GLOBAL_ERROR",
-	CLEAR_GLOBAL_ERROR = "CLEAR_GLOBAL_ERROR",
-	SET_SUCCESS = "SET_SUCCESS",
-	ASYNC_VALIDATION = "ASYNC_VALIDATION",
+    INIT = "INIT",
+    NEW_VALUE = "NEW_VALUE",
+    BLURRED = "BLURRED",
+    ASYNC_VALIDATION = "ASYNC_VALIDATION",
+    SUBMIT_STARTED = "SUBMIT_STARTED",
+    SUBMIT_ERROR = "SUBMIT_ERROR",
+    SUBMIT_SUCCEED = "SUBMIT_SUCCEED",
+    NEW_VALUE_DEBOUNCED = "NEW_VALUE_DEBOUNCED",
+    BLURRED_DEBOUNCED = "BLURRED_DEBOUNCED"
 }
-
 export interface EventType {
-	index: number;
-	actionType: ActionType;
+    index: number;
+    actionProps: ActionProps;
 }
-
 export declare type ActionProps = {
-	type: ActionType;
-	payload?: any;
+    type: ActionType;
+    payload?: any;
 };
-
-export interface NewValueProps extends InputStateProps {
-	value: number;
-}
-
 export interface InputStateProps {
-	name: string;
+    name: string;
+}
+export interface NewValueProps extends InputStateProps {
+    validateRequired: boolean | undefined;
+    error: any;
+    value: number;
+}
+export interface BlurStateProps extends InputStateProps {
+    validateRequired: boolean | undefined;
+    error: any;
+}
+export interface DebounceChangeType extends InputStateProps {
+    validateRequired: boolean | undefined;
+    error: any;
+}
+export interface AsyncValidationProps extends InputStateProps {
+    forSubmit: boolean;
+    value: any;
+}
+export interface SubmitStartedProps {
+    confirmActive: boolean;
+}
+export interface SubmitErrorPayload {
+    error: any;
 }

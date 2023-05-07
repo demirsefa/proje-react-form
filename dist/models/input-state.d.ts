@@ -1,21 +1,10 @@
-import { Validator } from "../validator";
-
+import { ValidateError } from "./validate-error";
 export interface InputState {
-	validateLoading: boolean;
-	error:
-		| {
-				type: string;
-				payload: any;
-				value: any;
-		  }[]
-		| null;
-	name: string;
-	value: any;
-	_refreshValue: any;
-	validateRequired: boolean;
-	fragmentId?: number | null;
-	blurNumber: number;
-	validation?: (v: Validator) => Validator;
+    validateLoading: boolean;
+    error: ValidateError[] | undefined;
+    name: string;
+    value: any;
+    _refreshValue: any;
+    validateRequired: boolean;
 }
-
 export declare type InputStates = Record<string, InputState>;

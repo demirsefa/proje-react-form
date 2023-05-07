@@ -1,17 +1,11 @@
-import { FormRefreshType } from "./form-refresh-type";
-
+import { FormRefreshType, FormShouldValidate } from "./form-refresh-type";
 export interface FormState {
-	error: {
-		payload: any;
-	} | null;
-	refreshType: FormRefreshType;
-	debounceNumber?: number;
-	loading: boolean;
-	confirmed: boolean;
-	readyToSubmit: boolean;
-	formStatus: "CLEAN" | "DIRTY" | "SUCCESS" | "ERROR" | "GLOBAL-ERROR";
-	formAttemptError: number;
-	formAttemptGlobalError: number;
+    confirmActive: boolean;
+    refreshType: FormRefreshType;
+    shouldValidate: FormShouldValidate;
+    error: any | null;
+    debounceNumber?: number;
+    loading: boolean;
+    submitAttemptNumber: number;
+    formStatus: "CLEAN" | "NOT-CLEAN" | "SUCCESS" | "ERROR";
 }
-
-export declare const defaultFormState: FormState;

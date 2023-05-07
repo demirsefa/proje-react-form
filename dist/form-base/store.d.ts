@@ -1,54 +1,25 @@
+import { CreateInputOptions, FormRawData, IValidationStore, StoreState } from "../models";
 import { ActionProps, EventType } from "../models/action-type";
-import { CreateInputOptions } from "../models/create-input-options";
-import { InputState, StoreState } from "../models";
-
+import { ValidatorToValidatorFunc } from "../validator";
 declare type SubscribeType = (state: StoreState) => void;
-
-export declare class Store {
-	lastEvent: EventType;
-	private state;
-	private reducer;
-	private listeners;
-	private debounce?;
-
-	constructor(state: StoreState, reducer: (state: StoreState, action: ActionProps) => StoreState);
-
-	subscribe(fn: SubscribeType): () => void;
-
-	dispatch(action: ActionProps): void;
-
-	getData(): Record<string, any>;
-
-	getValidationData(): Record<string, any>;
-
-	checkInputExist(name: string): boolean;
-
-	getInputState(name: string): InputState | undefined;
-
-	createInput(
-		name: string,
-		options: CreateInputOptions
-	): {
-		name: string;
-		value: any;
-		fragmentId: number | null | undefined;
-		validateLoading: false;
-		_refreshValue: any;
-		blurNumber: number;
-		validateRequired: false;
-		validation: ((v: import("../validator").Validator) => import("../validator").Validator) | undefined;
-		error: null;
-	};
-
-	deleteInput(name: string): void;
-
-	getFormState(): import("../models").FormState;
-
-	broadcast(): void;
-
-	getState(): StoreState;
-
-	getDataByFragment(fragmentNumber: number): Record<string, any>;
+export declare class Store implements IValidationStore {
+    state: StoreState;
+    private reducer;
+    private listeners;
+    private instantListeners;
+    private readonly debounce?;
+    __inputValidationFunctions__: Record<string, ValidatorToValidatorFunc>;
+    __lastEvent__: EventType;
+    constructor(state: StoreState, reducer: (state: StoreState, action: ActionProps) => StoreState);
+    subscribe(fn: SubscribeType): () => void;
+    subscribeInstant(fn: (state: StoreState) => void): () => void;
+    dispatch(action: ActionProps): void;
+    getValidationData(): FormRawData;
+    createInput(name: string, options: CreateInputOptions): import("../models").InputState | undefined;
+    broadcast(): void;
+    instantBroadcast(): void;
+    getRawData(): FormRawData;
+    getShouldValidateAgain(): boolean;
+    addValidation(name: string, validation?: ValidatorToValidatorFunc): void;
 }
-
 export {};

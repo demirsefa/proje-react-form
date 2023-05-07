@@ -1,6 +1,5 @@
 import { FormState, InputStates } from "../models";
-
 export interface StoreState {
-	formState: FormState;
-	inputStates: InputStates;
+    formState: FormState;
+    inputStates: InputStates;
 }

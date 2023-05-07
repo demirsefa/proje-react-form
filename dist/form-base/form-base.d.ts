@@ -1,39 +1,27 @@
-import { CreateInputOptions } from "../models/create-input-options";
 import { Store } from "./store";
-import { ConfirmInner, FormRefreshType, FormUtils } from "../models";
-
+import { ValidatorToValidatorFunc } from "../validator";
+import { ConfirmForm, CreateInputOptions, FormState, FormUtils, ResponseData, UseFormBaseProps } from "../models";
+declare type SubmitResult = Promise<void> | void;
 export declare class FormBase {
-	confirmRequired: ConfirmInner | null;
-	confirmPause: boolean;
-	fragmentNumber: number;
-	private readonly store;
-	private validateInput;
-	private validate;
-	private dispatchError;
-
-	constructor({ refreshType }: { refreshType?: FormRefreshType });
-
-	getStore(): Store;
-
-	onSubmit(fn: (data: any, utils: FormUtils) => Promise<void> | void): void;
-
-	createInput(
-		name: string,
-		options: CreateInputOptions
-	): {
-		onChange: (value: any) => Promise<void>;
-		onBlur: () => Promise<void>;
-	};
-
-	deleteInput(name: string): void;
-
-	validateFragment(fragmentNumber: number, fn: any): void;
-
-	getData(): Record<string, any>;
-
-	confirm(data: Record<string, any>): void;
-
-	confirmCancel(): void;
-
-	getFragmentNumber(): number;
+    confirm: ConfirmForm | null;
+    readonly store: Store;
+    constructor({ refreshType, shouldValidate, debounceNumber, }: UseFormBaseProps);
+    getDataWithoutValidation(): ResponseData;
+    getDataWithValidation(validate: boolean, { validateLoading }: {
+        validateLoading: boolean;
+    }): Promise<ResponseData>;
+    onSubmit(formSubmitFunction?: (data: ResponseData, utils: FormUtils) => SubmitResult): Promise<void>;
+    shouldValidate(formState: FormState): boolean;
+    createInput(name: string, options: CreateInputOptions): {
+        onChange: (value: any) => void;
+        onBlur: () => Promise<void>;
+        addValidation: (validatorToValidatorFunc: ValidatorToValidatorFunc) => void;
+    };
+    deleteInput(name: string): void;
+    setValue(name: string, value: any): Promise<void>;
+    private validateInput;
+    private validate;
+    private checkNameExist;
+    private onSubmitResult;
 }
+export {};

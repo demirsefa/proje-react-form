@@ -1,6 +1,6 @@
 {
   "name": "proje-react-form",
-  "version": "0.0.15",
+  "version": "1.0.1",
   "description": "",
   "author": "SEFA DEMİR",
   "license": "ISC",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/demirsefa/proje-react-form/issues"
   },
-  "homepage": "https://github.com/demirsefa/projeform#readme",
+  "homepage": "https://github.com/demirsefa/proje-react-form#readme",
   "dependencies": {
     "react": "^18.2.0"
   },
