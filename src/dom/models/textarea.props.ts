@@ -1,7 +1,7 @@
 import { HTMLProps } from "react";
-import { Validator } from "../validator";
+import { Validator } from "../../validator";
 
 export interface TextareaProps extends HTMLProps<HTMLTextAreaElement> {
-	name: string;
+	inputRef?: any;
 	validation?: (vc: Validator) => Validator;
 }

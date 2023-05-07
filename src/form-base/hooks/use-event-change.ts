@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FormBase } from "../";
 import { StoreState } from "../../models";
 import { EventType } from "../../models/action-type";
 
-export function useEventChange(formBase: FormBase) {
-	const [state, setState] = useState<EventType>(() => formBase.getStore().lastEvent);
+export function useEventChange(formBase: FormBase): [EventType[], Dispatch<SetStateAction<EventType[]>>] {
+	const [state, setState] = useState<EventType[]>(() => [{ ...formBase.store.__lastEvent__ }]);
 	useEffect(() => {
-		setState(formBase.getStore().lastEvent);
-	}, [formBase]);
-	useEffect(() => {
-		const callback = (state: StoreState) => {
-			const event = formBase.getStore().lastEvent;
-			setState(event);
+		const callback = () => {
+			const event = formBase.store.__lastEvent__;
+			setState((s) => [...s, { ...event }]);
 		};
-		return formBase.getStore().subscribe(callback);
+		return formBase.store.subscribe(callback);
 	}, [formBase]);
-	return state;
+	return [state, setState];
 }

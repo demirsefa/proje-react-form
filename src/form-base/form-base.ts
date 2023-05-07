@@ -1,29 +1,43 @@
 import { reducer } from "./reducer";
 import { ActionType } from "../models/action-type";
-import { CreateInputOptions } from "../models/create-input-options";
 import { Store } from "./store";
-import { Validator } from "../validator";
-import { ConfirmInner, FormRefreshType, FormUtils, InputState } from "../models";
+import { Validator, ValidatorToValidatorFunc } from "../validator";
+import {
+	Confirm,
+	ConfirmForm,
+	CreateInputOptions,
+	FormRefreshType,
+	FormShouldValidateType,
+	FormState,
+	FormUtils,
+	ResponseData,
+	UseFormBaseProps,
+	ValidateError,
+} from "../models";
+import { throwNotRegistered } from "../utils";
+
+type SubmitResult = Promise<void> | void;
 
 export class FormBase {
-	confirmRequired: ConfirmInner | null = null;
-	confirmPause: boolean = false;
-	fragmentNumber: number = 0;
-	private readonly store: Store;
+	confirm: ConfirmForm | null = null;
+	public readonly store: Store;
 
-	constructor({ refreshType = FormRefreshType.blur }: { refreshType?: FormRefreshType }) {
+	constructor({
+		refreshType = FormRefreshType.blur,
+		shouldValidate = FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT,
+		debounceNumber = undefined,
+	}: UseFormBaseProps) {
 		this.store = new Store(
 			{
 				formState: {
 					formStatus: "CLEAN",
-					formAttemptGlobalError: 0,
-					formAttemptError: 0,
+					confirmActive: false,
 					error: null,
-					readyToSubmit: false,
-					confirmed: false,
 					loading: false,
-					debounceNumber: 0,
-					refreshType: refreshType,
+					debounceNumber,
+					refreshType,
+					shouldValidate,
+					submitAttemptNumber: 0,
 				},
 				inputStates: {},
 			},
@@ -33,207 +47,291 @@ export class FormBase {
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
-	public getStore() {
-		return this.store;
+	public getDataWithoutValidation(): ResponseData {
+		const data = this.store.getRawData();
+		return {
+			isValid: undefined,
+			validateErrors: undefined,
+			shouldValidateAgain: this.store.getShouldValidateAgain(),
+			loading: this.store.state.formState.loading,
+			data,
+		};
 	}
 
-	public onSubmit(fn: (data: any, utils: FormUtils) => Promise<void> | void) {
-		if (this.confirmPause) return;
-		const data = this.store.getData();
-		const validate = this.validate(data);
-		if (this.store.getFormState().loading) {
+	public async getDataWithValidation(
+		validate: boolean,
+		{ validateLoading }: { validateLoading: boolean }
+	): Promise<ResponseData> {
+		const data = this.store.getRawData();
+		const responseData: ResponseData = {
+			isValid: undefined,
+			validateErrors: undefined,
+			shouldValidateAgain: this.store.getShouldValidateAgain(),
+			loading: this.store.state.formState.loading,
+			data,
+		};
+		if (validate) {
+			const validateErrors = await this.validate(data, { validateLoading });
+			responseData.isValid = !(validateErrors && validateErrors.length);
+			responseData.validateErrors = validateErrors;
+		}
+		return responseData;
+	}
+
+	public async onSubmit(formSubmitFunction?: (data: ResponseData, utils: FormUtils) => SubmitResult) {
+		const state = this.store.state;
+		const formState = state.formState;
+		Object.values(state.inputStates).forEach((is) => {
+			is.value = is._refreshValue;
+		});
+		if (formState.loading) {
 			console.warn("Double click detect");
 		}
-		if (!validate) {
+		if (formState.confirmActive) {
+			console.warn("Form submitted when confirm active");
+		}
+		this.store.dispatch({
+			type: ActionType.SUBMIT_STARTED,
+			payload: {
+				confirmActive: true,
+			},
+		});
+		const responseData = await this.getDataWithValidation(true, { validateLoading: true });
+		if (responseData.isValid) {
 			try {
-				this.store.dispatch({
-					type: ActionType.CLEAR_GLOBAL_ERROR,
-				});
-
-				const result = fn(data, {
-					confirm: (_fn: ConfirmInner) => {
-						this.confirmRequired = _fn;
-						this.confirmPause = true;
-						this.store.broadcast();
-					},
-				});
-				if (result && result.then !== undefined) {
-					this.store.dispatch({
-						type: ActionType.SET_LOADING_ON,
+				const confirm = (_fn: Confirm) => {
+					this.confirm = (succeed, payload) => {
+						if (succeed) {
+							const result = _fn(payload);
+							this.onSubmitResult(result);
+						} else {
+							this.store.dispatch({
+								type: ActionType.SUBMIT_ERROR,
+								payload: {
+									payload: {
+										error: payload,
+									},
+								},
+							});
+						}
+					};
+				};
+				const result =
+					formSubmitFunction &&
+					formSubmitFunction(responseData, {
+						confirm,
 					});
-					const promise: Promise<any> = result as Promise<any>;
-					promise
-						.catch((e: any) => {
-							this.store.dispatch({
-								type: ActionType.SET_GLOBAL_ERROR,
-								payload: e,
-							});
-						})
-						.then(() => {
-							this.store.dispatch({
-								type: ActionType.SET_SUCCESS,
-							});
-						})
-						.finally(() => {
-							this.store.dispatch({
-								type: ActionType.SET_LOADING_OFF,
-							});
-						});
+				if (formState.confirmActive) {
+					return;
 				}
-			} catch (e: any) {
+				this.onSubmitResult(result);
+			} catch (error: any) {
 				this.store.dispatch({
-					type: ActionType.SET_GLOBAL_ERROR,
-					payload: { type: "global", payload: e },
+					type: ActionType.SUBMIT_ERROR,
+					payload: {
+						payload: {
+							error,
+						},
+					},
 				});
 			}
 		} else {
-			for (let i = 0; i < validate.length; i++) {
-				const e = validate[i];
+			const errors = [];
+			if (responseData.validateErrors) {
+				for (let i = 0; i < responseData.validateErrors.length; i++) {
+					const e = responseData.validateErrors[i];
+					errors.push({ value: e.value, name: e.name, payload: e.payload, type: e.type });
+				}
 				this.store.dispatch({
-					type: ActionType.SET_INPUT_ERROR,
-					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
+					type: ActionType.SUBMIT_ERROR,
+					payload: { error: errors },
 				});
 			}
 		}
 	}
 
-	public createInput(name: string, options: CreateInputOptions) {
-		const inputState = this.store.createInput(name, options);
-		const formState = this.store.getFormState();
-		return {
-			onChange: async (value: any) => {
-				this.store.dispatch({ type: ActionType.NEW_VALUE, payload: { value, name } });
-				if (formState.refreshType === FormRefreshType.instant) {
-					const error = await this.validateInput(name, value);
-
-					this.dispatchError(value, inputState, error);
+	public shouldValidate(formState: FormState) {
+		const shouldValidateObj = this.store.state.formState.shouldValidate;
+		let shouldValidate = false;
+		if (typeof shouldValidateObj === "function") {
+			shouldValidate = shouldValidateObj(this);
+		} else {
+			const shouldValidateType: FormShouldValidateType = shouldValidateObj;
+			if (shouldValidateType === FormShouldValidateType.YES) {
+				shouldValidate = true;
+			} else if (shouldValidateType === FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT) {
+				if (formState.submitAttemptNumber > 0) {
+					shouldValidate = true;
 				}
+			}
+		}
+		return shouldValidate;
+	}
+
+	public createInput(name: string, options: CreateInputOptions) {
+		this.store.createInput(name, options);
+		if (options.validation) {
+			this.store.__inputValidationFunctions__[name] = options.validation;
+		} else {
+			this.store.__inputValidationFunctions__[name] = undefined;
+		}
+		return {
+			onChange: (value: any) => {
+				this.setValue(name, value).then();
 			},
 			onBlur: async () => {
-				this.store.dispatch({ type: ActionType.BLURRED, payload: { name } });
-				if (formState.refreshType === FormRefreshType.blur) {
-					const value = this.store.getInputState(name)?.value;
-					const error = await this.validateInput(name, value);
-					this.dispatchError(value, inputState, error);
-				}
+				console.log("this.store.state.formState.refreshType", this.store.state.formState.refreshType);
+				if (this.store.state.formState.refreshType !== FormRefreshType.blur) return;
+				//https://stackoverflow.com/questions/44142273/react-ul-with-onblur-event-is-preventing-onclick-from-firing-on-li
+				//I added to solve rerender problem. Do we need it??
+				setTimeout(async () => {
+					let error;
+					const inputState = this.store.state.inputStates[name];
+					const value = inputState?._refreshValue;
+					if (inputState?.validateRequired) {
+						error = await this.validateInput(name, value);
+					}
+					this.store.dispatch({
+						type: ActionType.BLURRED,
+						payload: { name, error, validateRequired: error === undefined },
+					});
+				}, 50);
+			},
+			addValidation: (validatorToValidatorFunc: ValidatorToValidatorFunc) => {
+				this.store.addValidation(name, validatorToValidatorFunc);
 			},
 		};
 	}
 
 	public deleteInput(name: string) {
-		this.store.deleteInput(name);
-		//todo
+		this.checkNameExist(name);
+		delete this.store.state.inputStates[name];
 	}
 
-	public validateFragment(fragmentNumber: number, fn: any) {
-		const data = this.store.getDataByFragment(fragmentNumber);
-		const errors = this.validate(data);
-		if (!errors || errors.length === 0) {
-			fn && fn();
-		} else {
-			for (let i = 0; i < errors.length; i++) {
-				const e = errors[i];
-				this.store.dispatch({
-					type: ActionType.SET_INPUT_ERROR,
-					payload: { value: e.value, name: e.name, payload: e.payload, type: e.type },
-				});
-			}
+	public async setValue(name: string, value: any) {
+		this.checkNameExist(name);
+		const formState = this.store.state.formState;
+		let error = null;
+		let validated = false;
+		if (formState.refreshType === FormRefreshType.instant) {
+			error = await this.validateInput(name, value);
+			validated = true;
 		}
-	}
-
-	getData() {
-		return this.getStore().getData();
-	}
-
-	confirm(data: Record<string, any>) {
-		this.confirmPause = false;
-		if (this.confirmRequired) this.confirmRequired(data);
-		this.store.broadcast();
-	}
-
-	confirmCancel() {
-		this.confirmPause = false;
-		this.confirmRequired = null;
-		this.store.broadcast();
-	}
-
-	getFragmentNumber() {
-		const fragmentNumber = this.fragmentNumber;
-		this.fragmentNumber++;
-		return fragmentNumber;
+		this.store.dispatch({
+			type: ActionType.NEW_VALUE,
+			payload: {
+				value,
+				name,
+				error,
+				validateRequired: !validated,
+			},
+		});
 	}
 
 	private async validateInput(name: string, value: any) {
-		const inputState = this.store.getInputState(name);
-		if (!inputState || !inputState?.validation) return null;
-		const validationFn = inputState.validation;
+		this.checkNameExist(name);
+		const formState = this.store.state.formState;
+		const validationFunction = this.store.__inputValidationFunctions__[name];
+		if (!validationFunction) return null;
+		const shouldValidate = this.shouldValidate(formState);
+		if (!shouldValidate) return undefined;
 		const validator = new Validator(this.store, "validator_" + name);
-		const validation = validationFn(validator);
+		const validation = validationFunction(validator);
+		if (!validation) return null;
+		let array = [];
 		const vKeys = Object.keys(validation.validations);
 		for (let j = 0; j < vKeys.length; j++) {
+			if (array.length) {
+				if (!validation.settings.validateAll) {
+					return array;
+				}
+			}
 			const vKey = vKeys[j];
 			const vObj = validation.validations[vKey];
 			const obj = vObj.fn(value, vObj.payload);
-			// @ts-ignore
-			if (!obj) return { name: name, type: vKey, value, payload: vObj.payload };
+			if (!obj) array.push([{ name: name, type: vKey, value, payload: vObj.payload }]);
 			// @ts-ignore
 			if (obj && obj.then) {
 				this.store.dispatch({
 					type: ActionType.ASYNC_VALIDATION,
-					payload: { name: inputState.name, value: true },
+					payload: { name, value: true, forSubmit: false },
 				});
 				const result = await obj;
+				this.store.dispatch({
+					type: ActionType.ASYNC_VALIDATION,
+					payload: { name, value: false, forSubmit: false },
+				});
 				if (!result) {
-					return { name: name, type: vKey, value, payload: vObj.payload };
+					array.push({ name: name, type: vKey, value, payload: vObj.payload });
 				}
 			}
 		}
+		return array;
 	}
 
-	//todo: error make multiple
-	private validate(data: any) {
+	private async validate(data: any, { validateLoading }: { validateLoading: boolean }): Promise<ValidateError[]> {
 		const errors = [];
 		const keys = Object.keys(data);
 		for (let i = 0; i < keys.length; i++) {
 			const name = keys[i];
-			const inputState = this.store.getInputState(name);
-			if (!inputState || !inputState?.validation) continue;
-			const validationFn = inputState?.validation;
-			const validator = new Validator(this.store, "validator_" + name);
-			const validation = validationFn(validator);
+			const validationFunction = this.store.__inputValidationFunctions__[name];
+			if (!validationFunction) continue;
+			const validation = validationFunction(new Validator(this.store, "validator_" + name));
+			if (!validation) continue;
 			const vKeys = Object.keys(validation.validations);
 			for (let j = 0; j < vKeys.length; j++) {
 				const vKey = vKeys[j];
 				const vObj = validation.validations[vKey];
-				if (!vObj.fn(data[name], vObj.payload)) {
-					errors.push({ name: name, type: vKey, value: data[name], payload: vObj.payload });
-					break;
+				const value = data[name];
+				const obj = vObj.fn(value, vObj.payload);
+				if (!obj) errors.push({ name: name, type: vKey, value, payload: vObj.payload });
+				// @ts-ignore
+				if (obj && obj.then) {
+					validateLoading &&
+						this.store.dispatch({
+							type: ActionType.ASYNC_VALIDATION,
+							payload: { name, value: true, forSubmit: true },
+						});
+					const result = await obj;
+					validateLoading &&
+						this.store.dispatch({
+							type: ActionType.ASYNC_VALIDATION,
+							payload: { name, value: false, forSubmit: true },
+						});
+					if (!result) {
+						errors.push({ name: name, type: vKey, value, payload: vObj.payload });
+					}
 				}
 			}
 		}
 		return errors;
 	}
-
-	private dispatchError(
-		value: number,
-		inputState: InputState,
-		error: undefined | null | { payload: any; name: string; type: string; value: any }
-	) {
-		if (error) {
-			this.store.dispatch({
-				type: ActionType.SET_INPUT_ERROR,
-				payload: { value, name: inputState.name, payload: error.payload, type: error.type },
-			});
-		} else if (inputState.error && !error) {
-			this.store.dispatch({
-				type: ActionType.CLEAN_INPUT_ERROR,
-				payload: { value, name: inputState.name },
-			});
+	private checkNameExist(name: string) {
+		if (!this.store.state.inputStates[name]) {
+			throw throwNotRegistered(name);
 		}
-		if (inputState.validateLoading) {
+	}
+
+	private onSubmitResult(result: undefined | Promise<void> | void) {
+		if (result && result.then !== undefined) {
+			const promise: Promise<any> = result as Promise<any>;
+			promise
+				.then(() => {
+					this.store.dispatch({
+						type: ActionType.SUBMIT_SUCCEED,
+					});
+				})
+				.catch((e: any) => {
+					this.store.dispatch({
+						type: ActionType.SUBMIT_ERROR,
+						payload: {
+							error: e,
+						},
+					});
+				});
+		} else {
 			this.store.dispatch({
-				type: ActionType.ASYNC_VALIDATION,
-				payload: { name: inputState.name, value: false },
+				type: ActionType.SUBMIT_SUCCEED,
 			});
 		}
 	}

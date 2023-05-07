@@ -10,11 +10,11 @@ import {
 	required,
 	url,
 } from "./validate-utis";
-import { IvalidationStore } from "../models";
+import { IValidationStore } from "../models";
 
-type validateFunc = ((value: any, payload: any) => boolean) | ((value: number) => boolean);
-type validateAsyncFunc = ((value: any, payload: any) => boolean) | ((value: number) => Promise<boolean>);
-
+type validateFunc = ((value: any, payload: any) => boolean) | ((value: any) => boolean);
+type validateAsyncFunc = ((value: any, payload: any) => boolean) | ((value: any) => Promise<boolean>);
+export type ValidatorToValidatorFunc = ((v: Validator) => Validator) | undefined;
 export enum ValidatorType {
 	required = "required",
 	min = "min",
@@ -30,10 +30,14 @@ export enum ValidatorType {
 
 type ValidatorTypeInterface = Record<ValidatorType, ((payload: any) => Validator) | (() => Validator)>;
 
-export class Validator implements ValidatorTypeInterface {
-	validations: Record<string, { payload?: any; fn: validateFunc | validateAsyncFunc }> = {};
+interface ValidatorSettings {
+	validateAll: boolean;
+}
 
-	constructor(private store: IvalidationStore, private validateName: string) {}
+export class Validator implements ValidatorTypeInterface {
+	validations: Record<string, { payload?: any; fn: validateFunc | validateAsyncFunc; async: boolean }> = {};
+	settings: ValidatorSettings = { validateAll: false };
+	constructor(private store: IValidationStore, private validateName: string) {}
 
 	public required(): Validator {
 		return this.register(ValidatorType.required, required);
@@ -64,7 +68,7 @@ export class Validator implements ValidatorTypeInterface {
 	}
 
 	public repeatPassword(payload: string): Validator {
-		const storeData = this.store.getData();
+		const storeData = this.store.getRawData();
 		return this.register(ValidatorType.repeatPassword, repeatPassword, storeData ? storeData[payload] : undefined);
 	}
 
@@ -81,13 +85,20 @@ export class Validator implements ValidatorTypeInterface {
 	}
 
 	public async(name: string, fn: (value: any) => Promise<boolean>, payload?: any) {
-		return this.registerAsync("custom_" + this.validateName, fn, Number(payload));
+		return this.registerAsync(name, fn, payload);
 	}
-
+	public set(param: { validateAll: boolean }) {
+		this.settings = {
+			...this.settings,
+			validateAll: param.validateAll,
+		};
+		return this;
+	}
 	protected register(name: string, fn: validateFunc, payload?: any) {
 		this.validations[name] = {
 			fn,
 			payload,
+			async: false,
 		};
 		return this;
 	}
@@ -96,6 +107,7 @@ export class Validator implements ValidatorTypeInterface {
 		this.validations[name] = {
 			fn,
 			payload,
+			async: true,
 		};
 		return this;
 	}

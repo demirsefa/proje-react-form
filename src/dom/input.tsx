@@ -1,22 +1,26 @@
-import React from "react";
-import { InputProps } from "../models";
+import React, { useId } from "react";
 import { useContextFormBase } from "../form-context";
-import { useFragmentId } from "../fragment/use-fragment-id";
-import { useInput } from "../form-base/useInput";
+import { useCreateDomInput } from "./hooks/use-create-dom-input";
+import { InputProps } from "./models/input.props";
 
-export function Input(inputProps: InputProps) {
-	const { name, validation, defaultValue, ...htmlProps } = inputProps;
+export const Input = React.memo((inputProps: InputProps) => {
+	const { name, validation, defaultValue, inputRef, ...htmlProps } = inputProps;
 	const formBase = useContextFormBase();
-	const id = useFragmentId();
-	const { onChange, onBlur } = useInput(formBase, name, {
-		defaultValue,
-		fragmentId: id,
+	const id = useId();
+	const { onChange, onBlur, ref } = useCreateDomInput(formBase, name || id, {
 		validation,
+		defaultValue,
 	});
+	const __htmlProps: any = htmlProps;
 	return (
 		<input
-			{...htmlProps}
-			name={name}
+			{...__htmlProps}
+			ref={(el) => {
+				ref.current = el;
+				if (inputRef) {
+					inputRef.current = el;
+				}
+			}}
 			onChange={(e) => {
 				const value = e.target.value;
 				onChange(value);
@@ -28,4 +32,4 @@ export function Input(inputProps: InputProps) {
 			}}
 		/>
 	);
-}
+});

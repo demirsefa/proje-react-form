@@ -1,25 +1,24 @@
-import React, { useInsertionEffect } from "react";
-import { TextareaProps } from "../models";
+import React, { useId } from "react";
 import { useContextFormBase } from "../form-context";
-import { useFragmentId } from "../fragment/use-fragment-id";
-import { useInput } from "../form-base/useInput";
+import { useCreateDomInput } from "./hooks/use-create-dom-input";
+import { TextareaProps } from "./models/textarea.props";
 
-export function Textarea(textareaProps: TextareaProps) {
-	const { name, defaultValue, validation, ...htmlProps } = textareaProps;
+export const Textarea = React.memo((textareaProps: TextareaProps) => {
+	const { name, validation, defaultValue, inputRef, ...htmlProps } = textareaProps;
 	const formBase = useContextFormBase();
-	const id = useFragmentId();
-	const { onChange, onBlur } = useInput(formBase, name, {
-		defaultValue,
-		fragmentId: id,
-		validation,
-	});
-	useInsertionEffect(() => {
-		return () => formBase.deleteInput(name);
-	}, [formBase, name]);
+	const id = useId();
+	const { onChange, onBlur, ref } = useCreateDomInput(formBase, name || id);
+	const __htmlProps: any = htmlProps;
 	return (
 		<textarea
-			{...htmlProps}
-			name={name}
+			{...__htmlProps}
+			ref={(el) => {
+				ref.current = el;
+				if (inputRef) {
+					console.log("el", el);
+					inputRef.current = el;
+				}
+			}}
 			onChange={(e) => {
 				const value = e.target.value;
 				onChange(value);
@@ -31,4 +30,4 @@ export function Textarea(textareaProps: TextareaProps) {
 			}}
 		/>
 	);
-}
+});

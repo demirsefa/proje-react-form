@@ -1,6 +1,8 @@
 import { ValidatorType } from "./validator";
+import { ValidateError } from "../models";
 
-export function getErrorDefaultText(error: { name: string; type: string; value: any; payload: any }) {
+export function getErrorDefaultText(error: ValidateError) {
+	console.log("error", error);
 	switch (error.type as ValidatorType) {
 		case ValidatorType.required:
 			return "This Field is required.";

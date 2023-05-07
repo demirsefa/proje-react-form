@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { FormBase } from "../form-base";
+import { InputState, ValidateError } from "../../models";
 
 export function useErrorForInput(formBase: FormBase, name: string) {
-	const [state, setState] = useState<any>(() => formBase.getStore().getInputState(name)?.error);
-	const [loading, setLoading] = useState<any>(() => formBase.getStore().getInputState(name)?.validateLoading);
+	const [state, setState] = useState<ValidateError[] | undefined>(
+		() => formBase.store.state.inputStates[name]?.error
+	);
+	const [loading, setLoading] = useState<any>(() => formBase.store.state.inputStates[name]?.validateLoading);
 	useEffect(() => {
-		const inputState = formBase.getStore().getInputState(name);
+		const inputState: InputState | undefined = formBase.store.state.inputStates[name];
 		setState(inputState?.error);
 		setLoading(inputState?.validateLoading);
 	}, [formBase, name]);
 	useEffect(() => {
 		const callback = () => {
-			const inputState = formBase.getStore().getInputState(name);
+			const inputState: InputState | undefined = formBase.store.state.inputStates[name];
 			setState(inputState?.error);
 			setLoading(inputState?.validateLoading);
 		};
-		return formBase.getStore().subscribe(callback);
+		return formBase.store.subscribe(callback);
 	}, [formBase, name]);
-	return { error: state, loading };
+	return { error: state && state[0], loading };
 }

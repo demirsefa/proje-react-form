@@ -2,16 +2,16 @@ import { FormBase } from "../form-base";
 import { useEffect, useState } from "react";
 
 export function useErrorForGlobal(formBase: FormBase) {
-	const [state, setState] = useState<any>(() => formBase.getStore().getFormState()?.error);
+	const [state, setState] = useState<any>(() => formBase.store.state.formState?.error);
 	useEffect(() => {
-		setState(formBase.getStore().getFormState()?.error);
+		setState(formBase.store.state.formState?.error);
 	}, [formBase]);
 	useEffect(() => {
 		const callback = () => {
-			const formState = formBase.getStore().getFormState();
+			const formState = formBase.store.state.formState;
 			setState(formState?.error);
 		};
-		return formBase.getStore().subscribe(callback);
+		return formBase.store.subscribe(callback);
 	}, [formBase]);
 	return state;
 }

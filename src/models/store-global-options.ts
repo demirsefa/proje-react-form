@@ -1,6 +1,6 @@
 import { FormRefreshType } from "./form-refresh-type";
 
-export default interface StoreGlobalOptions {
+export interface StoreGlobalOptions {
 	refreshType: FormRefreshType;
 	debounceNumber?: number;
 }

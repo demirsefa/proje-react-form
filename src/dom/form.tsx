@@ -1,30 +1,34 @@
 import React from "react";
 import { FormContextProvider, useContextFormBase } from "../form-context";
-import { useLoading } from "../form-base";
-import { FormDomProps, FormProps } from "../models";
+import { FormDomProps, FormProps } from "./models/form-dom-props";
 
-function InnerForm(props: FormDomProps) {
+const InnerForm = React.memo((props: FormDomProps) => {
 	const formBase = useContextFormBase();
-	const isLoading = useLoading(formBase);
-
+	const { ...htmlProps } = props;
 	return (
 		<form
-			{...props}
+			{...htmlProps}
 			onSubmit={(e) => {
 				e.preventDefault();
-				if (!isLoading) {
-					formBase.onSubmit(props.onSubmit);
-				}
+				formBase
+					.onSubmit((res, utils) => {
+						if (props.onSubmit) {
+							return props.onSubmit(res, utils);
+						}
+					})
+					.then();
 			}}
 		/>
 	);
-}
+});
 
-export function Form(props: FormProps) {
-	const { refreshType, formBase, ...formProps } = props;
+export const Form = React.memo((props: FormProps) => {
+	const { formBaseOptions, ...formProps } = props;
+	//TODO: solve ts-ignore
 	return (
-		<FormContextProvider formBase={formBase} refreshType={refreshType}>
+		<FormContextProvider {...formBaseOptions}>
+			{/*@ts-ignore*/}
 			<InnerForm {...formProps}>{props.children}</InnerForm>
 		</FormContextProvider>
 	);
-}
+});

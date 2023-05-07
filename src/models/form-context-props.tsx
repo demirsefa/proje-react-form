@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
-import { FormRefreshType } from "./index";
-import { FormBase } from "../form-base";
+import { FormRefreshType, FormShouldValidate } from "./index";
 
 export interface FormContextProps extends UseFormBaseProps {
 	children: ReactNode;
-	formBase: FormBase;
 }
 
 export interface UseFormBaseProps {
 	refreshType?: FormRefreshType;
+	shouldValidate?: FormShouldValidate;
+	debounceNumber?: number;
 }
