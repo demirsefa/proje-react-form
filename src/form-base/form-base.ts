@@ -1,5 +1,5 @@
 import { reducer } from "./reducer";
-import { ActionType } from "../models/action-type";
+import { ActionType } from "../models";
 import { Store } from "./store";
 import { Validator, ValidatorToValidatorFunc } from "../validator";
 import {
