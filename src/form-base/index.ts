@@ -8,3 +8,4 @@ export { useLoading } from "./hooks/use-loading";
 export { useResponseDataWatch } from "./hooks/use-response-data-watch";
 export { useStoreStateWatch } from "./hooks/use-store-state-watch";
 export { useWatch, useInstantWatch } from "./hooks/use-watch";
+export { useCreateFormBase } from "./use-create-form-base";

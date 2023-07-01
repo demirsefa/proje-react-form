@@ -6,7 +6,6 @@ import {
 	DebounceChangeType,
 	NewValueProps,
 	SubmitErrorPayload,
-	SubmitStartedProps,
 } from "../models/action-type";
 import { throwNotRegistered } from "../utils";
 import { FormRefreshType, InputState, StoreState } from "../models";
@@ -91,10 +90,12 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 		}
 
 		case ActionType.SUBMIT_STARTED: {
-			const payload = action.payload as SubmitStartedProps;
 			state.formState.loading = true;
-			state.formState.confirmActive = payload.confirmActive;
 			state.formState.submitAttemptNumber++;
+			break;
+		}
+		case ActionType.CONFIRM_SELECTED: {
+			state.formState.confirmActive = true;
 			break;
 		}
 		case ActionType.SUBMIT_SUCCEED: {

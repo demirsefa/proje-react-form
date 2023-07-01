@@ -15,6 +15,7 @@ export {
 	useErrorForInput,
 	useEventChange,
 	useResponseDataWatch,
+	useCreateFormBase,
 	useStoreStateWatch,
 	useLoading,
 	useWatch,

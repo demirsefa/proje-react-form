@@ -7,7 +7,8 @@ export declare enum ActionType {
     SUBMIT_ERROR = "SUBMIT_ERROR",
     SUBMIT_SUCCEED = "SUBMIT_SUCCEED",
     NEW_VALUE_DEBOUNCED = "NEW_VALUE_DEBOUNCED",
-    BLURRED_DEBOUNCED = "BLURRED_DEBOUNCED"
+    BLURRED_DEBOUNCED = "BLURRED_DEBOUNCED",
+    CONFIRM_SELECTED = "CONFIRM_SELECTED"
 }
 export interface EventType {
     index: number;
@@ -36,9 +37,6 @@ export interface DebounceChangeType extends InputStateProps {
 export interface AsyncValidationProps extends InputStateProps {
     forSubmit: boolean;
     value: any;
-}
-export interface SubmitStartedProps {
-    confirmActive: boolean;
 }
 export interface SubmitErrorPayload {
     error: any;
