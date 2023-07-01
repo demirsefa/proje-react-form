@@ -10,14 +10,12 @@ export default {
 		{
 			file: "dist/index.cjs.js",
 			format: "cjs",
-			sourcemap: true,
-			name: "dev",
+			sourcemap: false,
 		},
 		{
 			file: "dist/index.esm.js",
 			format: "esm",
-			sourcemap: true,
-			name: "dev",
+			sourcemap: false,
 		},
 	],
 	plugins: [external(), resolve(), commonjs(), typescript({ tsconfig: "./tsconfig.json", clean: true }), terser()],
