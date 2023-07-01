@@ -21,5 +21,5 @@ export {
 	useInstantWatch,
 } from "./form-base";
 export { getErrorDefaultText, Validator } from "./validator";
-export { useContextFormBase } from "./form-context";
+export { FormContext, useContextFormBase } from "./form-context";
 export * from "./dom";
