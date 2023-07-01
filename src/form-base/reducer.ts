@@ -130,7 +130,6 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 						}
 					});
 				} else {
-					console.error(error);
 					if (error instanceof Error || !error.name) {
 						state.formState.error = error;
 					} else {

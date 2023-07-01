@@ -8,19 +8,6 @@ export {
 	type FormShouldValidate,
 } from "./models";
 export {
-	Form,
-	Input,
-	Textarea,
-	FormError,
-	InputError,
-	useCreateDomInput,
-	type InputProps,
-	type TextareaProps,
-	type FormDomProps,
-	type FormProps,
-} from "./dom";
-
-export {
 	FormBase,
 	useConfirm,
 	useCreateInput,
