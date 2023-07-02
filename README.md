@@ -37,16 +37,16 @@ export default function SimpleForm() {
                 dev:false // You can open logs     
             }}
             onSubmit={(data) => {
-				console.info("Name: ",data.name);
-				console.info("Surname: ",data.lastname);
-				console.info("Email: ",data.email);
+                console.info("Name: ",data.name);
+                console.info("Surname: ",data.lastname);
+                console.info("Email: ",data.email);
             }}>
         <FormError />
         <div>
             <label>Name</label>
             <Input validation={(v) => v.required().minLength(2)} name={"name"} />
             <InputError name={"name"} />
-		</div>
+        </div>
         <div>
             <label>Last Name</label>
             <Input validation={(v) => v.set({ validateAll: true }).minLength(2)} name={"lastname"} />
