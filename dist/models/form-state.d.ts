@@ -8,4 +8,5 @@ export interface FormState {
     loading: boolean;
     submitAttemptNumber: number;
     formStatus: "CLEAN" | "NOT-CLEAN" | "SUCCESS" | "ERROR";
+    dev?: boolean;
 }

@@ -9,4 +9,5 @@ export interface UseFormBaseProps {
 	refreshType?: FormRefreshType;
 	shouldValidate?: FormShouldValidate;
 	debounceNumber?: number;
+	dev?: boolean;
 }

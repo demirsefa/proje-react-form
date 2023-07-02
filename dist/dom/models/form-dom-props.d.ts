@@ -1,6 +1,6 @@
 import { HTMLProps, ReactNode } from "react";
-import { FormUtils } from "../../models/form-utils";
-import { UseFormBaseProps } from "../../models/form-context-props";
+import { FormUtils } from "../../models";
+import { UseFormBaseProps } from "../../models";
 export interface FormDomProps extends Omit<HTMLProps<HTMLFormElement>, "onSubmit"> {
     children: ReactNode;
     onSubmit?: (data: any, utils: FormUtils) => Promise<void> | Promise<any> | void;

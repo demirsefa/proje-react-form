@@ -5,7 +5,7 @@ declare type SubmitResult = Promise<void> | void;
 export declare class FormBase {
     confirm: ConfirmForm | null;
     readonly store: Store;
-    constructor({ refreshType, shouldValidate, debounceNumber, }: UseFormBaseProps);
+    constructor({ refreshType, shouldValidate, debounceNumber, dev, }: UseFormBaseProps);
     getDataWithoutValidation(): ResponseData;
     getDataWithValidation(validate: boolean, { validateLoading }: {
         validateLoading: boolean;

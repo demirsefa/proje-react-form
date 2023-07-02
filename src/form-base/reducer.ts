@@ -9,6 +9,7 @@ import {
 } from "../models/action-type";
 import { throwNotRegistered } from "../utils";
 import { FormRefreshType, InputState, StoreState } from "../models";
+import { act } from "react-dom/test-utils";
 
 export function reducer(state: StoreState, action: ActionProps): StoreState {
 	function setError(currentInputState: InputState) {
@@ -23,6 +24,11 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 					: "NOT-CLEAN";
 			}
 		}
+	}
+
+	let preState = null;
+	if (state.formState.dev) {
+		preState = JSON.parse(JSON.stringify(state));
 	}
 
 	switch (action.type) {
@@ -155,8 +161,17 @@ export function reducer(state: StoreState, action: ActionProps): StoreState {
 			currentInputState.validateLoading = payload.value;
 			break;
 		}
+
 		default:
 			throw new Error("Unexpected Action Type");
+	}
+
+	if (state.formState.dev) {
+		console.info("FORM", action.type, {
+			payload: action.payload,
+			oldState: preState,
+			newState: state,
+		});
 	}
 
 	return state;

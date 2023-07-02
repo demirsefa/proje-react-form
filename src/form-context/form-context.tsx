@@ -11,8 +11,9 @@ export function FormContextProvider(props: FormContextProps) {
 				refreshType: props?.refreshType,
 				shouldValidate: props?.shouldValidate,
 				debounceNumber: props?.debounceNumber,
+				dev: props?.dev,
 			}),
-		[props?.refreshType, props?.shouldValidate]
+		[props?.refreshType, props?.shouldValidate, props?.debounceNumber, props?.dev]
 	);
 	return <FormContext.Provider value={{ formBase }}>{props.children}</FormContext.Provider>;
 }

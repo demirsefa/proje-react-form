@@ -26,6 +26,7 @@ export class FormBase {
 		refreshType = FormRefreshType.blur,
 		shouldValidate = FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT,
 		debounceNumber = undefined,
+		dev = false,
 	}: UseFormBaseProps) {
 		this.store = new Store(
 			{
@@ -38,6 +39,7 @@ export class FormBase {
 					refreshType,
 					shouldValidate,
 					submitAttemptNumber: 0,
+					dev,
 				},
 				inputStates: {},
 			},
