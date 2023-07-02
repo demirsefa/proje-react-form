@@ -5,7 +5,7 @@ export default function AllValidationsPage() {
 	return (
 		<Form
 			formBaseOptions={{
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				console.info("Submit", data);

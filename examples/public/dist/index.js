@@ -22,16 +22,16 @@
 		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 	}
 
-	var reactExports$1 = {};
-	var react$1 = {
-	  get exports(){ return reactExports$1; },
-	  set exports(v){ reactExports$1 = v; },
+	var reactExports = {};
+	var react = {
+	  get exports(){ return reactExports; },
+	  set exports(v){ reactExports = v; },
 	};
 
-	var react_developmentExports$1 = {};
-	var react_development$1 = {
-	  get exports(){ return react_developmentExports$1; },
-	  set exports(v){ react_developmentExports$1 = v; },
+	var react_developmentExports = {};
+	var react_development = {
+	  get exports(){ return react_developmentExports; },
+	  set exports(v){ react_developmentExports = v; },
 	};
 
 	/**
@@ -2771,21 +2771,21 @@
 		        
 		  })();
 		}
-	} (react_development$1, react_developmentExports$1));
+	} (react_development, react_developmentExports));
 
 	(function (module) {
 
 		{
-		  module.exports = react_developmentExports$1;
+		  module.exports = react_developmentExports;
 		}
-	} (react$1));
+	} (react));
 
-	var React$1 = /*@__PURE__*/getDefaultExportFromCjs(reactExports$1);
+	var React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
 
-	var React$2 = /*#__PURE__*/_mergeNamespaces({
+	var React$1 = /*#__PURE__*/_mergeNamespaces({
 		__proto__: null,
-		'default': React$1
-	}, [reactExports$1]);
+		'default': React
+	}, [reactExports]);
 
 	var client = {};
 
@@ -3455,7 +3455,7 @@
 	) {
 	  __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
 	}
-	          var React = reactExports$1;
+	          var React = reactExports;
 	var Scheduler = schedulerExports;
 
 	var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
@@ -34097,15 +34097,15 @@
 
 	// Create react-specific types from the agnostic types in @remix-run/router to
 	// export from react-router
-	const DataRouterContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const DataRouterContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  DataRouterContext.displayName = "DataRouter";
 	}
-	const DataRouterStateContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const DataRouterStateContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  DataRouterStateContext.displayName = "DataRouterState";
 	}
-	const AwaitContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const AwaitContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  AwaitContext.displayName = "Await";
 	}
@@ -34120,15 +34120,15 @@
 	 * and/or location were to be read directly from the history instance.
 	 */
 
-	const NavigationContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const NavigationContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  NavigationContext.displayName = "Navigation";
 	}
-	const LocationContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const LocationContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  LocationContext.displayName = "Location";
 	}
-	const RouteContext = /*#__PURE__*/reactExports$1.createContext({
+	const RouteContext = /*#__PURE__*/reactExports.createContext({
 	  outlet: null,
 	  matches: [],
 	  isDataRoute: false
@@ -34136,7 +34136,7 @@
 	{
 	  RouteContext.displayName = "Route";
 	}
-	const RouteErrorContext = /*#__PURE__*/reactExports$1.createContext(null);
+	const RouteErrorContext = /*#__PURE__*/reactExports.createContext(null);
 	{
 	  RouteErrorContext.displayName = "RouteError";
 	}
@@ -34157,7 +34157,7 @@
 	  let {
 	    basename,
 	    navigator
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  let {
 	    hash,
 	    pathname,
@@ -34187,7 +34187,7 @@
 	 * @see https://reactrouter.com/hooks/use-in-router-context
 	 */
 	function useInRouterContext() {
-	  return reactExports$1.useContext(LocationContext) != null;
+	  return reactExports.useContext(LocationContext) != null;
 	}
 
 	/**
@@ -34204,7 +34204,7 @@
 	  !useInRouterContext() ? invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
 	  // router loaded. We can help them understand how to avoid that.
 	  "useLocation() may be used only in the context of a <Router> component.")  : void 0;
-	  return reactExports$1.useContext(LocationContext).location;
+	  return reactExports.useContext(LocationContext).location;
 	}
 
 	/**
@@ -34215,12 +34215,12 @@
 
 	// Mute warnings for calls to useNavigate in SSR environments
 	function useIsomorphicLayoutEffect(cb) {
-	  let isStatic = reactExports$1.useContext(NavigationContext).static;
+	  let isStatic = reactExports.useContext(NavigationContext).static;
 	  if (!isStatic) {
 	    // We should be able to get rid of this once react 18.3 is released
 	    // See: https://github.com/facebook/react/pull/26395
 	    // eslint-disable-next-line react-hooks/rules-of-hooks
-	    reactExports$1.useLayoutEffect(cb);
+	    reactExports.useLayoutEffect(cb);
 	  }
 	}
 
@@ -34233,7 +34233,7 @@
 	function useNavigate() {
 	  let {
 	    isDataRoute
-	  } = reactExports$1.useContext(RouteContext);
+	  } = reactExports.useContext(RouteContext);
 	  // Conditional usage is OK here because the usage of a data router is static
 	  // eslint-disable-next-line react-hooks/rules-of-hooks
 	  return isDataRoute ? useNavigateStable() : useNavigateUnstable();
@@ -34242,23 +34242,23 @@
 	  !useInRouterContext() ? invariant(false, // TODO: This error is probably because they somehow have 2 versions of the
 	  // router loaded. We can help them understand how to avoid that.
 	  "useNavigate() may be used only in the context of a <Router> component.")  : void 0;
-	  let dataRouterContext = reactExports$1.useContext(DataRouterContext);
+	  let dataRouterContext = reactExports.useContext(DataRouterContext);
 	  let {
 	    basename,
 	    navigator
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  let {
 	    matches
-	  } = reactExports$1.useContext(RouteContext);
+	  } = reactExports.useContext(RouteContext);
 	  let {
 	    pathname: locationPathname
 	  } = useLocation();
 	  let routePathnamesJson = JSON.stringify(getPathContributingMatches(matches).map(match => match.pathnameBase));
-	  let activeRef = reactExports$1.useRef(false);
+	  let activeRef = reactExports.useRef(false);
 	  useIsomorphicLayoutEffect(() => {
 	    activeRef.current = true;
 	  });
-	  let navigate = reactExports$1.useCallback(function (to, options) {
+	  let navigate = reactExports.useCallback(function (to, options) {
 	    if (options === void 0) {
 	      options = {};
 	    }
@@ -34298,12 +34298,12 @@
 	  } = _temp2 === void 0 ? {} : _temp2;
 	  let {
 	    matches
-	  } = reactExports$1.useContext(RouteContext);
+	  } = reactExports.useContext(RouteContext);
 	  let {
 	    pathname: locationPathname
 	  } = useLocation();
 	  let routePathnamesJson = JSON.stringify(getPathContributingMatches(matches).map(match => match.pathnameBase));
-	  return reactExports$1.useMemo(() => resolveTo(to, JSON.parse(routePathnamesJson), locationPathname, relative === "path"), [to, routePathnamesJson, locationPathname, relative]);
+	  return reactExports.useMemo(() => resolveTo(to, JSON.parse(routePathnamesJson), locationPathname, relative === "path"), [to, routePathnamesJson, locationPathname, relative]);
 	}
 
 	/**
@@ -34325,10 +34325,10 @@
 	  "useRoutes() may be used only in the context of a <Router> component.")  : void 0;
 	  let {
 	    navigator
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  let {
 	    matches: parentMatches
-	  } = reactExports$1.useContext(RouteContext);
+	  } = reactExports.useContext(RouteContext);
 	  let routeMatch = parentMatches[parentMatches.length - 1];
 	  let parentParams = routeMatch ? routeMatch.params : {};
 	  let parentPathname = routeMatch ? routeMatch.pathname : "/";
@@ -34391,7 +34391,7 @@
 	  // be wrapped in a new `LocationContext.Provider` in order for `useLocation`
 	  // to use the scoped location instead of the global location.
 	  if (locationArg && renderedMatches) {
-	    return /*#__PURE__*/reactExports$1.createElement(LocationContext.Provider, {
+	    return /*#__PURE__*/reactExports.createElement(LocationContext.Provider, {
 	      value: {
 	        location: _extends$2({
 	          pathname: "/",
@@ -34422,22 +34422,22 @@
 	  let devInfo = null;
 	  {
 	    console.error("Error handled by React Router default ErrorBoundary:", error);
-	    devInfo = /*#__PURE__*/reactExports$1.createElement(reactExports$1.Fragment, null, /*#__PURE__*/reactExports$1.createElement("p", null, "\uD83D\uDCBF Hey developer \uD83D\uDC4B"), /*#__PURE__*/reactExports$1.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own ", /*#__PURE__*/reactExports$1.createElement("code", {
+	    devInfo = /*#__PURE__*/reactExports.createElement(reactExports.Fragment, null, /*#__PURE__*/reactExports.createElement("p", null, "\uD83D\uDCBF Hey developer \uD83D\uDC4B"), /*#__PURE__*/reactExports.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own ", /*#__PURE__*/reactExports.createElement("code", {
 	      style: codeStyles
-	    }, "ErrorBoundary"), " or", " ", /*#__PURE__*/reactExports$1.createElement("code", {
+	    }, "ErrorBoundary"), " or", " ", /*#__PURE__*/reactExports.createElement("code", {
 	      style: codeStyles
 	    }, "errorElement"), " prop on your route."));
 	  }
-	  return /*#__PURE__*/reactExports$1.createElement(reactExports$1.Fragment, null, /*#__PURE__*/reactExports$1.createElement("h2", null, "Unexpected Application Error!"), /*#__PURE__*/reactExports$1.createElement("h3", {
+	  return /*#__PURE__*/reactExports.createElement(reactExports.Fragment, null, /*#__PURE__*/reactExports.createElement("h2", null, "Unexpected Application Error!"), /*#__PURE__*/reactExports.createElement("h3", {
 	    style: {
 	      fontStyle: "italic"
 	    }
-	  }, message), stack ? /*#__PURE__*/reactExports$1.createElement("pre", {
+	  }, message), stack ? /*#__PURE__*/reactExports.createElement("pre", {
 	    style: preStyles
 	  }, stack) : null, devInfo);
 	}
-	const defaultErrorElement = /*#__PURE__*/reactExports$1.createElement(DefaultErrorComponent, null);
-	class RenderErrorBoundary extends reactExports$1.Component {
+	const defaultErrorElement = /*#__PURE__*/reactExports.createElement(DefaultErrorComponent, null);
+	class RenderErrorBoundary extends reactExports.Component {
 	  constructor(props) {
 	    super(props);
 	    this.state = {
@@ -34482,9 +34482,9 @@
 	    console.error("React Router caught the following error during render", error, errorInfo);
 	  }
 	  render() {
-	    return this.state.error ? /*#__PURE__*/reactExports$1.createElement(RouteContext.Provider, {
+	    return this.state.error ? /*#__PURE__*/reactExports.createElement(RouteContext.Provider, {
 	      value: this.props.routeContext
-	    }, /*#__PURE__*/reactExports$1.createElement(RouteErrorContext.Provider, {
+	    }, /*#__PURE__*/reactExports.createElement(RouteErrorContext.Provider, {
 	      value: this.state.error,
 	      children: this.props.component
 	    })) : this.props.children;
@@ -34496,14 +34496,14 @@
 	    match,
 	    children
 	  } = _ref;
-	  let dataRouterContext = reactExports$1.useContext(DataRouterContext);
+	  let dataRouterContext = reactExports.useContext(DataRouterContext);
 
 	  // Track how deep we got in our render pass to emulate SSR componentDidCatch
 	  // in a DataStaticRouter
 	  if (dataRouterContext && dataRouterContext.static && dataRouterContext.staticContext && (match.route.errorElement || match.route.ErrorBoundary)) {
 	    dataRouterContext.staticContext._deepestRenderedBoundaryId = match.route.id;
 	  }
-	  return /*#__PURE__*/reactExports$1.createElement(RouteContext.Provider, {
+	  return /*#__PURE__*/reactExports.createElement(RouteContext.Provider, {
 	    value: routeContext
 	  }, children);
 	}
@@ -34553,13 +34553,13 @@
 	        // `<Route Component={...}>` in `<Routes>` but generally `Component`
 	        // usage is only advised in `RouterProvider` when we can convert it to
 	        // `element` ahead of time.
-	        children = /*#__PURE__*/reactExports$1.createElement(match.route.Component, null);
+	        children = /*#__PURE__*/reactExports.createElement(match.route.Component, null);
 	      } else if (match.route.element) {
 	        children = match.route.element;
 	      } else {
 	        children = outlet;
 	      }
-	      return /*#__PURE__*/reactExports$1.createElement(RenderedRoute, {
+	      return /*#__PURE__*/reactExports.createElement(RenderedRoute, {
 	        match: match,
 	        routeContext: {
 	          outlet,
@@ -34572,7 +34572,7 @@
 	    // Only wrap in an error boundary within data router usages when we have an
 	    // ErrorBoundary/errorElement on this route.  Otherwise let it bubble up to
 	    // an ancestor ErrorBoundary/errorElement
-	    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /*#__PURE__*/reactExports$1.createElement(RenderErrorBoundary, {
+	    return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /*#__PURE__*/reactExports.createElement(RenderErrorBoundary, {
 	      location: dataRouterState.location,
 	      revalidation: dataRouterState.revalidation,
 	      component: errorElement,
@@ -34609,17 +34609,17 @@
 	  return hookName + " must be used within a data router.  See https://reactrouter.com/routers/picking-a-router.";
 	}
 	function useDataRouterContext$1(hookName) {
-	  let ctx = reactExports$1.useContext(DataRouterContext);
+	  let ctx = reactExports.useContext(DataRouterContext);
 	  !ctx ? invariant(false, getDataRouterConsoleError$1(hookName))  : void 0;
 	  return ctx;
 	}
 	function useDataRouterState(hookName) {
-	  let state = reactExports$1.useContext(DataRouterStateContext);
+	  let state = reactExports.useContext(DataRouterStateContext);
 	  !state ? invariant(false, getDataRouterConsoleError$1(hookName))  : void 0;
 	  return state;
 	}
 	function useRouteContext(hookName) {
-	  let route = reactExports$1.useContext(RouteContext);
+	  let route = reactExports.useContext(RouteContext);
 	  !route ? invariant(false, getDataRouterConsoleError$1(hookName))  : void 0;
 	  return route;
 	}
@@ -34646,7 +34646,7 @@
 	 */
 	function useRouteError() {
 	  var _state$errors;
-	  let error = reactExports$1.useContext(RouteErrorContext);
+	  let error = reactExports.useContext(RouteErrorContext);
 	  let state = useDataRouterState(DataRouterStateHook$1.UseRouteError);
 	  let routeId = useCurrentRouteId(DataRouterStateHook$1.UseRouteError);
 
@@ -34669,11 +34669,11 @@
 	    router
 	  } = useDataRouterContext$1(DataRouterHook$1.UseNavigateStable);
 	  let id = useCurrentRouteId(DataRouterStateHook$1.UseNavigateStable);
-	  let activeRef = reactExports$1.useRef(false);
+	  let activeRef = reactExports.useRef(false);
 	  useIsomorphicLayoutEffect(() => {
 	    activeRef.current = true;
 	  });
-	  let navigate = reactExports$1.useCallback(function (to, options) {
+	  let navigate = reactExports.useCallback(function (to, options) {
 	    if (options === void 0) {
 	      options = {};
 	    }
@@ -34722,7 +34722,7 @@
 	  See https://github.com/remix-run/react-router/issues/10579
 	*/
 	const START_TRANSITION$1 = "startTransition";
-	React$2[START_TRANSITION$1];
+	React$1[START_TRANSITION$1];
 	/**
 	 * Declares an element that should be rendered at a certain URL path.
 	 *
@@ -34754,7 +34754,7 @@
 	  // Preserve trailing slashes on basename, so we can let the user control
 	  // the enforcement of trailing slashes throughout the app
 	  let basename = basenameProp.replace(/^\/*/, "/");
-	  let navigationContext = reactExports$1.useMemo(() => ({
+	  let navigationContext = reactExports.useMemo(() => ({
 	    basename,
 	    navigator,
 	    static: staticProp
@@ -34769,7 +34769,7 @@
 	    state = null,
 	    key = "default"
 	  } = locationProp;
-	  let locationContext = reactExports$1.useMemo(() => {
+	  let locationContext = reactExports.useMemo(() => {
 	    let trailingPathname = stripBasename(pathname, basename);
 	    if (trailingPathname == null) {
 	      return null;
@@ -34789,9 +34789,9 @@
 	  if (locationContext == null) {
 	    return null;
 	  }
-	  return /*#__PURE__*/reactExports$1.createElement(NavigationContext.Provider, {
+	  return /*#__PURE__*/reactExports.createElement(NavigationContext.Provider, {
 	    value: navigationContext
-	  }, /*#__PURE__*/reactExports$1.createElement(LocationContext.Provider, {
+	  }, /*#__PURE__*/reactExports.createElement(LocationContext.Provider, {
 	    children: children,
 	    value: locationContext
 	  }));
@@ -34833,14 +34833,14 @@
 	    parentPath = [];
 	  }
 	  let routes = [];
-	  reactExports$1.Children.forEach(children, (element, index) => {
-	    if (! /*#__PURE__*/reactExports$1.isValidElement(element)) {
+	  reactExports.Children.forEach(children, (element, index) => {
+	    if (! /*#__PURE__*/reactExports.isValidElement(element)) {
 	      // Ignore non-elements. This allows people to more easily inline
 	      // conditionals in their route config.
 	      return;
 	    }
 	    let treePath = [...parentPath, index];
-	    if (element.type === reactExports$1.Fragment) {
+	    if (element.type === reactExports.Fragment) {
 	      // Transparently support React.Fragment and its children.
 	      routes.push.apply(routes, createRoutesFromChildren(element.props.children, treePath));
 	      return;
@@ -35056,7 +35056,7 @@
 	  See https://github.com/remix-run/react-router/issues/10579
 	*/
 	const START_TRANSITION = "startTransition";
-	const startTransitionImpl = React$2[START_TRANSITION];
+	const startTransitionImpl = React$1[START_TRANSITION];
 	/**
 	 * A `<Router>` for use in web browsers. Provides the cleanest URLs.
 	 */
@@ -35067,7 +35067,7 @@
 	    future,
 	    window
 	  } = _ref;
-	  let historyRef = reactExports$1.useRef();
+	  let historyRef = reactExports.useRef();
 	  if (historyRef.current == null) {
 	    historyRef.current = createBrowserHistory({
 	      window,
@@ -35075,18 +35075,18 @@
 	    });
 	  }
 	  let history = historyRef.current;
-	  let [state, setStateImpl] = reactExports$1.useState({
+	  let [state, setStateImpl] = reactExports.useState({
 	    action: history.action,
 	    location: history.location
 	  });
 	  let {
 	    v7_startTransition
 	  } = future || {};
-	  let setState = reactExports$1.useCallback(newState => {
+	  let setState = reactExports.useCallback(newState => {
 	    v7_startTransition && startTransitionImpl ? startTransitionImpl(() => setStateImpl(newState)) : setStateImpl(newState);
 	  }, [setStateImpl, v7_startTransition]);
-	  reactExports$1.useLayoutEffect(() => history.listen(setState), [history, setState]);
-	  return /*#__PURE__*/reactExports$1.createElement(Router, {
+	  reactExports.useLayoutEffect(() => history.listen(setState), [history, setState]);
+	  return /*#__PURE__*/reactExports.createElement(Router, {
 	    basename: basename,
 	    children: children,
 	    location: state.location,
@@ -35099,7 +35099,7 @@
 	/**
 	 * The public API for rendering a history-aware <a>.
 	 */
-	const Link = /*#__PURE__*/reactExports$1.forwardRef(function LinkWithRef(_ref4, ref) {
+	const Link = /*#__PURE__*/reactExports.forwardRef(function LinkWithRef(_ref4, ref) {
 	  let {
 	      onClick,
 	      relative,
@@ -35113,7 +35113,7 @@
 	    rest = _objectWithoutPropertiesLoose$1(_ref4, _excluded$6);
 	  let {
 	    basename
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  // Rendered into <a href> for absolute URLs
 	  let absoluteHref;
 	  let isExternal = false;
@@ -35158,7 +35158,7 @@
 	  return (
 	    /*#__PURE__*/
 	    // eslint-disable-next-line jsx-a11y/anchor-has-content
-	    reactExports$1.createElement("a", _extends$1({}, rest, {
+	    reactExports.createElement("a", _extends$1({}, rest, {
 	      href: absoluteHref || href,
 	      onClick: isExternal || reloadDocument ? onClick : handleClick,
 	      ref: ref,
@@ -35172,7 +35172,7 @@
 	/**
 	 * A <Link> wrapper that knows if it's "active" or not.
 	 */
-	const NavLink = /*#__PURE__*/reactExports$1.forwardRef(function NavLinkWithRef(_ref5, ref) {
+	const NavLink = /*#__PURE__*/reactExports.forwardRef(function NavLinkWithRef(_ref5, ref) {
 	  let {
 	      "aria-current": ariaCurrentProp = "page",
 	      caseSensitive = false,
@@ -35187,10 +35187,10 @@
 	    relative: rest.relative
 	  });
 	  let location = useLocation();
-	  let routerState = reactExports$1.useContext(DataRouterStateContext);
+	  let routerState = reactExports.useContext(DataRouterStateContext);
 	  let {
 	    navigator
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  let toPathname = navigator.encodeLocation ? navigator.encodeLocation(path).pathname : path.pathname;
 	  let locationPathname = location.pathname;
 	  let nextLocationPathname = routerState && routerState.navigation && routerState.navigation.location ? routerState.navigation.location.pathname : null;
@@ -35220,7 +35220,7 @@
 	    isActive,
 	    isPending
 	  }) : styleProp;
-	  return /*#__PURE__*/reactExports$1.createElement(Link, _extends$1({}, rest, {
+	  return /*#__PURE__*/reactExports.createElement(Link, _extends$1({}, rest, {
 	    "aria-current": ariaCurrent,
 	    className: className,
 	    ref: ref,
@@ -35240,17 +35240,17 @@
 	 * requests, allowing components to add nicer UX to the page as the form is
 	 * submitted and returns with data.
 	 */
-	const Form$1 = /*#__PURE__*/reactExports$1.forwardRef((props, ref) => {
+	const Form = /*#__PURE__*/reactExports.forwardRef((props, ref) => {
 	  let submit = useSubmit();
-	  return /*#__PURE__*/reactExports$1.createElement(FormImpl, _extends$1({}, props, {
+	  return /*#__PURE__*/reactExports.createElement(FormImpl, _extends$1({}, props, {
 	    submit: submit,
 	    ref: ref
 	  }));
 	});
 	{
-	  Form$1.displayName = "Form";
+	  Form.displayName = "Form";
 	}
-	const FormImpl = /*#__PURE__*/reactExports$1.forwardRef((_ref6, forwardedRef) => {
+	const FormImpl = /*#__PURE__*/reactExports.forwardRef((_ref6, forwardedRef) => {
 	  let {
 	      reloadDocument,
 	      replace,
@@ -35279,7 +35279,7 @@
 	      preventScrollReset
 	    });
 	  };
-	  return /*#__PURE__*/reactExports$1.createElement("form", _extends$1({
+	  return /*#__PURE__*/reactExports.createElement("form", _extends$1({
 	    ref: forwardedRef,
 	    method: formMethod,
 	    action: formAction,
@@ -35309,7 +35309,7 @@
 	  return hookName + " must be used within a data router.  See https://reactrouter.com/routers/picking-a-router.";
 	}
 	function useDataRouterContext(hookName) {
-	  let ctx = reactExports$1.useContext(DataRouterContext);
+	  let ctx = reactExports.useContext(DataRouterContext);
 	  !ctx ? invariant(false, getDataRouterConsoleError(hookName))  : void 0;
 	  return ctx;
 	}
@@ -35331,7 +35331,7 @@
 	  let path = useResolvedPath(to, {
 	    relative
 	  });
-	  return reactExports$1.useCallback(event => {
+	  return reactExports.useCallback(event => {
 	    if (shouldProcessLinkClick(event, target)) {
 	      event.preventDefault();
 	      // If the URL hasn't changed, a regular <a> will do a replace instead of
@@ -35361,9 +35361,9 @@
 	  } = useDataRouterContext(DataRouterHook.UseSubmit);
 	  let {
 	    basename
-	  } = reactExports$1.useContext(NavigationContext);
+	  } = reactExports.useContext(NavigationContext);
 	  let currentRouteId = useRouteId();
-	  return reactExports$1.useCallback(function (target, options) {
+	  return reactExports.useCallback(function (target, options) {
 	    if (options === void 0) {
 	      options = {};
 	    }
@@ -35394,8 +35394,8 @@
 	  } = _temp2 === void 0 ? {} : _temp2;
 	  let {
 	    basename
-	  } = reactExports$1.useContext(NavigationContext);
-	  let routeContext = reactExports$1.useContext(RouteContext);
+	  } = reactExports.useContext(NavigationContext);
+	  let routeContext = reactExports.useContext(RouteContext);
 	  !routeContext ? invariant(false, "useFormAction must be used inside a RouteContext")  : void 0;
 	  let [match] = routeContext.matches.slice(-1);
 	  // Shallow clone path so we can modify it below, otherwise we modify the
@@ -35438,3836 +35438,106 @@
 	}
 
 	function MenuPage() {
-	    return (React$1.createElement("ul", { className: "menu" },
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/basic" }, "Basic")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/debounce" }, "Debounce")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/submit-condition" }, "Submit Condition")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/all-validations" }, "All Validations")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/custom-validation" }, "Custom Validation")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/async-validation" }, "Async Validation")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/async-submit" }, "Async Submit")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/custom-component" }, "Custom Component")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/watcher-form-page" }, "Watcher Form Page")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/simple-without-context" }, "Simple Without Context")),
-	        React$1.createElement("li", null,
-	            React$1.createElement(Link, { to: "/confirm" }, "Confirm")),
+	    return (React.createElement("ul", { className: "menu" },
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/basic" }, "Basic")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/debounce" }, "Debounce")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/submit-condition" }, "Submit Condition")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/all-validations" }, "All Validations")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/custom-validation" }, "Custom Validation")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/async-validation" }, "Async Validation")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/async-submit" }, "Async Submit")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/custom-component" }, "Custom Component")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/watcher-form-page" }, "Watcher Form Page")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/simple-without-context" }, "Simple Without Context")),
+	        React.createElement("li", null,
+	            React.createElement(Link, { to: "/confirm" }, "Confirm")),
 	        " "));
 	}
 
-	var FormRefreshType;
-	(function (FormRefreshType) {
-	    FormRefreshType["blur"] = "blur";
-	    FormRefreshType["instant"] = "instant";
-	})(FormRefreshType || (FormRefreshType = {}));
-	var FormShouldValidateType;
-	(function (FormShouldValidateType) {
-	    FormShouldValidateType["YES"] = "YES";
-	    FormShouldValidateType["AFTER_FIRST_SUBMIT_ATTEMPT"] = "AFTER_FIRST_SUBMIT_ATTEMPT";
-	    FormShouldValidateType["NO"] = "NO";
-	})(FormShouldValidateType || (FormShouldValidateType = {}));
-
-	({
-	    refreshType: FormRefreshType.instant,
-	    debounceNumber: undefined,
-	});
-
-	var ActionType;
-	(function (ActionType) {
-	    ActionType["INIT"] = "INIT";
-	    ActionType["NEW_VALUE"] = "NEW_VALUE";
-	    ActionType["BLURRED"] = "BLURRED";
-	    ActionType["ASYNC_VALIDATION"] = "ASYNC_VALIDATION";
-	    ActionType["SUBMIT_STARTED"] = "SUBMIT_STARTED";
-	    ActionType["SUBMIT_ERROR"] = "SUBMIT_ERROR";
-	    ActionType["SUBMIT_SUCCEED"] = "SUBMIT_SUCCEED";
-	    ActionType["NEW_VALUE_DEBOUNCED"] = "NEW_VALUE_DEBOUNCED";
-	    ActionType["BLURRED_DEBOUNCED"] = "BLURRED_DEBOUNCED";
-	    ActionType["CONFIRM_SELECTED"] = "CONFIRM_SELECTED";
-	})(ActionType || (ActionType = {}));
-
-	function throwContextError(name) {
-	    return new Error(`You cannot use ${name} outside of Form Component`);
-	}
-
-	function throwNotRegistered(name) {
-	    return new Error(`"${name}" is not registered`);
-	}
-
-	class Debounce {
-	    time;
-	    __select_time;
-	    constructor(time = 800) {
-	        this.time = time;
-	        this.__select_time = 0;
-	    }
-	    cb(cb) {
-	        this.reset();
-	        // @ts-ignore
-	        this.__select_time = setTimeout(() => {
-	            cb && cb();
-	        }, this.time);
-	    }
-	    reset() {
-	        clearTimeout(this.__select_time);
-	    }
-	}
-
-	function reducer(state, action) {
-	    function setError(currentInputState) {
-	        if (currentInputState.error) {
-	            state.formState.formStatus = "ERROR";
-	        }
-	        else {
-	            if (state.formState.formStatus !== "ERROR") {
-	                state.formState.formStatus = "NOT-CLEAN";
-	            }
-	            else {
-	                state.formState.formStatus = Object.values(state.inputStates).reduce((p, c) => p && !!c.error, false)
-	                    ? "ERROR"
-	                    : "NOT-CLEAN";
-	            }
-	        }
-	    }
-	    let preState = null;
-	    if (state.formState.dev) {
-	        preState = JSON.parse(JSON.stringify(state));
-	    }
-	    switch (action.type) {
-	        case ActionType.INIT:
-	            state.formState.formStatus = "CLEAN";
-	            break;
-	        case ActionType.BLURRED_DEBOUNCED:
-	        case ActionType.NEW_VALUE_DEBOUNCED: {
-	            const payload = action.payload;
-	            const error = payload.error;
-	            const validateRequired = payload.validateRequired;
-	            const currentInputState = state.inputStates[payload.name];
-	            if (!currentInputState) {
-	                throw throwNotRegistered(payload.name);
-	            }
-	            currentInputState.value = currentInputState._refreshValue;
-	            if (error && !Array.isArray(error)) {
-	                throw new Error("error must be array");
-	            }
-	            currentInputState.error = error;
-	            currentInputState.validateRequired = validateRequired ?? currentInputState.validateRequired;
-	            setError(currentInputState);
-	            break;
-	        }
-	        case ActionType.NEW_VALUE: {
-	            const payload = action.payload;
-	            const value = payload.value;
-	            const error = payload.error;
-	            const validateRequired = payload.validateRequired;
-	            const currentInputState = state.inputStates[payload.name];
-	            if (!currentInputState) {
-	                throw throwNotRegistered(payload.name);
-	            }
-	            currentInputState._refreshValue = value;
-	            if (state.formState.refreshType === FormRefreshType.instant) {
-	                if (!state.formState.debounceNumber || state.formState.debounceNumber === 0) {
-	                    currentInputState.value = value;
-	                }
-	            }
-	            if (error && !Array.isArray(error)) {
-	                throw new Error("error must be array");
-	            }
-	            currentInputState.error = error;
-	            currentInputState.validateRequired = validateRequired ?? currentInputState.validateRequired;
-	            setError(currentInputState);
-	            break;
-	        }
-	        case ActionType.BLURRED: {
-	            if (state.formState.refreshType !== FormRefreshType.blur)
-	                break;
-	            const payload = action.payload;
-	            const error = payload.error;
-	            const validateRequired = payload.validateRequired;
-	            const currentInputState = state.inputStates[payload.name];
-	            if (!currentInputState) {
-	                throw throwNotRegistered(payload.name);
-	            }
-	            currentInputState.value = currentInputState._refreshValue;
-	            if (error && !Array.isArray(error)) {
-	                throw new Error("error must be array");
-	            }
-	            currentInputState.error = error;
-	            currentInputState.validateRequired = validateRequired ?? currentInputState.validateRequired;
-	            setError(currentInputState);
-	            break;
-	        }
-	        case ActionType.SUBMIT_STARTED: {
-	            state.formState.loading = true;
-	            state.formState.submitAttemptNumber++;
-	            break;
-	        }
-	        case ActionType.CONFIRM_SELECTED: {
-	            state.formState.confirmActive = true;
-	            break;
-	        }
-	        case ActionType.SUBMIT_SUCCEED: {
-	            state.formState.confirmActive = false;
-	            state.formState.loading = false;
-	            Object.values(state.inputStates).forEach((s) => {
-	                s.validateRequired = false;
-	            });
-	            state.formState.formStatus = "SUCCESS";
-	            break;
-	        }
-	        case ActionType.SUBMIT_ERROR: {
-	            const payload = action.payload;
-	            state.formState.confirmActive = false;
-	            state.formState.loading = false;
-	            Object.values(state.inputStates).forEach((s) => {
-	                s.validateRequired = false;
-	            });
-	            state.formState.formStatus = "ERROR";
-	            const error = payload.error;
-	            if (!error) {
-	                console.warn("Wrong usage, error must be filled if success is false");
-	            }
-	            else {
-	                if (Array.isArray(error)) {
-	                    error.forEach((e) => {
-	                        if (e instanceof Error || !e.name) {
-	                            state.formState.error = e;
-	                        }
-	                        else {
-	                            const currentInputState = state.inputStates[e.name];
-	                            if (currentInputState) {
-	                                currentInputState.error = Array.isArray(e) ? e : [e];
-	                            }
-	                        }
-	                    });
-	                }
-	                else {
-	                    if (error instanceof Error || !error.name) {
-	                        state.formState.error = error;
-	                    }
-	                    else {
-	                        const currentInputState = state.inputStates[error.name];
-	                        if (currentInputState) {
-	                            currentInputState.error = [error];
-	                        }
-	                    }
-	                }
-	            }
-	            break;
-	        }
-	        case ActionType.ASYNC_VALIDATION: {
-	            const payload = action.payload;
-	            const currentInputState = state.inputStates[payload.name];
-	            if (!currentInputState) {
-	                throw throwNotRegistered(payload.name);
-	            }
-	            if (payload.forSubmit) {
-	                state.formState.loading = payload.value;
-	            }
-	            currentInputState.validateLoading = payload.value;
-	            break;
-	        }
-	        default:
-	            throw new Error("Unexpected Action Type");
-	    }
-	    if (state.formState.dev) {
-	        console.info("FORM", action.type, {
-	            payload: action.payload,
-	            oldState: preState,
-	            newState: state,
-	        });
-	    }
-	    return state;
-	}
-
-	class Store {
-	    state;
-	    reducer;
-	    listeners = [];
-	    instantListeners = [];
-	    debounce;
-	    __inputValidationFunctions__ = {};
-	    __lastEvent__ = { actionProps: { type: ActionType.INIT, payload: undefined }, index: 0 };
-	    constructor(state, reducer) {
-	        this.state = state;
-	        this.reducer = reducer;
-	        this.debounce =
-	            state.formState.debounceNumber && state.formState.debounceNumber > 0
-	                ? new Debounce(state.formState.debounceNumber)
-	                : undefined;
-	    }
-	    subscribe(fn) {
-	        this.listeners.push(fn);
-	        return () => {
-	            this.listeners.splice(this.listeners.indexOf(fn), 1);
-	        };
-	    }
-	    subscribeInstant(fn) {
-	        this.instantListeners.push(fn);
-	        return () => {
-	            this.listeners.splice(this.instantListeners.indexOf(fn), 1);
-	        };
-	    }
-	    dispatch(action) {
-	        this.__lastEvent__ = {
-	            actionProps: { type: action.type, payload: action.payload },
-	            index: this.__lastEvent__.index + 1,
-	        };
-	        if (((action.type === ActionType.NEW_VALUE && this.state.formState.refreshType === FormRefreshType.instant) ||
-	            (action.type === ActionType.BLURRED && this.state.formState.refreshType === FormRefreshType.blur)) &&
-	            this.state.formState.debounceNumber &&
-	            this.state.formState.debounceNumber > 0) {
-	            console.log("debounce", action, this.state.formState.refreshType);
-	            this.debounce?.cb(() => {
-	                if (action.type === ActionType.BLURRED) {
-	                    this.dispatch({ type: ActionType.NEW_VALUE_DEBOUNCED, payload: action.payload });
-	                }
-	                else {
-	                    this.dispatch({ type: ActionType.BLURRED_DEBOUNCED, payload: action.payload });
-	                }
-	            });
-	        }
-	        else {
-	            this.state = this.reducer(this.state, action);
-	            this.instantBroadcast();
-	            this.broadcast();
-	        }
-	    }
-	    getValidationData() {
-	        return Object.entries(this.state.inputStates)
-	            .filter(([, inputState]) => inputState.validateRequired)
-	            .reduce((data, [key, inputState]) => {
-	            data[key] = inputState.value;
-	            return data;
-	        }, {});
-	    }
-	    createInput(name, options) {
-	        if (this.state.inputStates[name]) {
-	            return this.state.inputStates[name];
-	        }
-	        else {
-	            this.state.inputStates[name] = {
-	                name: name,
-	                value: options.defaultValue,
-	                validateLoading: false,
-	                _refreshValue: options.defaultValue,
-	                validateRequired: true,
-	                error: undefined,
-	            };
-	        }
-	    }
-	    broadcast() {
-	        this.listeners.forEach((l) => l(this.state));
-	    }
-	    instantBroadcast() {
-	        this.instantListeners.forEach((l) => l(this.state));
-	    }
-	    getRawData() {
-	        return Object.entries(this.state.inputStates).reduce((data, [key, inputState]) => {
-	            data[key] = inputState.value;
-	            return data;
-	        }, {});
-	    }
-	    getShouldValidateAgain() {
-	        return Object.values(this.state.inputStates).reduce((sum, r) => sum || r.validateRequired, false);
-	    }
-	    addValidation(name, validation) {
-	        if (validation) {
-	            this.__inputValidationFunctions__[name] = validation;
-	        }
-	        else {
-	            this.__inputValidationFunctions__[name] = undefined;
-	        }
-	    }
-	}
-
-	//cp: https://stackoverflow.com/a/29767609
-	const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
-	//cp: https://stackoverflow.com/a/46181
-	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	//cp: https://stackoverflow.com/a/3809435
-	const urlHttpRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/;
-
-	function required(value) {
-	    return !!value;
-	}
-	function min$1(value, payload) {
-	    if (!value)
-	        return true;
-	    let _value = Number(value);
-	    return !isNaN(_value) && _value > payload;
-	}
-	function minLength(value, payload) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && value.length > payload;
-	}
-	function max$1(value, payload) {
-	    if (!value)
-	        return true;
-	    let _value = Number(value);
-	    return !isNaN(_value) && _value < payload;
-	}
-	function maxLength(value, payload) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && value.length < payload;
-	}
-	//inspired: https://stackoverflow.com/a/46181
-	function email(value) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && !!value.toLowerCase().match(emailRegex);
-	}
-	//inspired: https://stackoverflow.com/a/29767609
-	function phone(value) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && !!value.match(phoneRegex);
-	}
-	function repeatPassword(value, payload) {
-	    if (!payload)
-	        return true;
-	    return value === payload;
-	}
-	//inspired: https://stackoverflow.com/a/3809435
-	function url(value) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && !!value.match(urlHttpRegex);
-	}
-	function customRegex(value, regex) {
-	    if (!value)
-	        return true;
-	    return typeof value === "string" && regex.test(value);
-	}
-
-	var ValidatorType;
-	(function (ValidatorType) {
-	    ValidatorType["required"] = "required";
-	    ValidatorType["min"] = "min";
-	    ValidatorType["minLength"] = "minLength";
-	    ValidatorType["max"] = "max";
-	    ValidatorType["maxLength"] = "maxLength";
-	    ValidatorType["email"] = "email";
-	    ValidatorType["phone"] = "phone";
-	    ValidatorType["repeatPassword"] = "repeatPassword";
-	    ValidatorType["url"] = "url";
-	    ValidatorType["regex"] = "regex";
-	})(ValidatorType || (ValidatorType = {}));
-	class Validator {
-	    store;
-	    validateName;
-	    validations = {};
-	    settings = { validateAll: false };
-	    constructor(store, validateName) {
-	        this.store = store;
-	        this.validateName = validateName;
-	    }
-	    required() {
-	        return this.register(ValidatorType.required, required);
-	    }
-	    min(v) {
-	        return this.register(ValidatorType.min, min$1, v);
-	    }
-	    minLength(v) {
-	        return this.register(ValidatorType.minLength, minLength, v);
-	    }
-	    max(v) {
-	        return this.register(ValidatorType.max, max$1, v);
-	    }
-	    maxLength(v) {
-	        return this.register(ValidatorType.maxLength, maxLength, v);
-	    }
-	    email() {
-	        return this.register(ValidatorType.email, email);
-	    }
-	    phone() {
-	        return this.register(ValidatorType.phone, phone);
-	    }
-	    repeatPassword(payload) {
-	        const storeData = this.store.getRawData();
-	        return this.register(ValidatorType.repeatPassword, repeatPassword, storeData ? storeData[payload] : undefined);
-	    }
-	    url() {
-	        return this.register(ValidatorType.url, url);
-	    }
-	    regex(regex) {
-	        return this.register(ValidatorType.regex, customRegex, regex);
-	    }
-	    validate(name, fn, payload) {
-	        return this.register("custom_" + this.validateName, fn, Number(payload));
-	    }
-	    async(name, fn, payload) {
-	        return this.registerAsync(name, fn, payload);
-	    }
-	    set(param) {
-	        this.settings = {
-	            ...this.settings,
-	            validateAll: param.validateAll,
-	        };
-	        return this;
-	    }
-	    register(name, fn, payload) {
-	        this.validations[name] = {
-	            fn,
-	            payload,
-	            async: false,
-	        };
-	        return this;
-	    }
-	    registerAsync(name, fn, payload) {
-	        this.validations[name] = {
-	            fn,
-	            payload,
-	            async: true,
-	        };
-	        return this;
-	    }
-	}
-
-	function getErrorDefaultText(error) {
-	    console.log("error", error);
-	    switch (error.type) {
-	        case ValidatorType.required:
-	            return "This Field is required.";
-	        case ValidatorType.min:
-	            return "Minimum required number is " + error.payload;
-	        case ValidatorType.minLength:
-	            return ("Minimum " + error.payload + " " + (error.payload === 1 ? "character" : "characters") + " are allowed");
-	        case ValidatorType.max:
-	            return "Maximum required number is " + error.payload;
-	        case ValidatorType.maxLength:
-	            return ("Maximum " + error.payload + " " + (error.payload === 1 ? "character" : "characters") + " are allowed");
-	        case ValidatorType.email:
-	            return "Please enter a valid email address.";
-	        case ValidatorType.phone:
-	            return "Please enter a valid phone number.";
-	        case ValidatorType.repeatPassword:
-	            return (error && error.name ? error.name : "Password ") + " is not matched.";
-	        case ValidatorType.url:
-	            return "Please enter a valid url.";
-	    }
-	    return error.payload?.message || "Invalid field";
-	}
-
-	class FormBase {
-	    confirm = null;
-	    store;
-	    constructor({ refreshType = FormRefreshType.blur, shouldValidate = FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT, debounceNumber = undefined, dev = false, }) {
-	        this.store = new Store({
-	            formState: {
-	                formStatus: "CLEAN",
-	                confirmActive: false,
-	                error: null,
-	                loading: false,
-	                debounceNumber,
-	                refreshType,
-	                shouldValidate,
-	                submitAttemptNumber: 0,
-	                dev,
-	            },
-	            inputStates: {},
-	        }, reducer);
-	        //I prefer to use this instead of fat arrow functions
-	        this.onSubmit = this.onSubmit.bind(this);
-	    }
-	    getDataWithoutValidation() {
-	        const data = this.store.getRawData();
-	        return {
-	            isValid: undefined,
-	            validateErrors: undefined,
-	            shouldValidateAgain: this.store.getShouldValidateAgain(),
-	            loading: this.store.state.formState.loading,
-	            data,
-	        };
-	    }
-	    async getDataWithValidation(validate, { validateLoading }) {
-	        const data = this.store.getRawData();
-	        const responseData = {
-	            isValid: undefined,
-	            validateErrors: undefined,
-	            shouldValidateAgain: this.store.getShouldValidateAgain(),
-	            loading: this.store.state.formState.loading,
-	            data,
-	        };
-	        if (validate) {
-	            const validateErrors = await this.validate(data, { validateLoading });
-	            responseData.isValid = !(validateErrors && validateErrors.length);
-	            responseData.validateErrors = validateErrors;
-	        }
-	        return responseData;
-	    }
-	    async onSubmit(formSubmitFunction) {
-	        const state = this.store.state;
-	        const formState = state.formState;
-	        Object.values(state.inputStates).forEach((is) => {
-	            is.value = is._refreshValue;
-	        });
-	        if (formState.loading) {
-	            console.warn("Double click detect");
-	        }
-	        if (formState.confirmActive) {
-	            console.warn("Form submitted when confirm active");
-	        }
-	        this.store.dispatch({
-	            type: ActionType.SUBMIT_STARTED,
-	        });
-	        const responseData = await this.getDataWithValidation(true, { validateLoading: true });
-	        if (responseData.isValid) {
-	            try {
-	                const confirm = (_fn) => {
-	                    this.confirm = (succeed, payload) => {
-	                        this.store.dispatch({
-	                            type: ActionType.CONFIRM_SELECTED,
-	                        });
-	                        if (succeed) {
-	                            const result = _fn(payload);
-	                            this.onSubmitResult(result);
-	                        }
-	                        else {
-	                            this.store.dispatch({
-	                                type: ActionType.SUBMIT_ERROR,
-	                                payload: {
-	                                    payload: {
-	                                        error: payload,
-	                                    },
-	                                },
-	                            });
-	                        }
-	                    };
-	                };
-	                const result = formSubmitFunction &&
-	                    formSubmitFunction(responseData, {
-	                        confirm,
-	                    });
-	                if (formState.confirmActive) {
-	                    return;
-	                }
-	                this.onSubmitResult(result);
-	            }
-	            catch (error) {
-	                this.store.dispatch({
-	                    type: ActionType.SUBMIT_ERROR,
-	                    payload: {
-	                        payload: {
-	                            error,
-	                        },
-	                    },
-	                });
-	            }
-	        }
-	        else {
-	            const errors = [];
-	            if (responseData.validateErrors) {
-	                for (let i = 0; i < responseData.validateErrors.length; i++) {
-	                    const e = responseData.validateErrors[i];
-	                    errors.push({ value: e.value, name: e.name, payload: e.payload, type: e.type });
-	                }
-	                this.store.dispatch({
-	                    type: ActionType.SUBMIT_ERROR,
-	                    payload: { error: errors },
-	                });
-	            }
-	        }
-	    }
-	    shouldValidate(formState) {
-	        const shouldValidateObj = this.store.state.formState.shouldValidate;
-	        let shouldValidate = false;
-	        if (typeof shouldValidateObj === "function") {
-	            shouldValidate = shouldValidateObj(this);
-	        }
-	        else {
-	            const shouldValidateType = shouldValidateObj;
-	            if (shouldValidateType === FormShouldValidateType.YES) {
-	                shouldValidate = true;
-	            }
-	            else if (shouldValidateType === FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT) {
-	                if (formState.submitAttemptNumber > 0) {
-	                    shouldValidate = true;
-	                }
-	            }
-	        }
-	        return shouldValidate;
-	    }
-	    createInput(name, options) {
-	        this.store.createInput(name, options);
-	        if (options.validation) {
-	            this.store.__inputValidationFunctions__[name] = options.validation;
-	        }
-	        else {
-	            this.store.__inputValidationFunctions__[name] = undefined;
-	        }
-	        return {
-	            onChange: (value) => {
-	                this.setValue(name, value).then();
-	            },
-	            onBlur: async () => {
-	                console.log("this.store.state.formState.refreshType", this.store.state.formState.refreshType);
-	                if (this.store.state.formState.refreshType !== FormRefreshType.blur)
-	                    return;
-	                //https://stackoverflow.com/questions/44142273/react-ul-with-onblur-event-is-preventing-onclick-from-firing-on-li
-	                //I added to solve rerender problem. Do we need it??
-	                setTimeout(async () => {
-	                    let error;
-	                    const inputState = this.store.state.inputStates[name];
-	                    const value = inputState?._refreshValue;
-	                    if (inputState?.validateRequired) {
-	                        error = await this.validateInput(name, value);
-	                    }
-	                    this.store.dispatch({
-	                        type: ActionType.BLURRED,
-	                        payload: { name, error, validateRequired: error === undefined },
-	                    });
-	                }, 50);
-	            },
-	            addValidation: (validatorToValidatorFunc) => {
-	                this.store.addValidation(name, validatorToValidatorFunc);
-	            },
-	        };
-	    }
-	    deleteInput(name) {
-	        this.checkNameExist(name);
-	        delete this.store.state.inputStates[name];
-	    }
-	    async setValue(name, value) {
-	        this.checkNameExist(name);
-	        const formState = this.store.state.formState;
-	        let error = null;
-	        let validated = false;
-	        if (formState.refreshType === FormRefreshType.instant) {
-	            error = await this.validateInput(name, value);
-	            validated = true;
-	        }
-	        this.store.dispatch({
-	            type: ActionType.NEW_VALUE,
-	            payload: {
-	                value,
-	                name,
-	                error,
-	                validateRequired: !validated,
-	            },
-	        });
-	    }
-	    async validateInput(name, value) {
-	        this.checkNameExist(name);
-	        const formState = this.store.state.formState;
-	        const validationFunction = this.store.__inputValidationFunctions__[name];
-	        if (!validationFunction)
-	            return null;
-	        const shouldValidate = this.shouldValidate(formState);
-	        if (!shouldValidate)
-	            return undefined;
-	        const validator = new Validator(this.store, "validator_" + name);
-	        const validation = validationFunction(validator);
-	        if (!validation)
-	            return null;
-	        let array = [];
-	        const vKeys = Object.keys(validation.validations);
-	        for (let j = 0; j < vKeys.length; j++) {
-	            if (array.length) {
-	                if (!validation.settings.validateAll) {
-	                    return array;
-	                }
-	            }
-	            const vKey = vKeys[j];
-	            const vObj = validation.validations[vKey];
-	            const obj = vObj.fn(value, vObj.payload);
-	            if (!obj)
-	                array.push([{ name: name, type: vKey, value, payload: vObj.payload }]);
-	            // @ts-ignore
-	            if (obj && obj.then) {
-	                this.store.dispatch({
-	                    type: ActionType.ASYNC_VALIDATION,
-	                    payload: { name, value: true, forSubmit: false },
-	                });
-	                const result = await obj;
-	                this.store.dispatch({
-	                    type: ActionType.ASYNC_VALIDATION,
-	                    payload: { name, value: false, forSubmit: false },
-	                });
-	                if (!result) {
-	                    array.push({ name: name, type: vKey, value, payload: vObj.payload });
-	                }
-	            }
-	        }
-	        return array;
-	    }
-	    async validate(data, { validateLoading }) {
-	        const errors = [];
-	        const keys = Object.keys(data);
-	        for (let i = 0; i < keys.length; i++) {
-	            const name = keys[i];
-	            const validationFunction = this.store.__inputValidationFunctions__[name];
-	            if (!validationFunction)
-	                continue;
-	            const validation = validationFunction(new Validator(this.store, "validator_" + name));
-	            if (!validation)
-	                continue;
-	            const vKeys = Object.keys(validation.validations);
-	            for (let j = 0; j < vKeys.length; j++) {
-	                const vKey = vKeys[j];
-	                const vObj = validation.validations[vKey];
-	                const value = data[name];
-	                const obj = vObj.fn(value, vObj.payload);
-	                if (!obj)
-	                    errors.push({ name: name, type: vKey, value, payload: vObj.payload });
-	                // @ts-ignore
-	                if (obj && obj.then) {
-	                    validateLoading &&
-	                        this.store.dispatch({
-	                            type: ActionType.ASYNC_VALIDATION,
-	                            payload: { name, value: true, forSubmit: true },
-	                        });
-	                    const result = await obj;
-	                    validateLoading &&
-	                        this.store.dispatch({
-	                            type: ActionType.ASYNC_VALIDATION,
-	                            payload: { name, value: false, forSubmit: true },
-	                        });
-	                    if (!result) {
-	                        errors.push({ name: name, type: vKey, value, payload: vObj.payload });
-	                    }
-	                }
-	            }
-	        }
-	        return errors;
-	    }
-	    checkNameExist(name) {
-	        if (!this.store.state.inputStates[name]) {
-	            throw throwNotRegistered(name);
-	        }
-	    }
-	    onSubmitResult(result) {
-	        if (result && result.then !== undefined) {
-	            const promise = result;
-	            promise
-	                .then(() => {
-	                this.store.dispatch({
-	                    type: ActionType.SUBMIT_SUCCEED,
-	                });
-	            })
-	                .catch((e) => {
-	                this.store.dispatch({
-	                    type: ActionType.SUBMIT_ERROR,
-	                    payload: {
-	                        error: e,
-	                    },
-	                });
-	            });
-	        }
-	        else {
-	            this.store.dispatch({
-	                type: ActionType.SUBMIT_SUCCEED,
-	            });
-	        }
-	    }
-	}
-
-	var reactExports = {};
-	var react = {
-	  get exports(){ return reactExports; },
-	  set exports(v){ reactExports = v; },
-	};
-
-	var react_developmentExports = {};
-	var react_development = {
-	  get exports(){ return react_developmentExports; },
-	  set exports(v){ react_developmentExports = v; },
-	};
-
-	/**
-	 * @license React
-	 * react.development.js
-	 *
-	 * Copyright (c) Facebook, Inc. and its affiliates.
-	 *
-	 * This source code is licensed under the MIT license found in the
-	 * LICENSE file in the root directory of this source tree.
-	 */
-
-	(function (module, exports) {
-
-		{
-		  (function() {
-
-		/* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-		if (
-		  typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' &&
-		  typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart ===
-		    'function'
-		) {
-		  __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-		}
-		          var ReactVersion = '18.2.0';
-
-		// ATTENTION
-		// When adding new symbols to this file,
-		// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-		// The Symbol used to tag the ReactElement-like types.
-		var REACT_ELEMENT_TYPE = Symbol.for('react.element');
-		var REACT_PORTAL_TYPE = Symbol.for('react.portal');
-		var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
-		var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
-		var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
-		var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
-		var REACT_CONTEXT_TYPE = Symbol.for('react.context');
-		var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
-		var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
-		var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
-		var REACT_MEMO_TYPE = Symbol.for('react.memo');
-		var REACT_LAZY_TYPE = Symbol.for('react.lazy');
-		var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
-		var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
-		var FAUX_ITERATOR_SYMBOL = '@@iterator';
-		function getIteratorFn(maybeIterable) {
-		  if (maybeIterable === null || typeof maybeIterable !== 'object') {
-		    return null;
-		  }
-
-		  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-		  if (typeof maybeIterator === 'function') {
-		    return maybeIterator;
-		  }
-
-		  return null;
-		}
-
-		/**
-		 * Keeps track of the current dispatcher.
-		 */
-		var ReactCurrentDispatcher = {
-		  /**
-		   * @internal
-		   * @type {ReactComponent}
-		   */
-		  current: null
-		};
-
-		/**
-		 * Keeps track of the current batch's configuration such as how long an update
-		 * should suspend for if it needs to.
-		 */
-		var ReactCurrentBatchConfig = {
-		  transition: null
-		};
-
-		var ReactCurrentActQueue = {
-		  current: null,
-		  // Used to reproduce behavior of `batchedUpdates` in legacy mode.
-		  isBatchingLegacy: false,
-		  didScheduleLegacyUpdate: false
-		};
-
-		/**
-		 * Keeps track of the current owner.
-		 *
-		 * The current owner is the component who should own any components that are
-		 * currently being constructed.
-		 */
-		var ReactCurrentOwner = {
-		  /**
-		   * @internal
-		   * @type {ReactComponent}
-		   */
-		  current: null
-		};
-
-		var ReactDebugCurrentFrame = {};
-		var currentExtraStackFrame = null;
-		function setExtraStackFrame(stack) {
-		  {
-		    currentExtraStackFrame = stack;
-		  }
-		}
-
-		{
-		  ReactDebugCurrentFrame.setExtraStackFrame = function (stack) {
-		    {
-		      currentExtraStackFrame = stack;
-		    }
-		  }; // Stack implementation injected by the current renderer.
-
-
-		  ReactDebugCurrentFrame.getCurrentStack = null;
-
-		  ReactDebugCurrentFrame.getStackAddendum = function () {
-		    var stack = ''; // Add an extra top frame while an element is being validated
-
-		    if (currentExtraStackFrame) {
-		      stack += currentExtraStackFrame;
-		    } // Delegate to the injected renderer-specific implementation
-
-
-		    var impl = ReactDebugCurrentFrame.getCurrentStack;
-
-		    if (impl) {
-		      stack += impl() || '';
-		    }
-
-		    return stack;
-		  };
-		}
-
-		// -----------------------------------------------------------------------------
-
-		var enableScopeAPI = false; // Experimental Create Event Handle API.
-		var enableCacheElement = false;
-		var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-		var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-		// stuff. Intended to enable React core members to more easily debug scheduling
-		// issues in DEV builds.
-
-		var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
-
-		var ReactSharedInternals = {
-		  ReactCurrentDispatcher: ReactCurrentDispatcher,
-		  ReactCurrentBatchConfig: ReactCurrentBatchConfig,
-		  ReactCurrentOwner: ReactCurrentOwner
-		};
-
-		{
-		  ReactSharedInternals.ReactDebugCurrentFrame = ReactDebugCurrentFrame;
-		  ReactSharedInternals.ReactCurrentActQueue = ReactCurrentActQueue;
-		}
-
-		// by calls to these methods by a Babel plugin.
-		//
-		// In PROD (or in packages without access to React internals),
-		// they are left as they are instead.
-
-		function warn(format) {
-		  {
-		    {
-		      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-		        args[_key - 1] = arguments[_key];
-		      }
-
-		      printWarning('warn', format, args);
-		    }
-		  }
-		}
-		function error(format) {
-		  {
-		    {
-		      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-		        args[_key2 - 1] = arguments[_key2];
-		      }
-
-		      printWarning('error', format, args);
-		    }
-		  }
-		}
-
-		function printWarning(level, format, args) {
-		  // When changing this logic, you might want to also
-		  // update consoleWithStackDev.www.js as well.
-		  {
-		    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-		    var stack = ReactDebugCurrentFrame.getStackAddendum();
-
-		    if (stack !== '') {
-		      format += '%s';
-		      args = args.concat([stack]);
-		    } // eslint-disable-next-line react-internal/safe-string-coercion
-
-
-		    var argsWithFormat = args.map(function (item) {
-		      return String(item);
-		    }); // Careful: RN currently depends on this prefix
-
-		    argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
-		    // breaks IE9: https://github.com/facebook/react/issues/13610
-		    // eslint-disable-next-line react-internal/no-production-logging
-
-		    Function.prototype.apply.call(console[level], console, argsWithFormat);
-		  }
-		}
-
-		var didWarnStateUpdateForUnmountedComponent = {};
-
-		function warnNoop(publicInstance, callerName) {
-		  {
-		    var _constructor = publicInstance.constructor;
-		    var componentName = _constructor && (_constructor.displayName || _constructor.name) || 'ReactClass';
-		    var warningKey = componentName + "." + callerName;
-
-		    if (didWarnStateUpdateForUnmountedComponent[warningKey]) {
-		      return;
-		    }
-
-		    error("Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.state` directly or define a `state = {};` ' + 'class property with the desired state in the %s component.', callerName, componentName);
-
-		    didWarnStateUpdateForUnmountedComponent[warningKey] = true;
-		  }
-		}
-		/**
-		 * This is the abstract API for an update queue.
-		 */
-
-
-		var ReactNoopUpdateQueue = {
-		  /**
-		   * Checks whether or not this composite component is mounted.
-		   * @param {ReactClass} publicInstance The instance we want to test.
-		   * @return {boolean} True if mounted, false otherwise.
-		   * @protected
-		   * @final
-		   */
-		  isMounted: function (publicInstance) {
-		    return false;
-		  },
-
-		  /**
-		   * Forces an update. This should only be invoked when it is known with
-		   * certainty that we are **not** in a DOM transaction.
-		   *
-		   * You may want to call this when you know that some deeper aspect of the
-		   * component's state has changed but `setState` was not called.
-		   *
-		   * This will not invoke `shouldComponentUpdate`, but it will invoke
-		   * `componentWillUpdate` and `componentDidUpdate`.
-		   *
-		   * @param {ReactClass} publicInstance The instance that should rerender.
-		   * @param {?function} callback Called after component is updated.
-		   * @param {?string} callerName name of the calling function in the public API.
-		   * @internal
-		   */
-		  enqueueForceUpdate: function (publicInstance, callback, callerName) {
-		    warnNoop(publicInstance, 'forceUpdate');
-		  },
-
-		  /**
-		   * Replaces all of the state. Always use this or `setState` to mutate state.
-		   * You should treat `this.state` as immutable.
-		   *
-		   * There is no guarantee that `this.state` will be immediately updated, so
-		   * accessing `this.state` after calling this method may return the old value.
-		   *
-		   * @param {ReactClass} publicInstance The instance that should rerender.
-		   * @param {object} completeState Next state.
-		   * @param {?function} callback Called after component is updated.
-		   * @param {?string} callerName name of the calling function in the public API.
-		   * @internal
-		   */
-		  enqueueReplaceState: function (publicInstance, completeState, callback, callerName) {
-		    warnNoop(publicInstance, 'replaceState');
-		  },
-
-		  /**
-		   * Sets a subset of the state. This only exists because _pendingState is
-		   * internal. This provides a merging strategy that is not available to deep
-		   * properties which is confusing. TODO: Expose pendingState or don't use it
-		   * during the merge.
-		   *
-		   * @param {ReactClass} publicInstance The instance that should rerender.
-		   * @param {object} partialState Next partial state to be merged with state.
-		   * @param {?function} callback Called after component is updated.
-		   * @param {?string} Name of the calling function in the public API.
-		   * @internal
-		   */
-		  enqueueSetState: function (publicInstance, partialState, callback, callerName) {
-		    warnNoop(publicInstance, 'setState');
-		  }
-		};
-
-		var assign = Object.assign;
-
-		var emptyObject = {};
-
-		{
-		  Object.freeze(emptyObject);
-		}
-		/**
-		 * Base class helpers for the updating state of a component.
-		 */
-
-
-		function Component(props, context, updater) {
-		  this.props = props;
-		  this.context = context; // If a component has string refs, we will assign a different object later.
-
-		  this.refs = emptyObject; // We initialize the default updater but the real one gets injected by the
-		  // renderer.
-
-		  this.updater = updater || ReactNoopUpdateQueue;
-		}
-
-		Component.prototype.isReactComponent = {};
-		/**
-		 * Sets a subset of the state. Always use this to mutate
-		 * state. You should treat `this.state` as immutable.
-		 *
-		 * There is no guarantee that `this.state` will be immediately updated, so
-		 * accessing `this.state` after calling this method may return the old value.
-		 *
-		 * There is no guarantee that calls to `setState` will run synchronously,
-		 * as they may eventually be batched together.  You can provide an optional
-		 * callback that will be executed when the call to setState is actually
-		 * completed.
-		 *
-		 * When a function is provided to setState, it will be called at some point in
-		 * the future (not synchronously). It will be called with the up to date
-		 * component arguments (state, props, context). These values can be different
-		 * from this.* because your function may be called after receiveProps but before
-		 * shouldComponentUpdate, and this new state, props, and context will not yet be
-		 * assigned to this.
-		 *
-		 * @param {object|function} partialState Next partial state or function to
-		 *        produce next partial state to be merged with current state.
-		 * @param {?function} callback Called after state is updated.
-		 * @final
-		 * @protected
-		 */
-
-		Component.prototype.setState = function (partialState, callback) {
-		  if (typeof partialState !== 'object' && typeof partialState !== 'function' && partialState != null) {
-		    throw new Error('setState(...): takes an object of state variables to update or a ' + 'function which returns an object of state variables.');
-		  }
-
-		  this.updater.enqueueSetState(this, partialState, callback, 'setState');
-		};
-		/**
-		 * Forces an update. This should only be invoked when it is known with
-		 * certainty that we are **not** in a DOM transaction.
-		 *
-		 * You may want to call this when you know that some deeper aspect of the
-		 * component's state has changed but `setState` was not called.
-		 *
-		 * This will not invoke `shouldComponentUpdate`, but it will invoke
-		 * `componentWillUpdate` and `componentDidUpdate`.
-		 *
-		 * @param {?function} callback Called after update is complete.
-		 * @final
-		 * @protected
-		 */
-
-
-		Component.prototype.forceUpdate = function (callback) {
-		  this.updater.enqueueForceUpdate(this, callback, 'forceUpdate');
-		};
-		/**
-		 * Deprecated APIs. These APIs used to exist on classic React classes but since
-		 * we would like to deprecate them, we're not going to move them over to this
-		 * modern base class. Instead, we define a getter that warns if it's accessed.
-		 */
-
-
-		{
-		  var deprecatedAPIs = {
-		    isMounted: ['isMounted', 'Instead, make sure to clean up subscriptions and pending requests in ' + 'componentWillUnmount to prevent memory leaks.'],
-		    replaceState: ['replaceState', 'Refactor your code to use setState instead (see ' + 'https://github.com/facebook/react/issues/3236).']
-		  };
-
-		  var defineDeprecationWarning = function (methodName, info) {
-		    Object.defineProperty(Component.prototype, methodName, {
-		      get: function () {
-		        warn('%s(...) is deprecated in plain JavaScript React classes. %s', info[0], info[1]);
-
-		        return undefined;
-		      }
-		    });
-		  };
-
-		  for (var fnName in deprecatedAPIs) {
-		    if (deprecatedAPIs.hasOwnProperty(fnName)) {
-		      defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
-		    }
-		  }
-		}
-
-		function ComponentDummy() {}
-
-		ComponentDummy.prototype = Component.prototype;
-		/**
-		 * Convenience component with default shallow equality check for sCU.
-		 */
-
-		function PureComponent(props, context, updater) {
-		  this.props = props;
-		  this.context = context; // If a component has string refs, we will assign a different object later.
-
-		  this.refs = emptyObject;
-		  this.updater = updater || ReactNoopUpdateQueue;
-		}
-
-		var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
-		pureComponentPrototype.constructor = PureComponent; // Avoid an extra prototype jump for these methods.
-
-		assign(pureComponentPrototype, Component.prototype);
-		pureComponentPrototype.isPureReactComponent = true;
-
-		// an immutable object with a single mutable value
-		function createRef() {
-		  var refObject = {
-		    current: null
-		  };
-
-		  {
-		    Object.seal(refObject);
-		  }
-
-		  return refObject;
-		}
-
-		var isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
-
-		function isArray(a) {
-		  return isArrayImpl(a);
-		}
-
-		/*
-		 * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
-		 * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
-		 *
-		 * The functions in this module will throw an easier-to-understand,
-		 * easier-to-debug exception with a clear errors message message explaining the
-		 * problem. (Instead of a confusing exception thrown inside the implementation
-		 * of the `value` object).
-		 */
-		// $FlowFixMe only called in DEV, so void return is not possible.
-		function typeName(value) {
-		  {
-		    // toStringTag is needed for namespaced types like Temporal.Instant
-		    var hasToStringTag = typeof Symbol === 'function' && Symbol.toStringTag;
-		    var type = hasToStringTag && value[Symbol.toStringTag] || value.constructor.name || 'Object';
-		    return type;
-		  }
-		} // $FlowFixMe only called in DEV, so void return is not possible.
-
-
-		function willCoercionThrow(value) {
-		  {
-		    try {
-		      testStringCoercion(value);
-		      return false;
-		    } catch (e) {
-		      return true;
-		    }
-		  }
-		}
-
-		function testStringCoercion(value) {
-		  // If you ended up here by following an exception call stack, here's what's
-		  // happened: you supplied an object or symbol value to React (as a prop, key,
-		  // DOM attribute, CSS property, string ref, etc.) and when React tried to
-		  // coerce it to a string using `'' + value`, an exception was thrown.
-		  //
-		  // The most common types that will cause this exception are `Symbol` instances
-		  // and Temporal objects like `Temporal.Instant`. But any object that has a
-		  // `valueOf` or `[Symbol.toPrimitive]` method that throws will also cause this
-		  // exception. (Library authors do this to prevent users from using built-in
-		  // numeric operators like `+` or comparison operators like `>=` because custom
-		  // methods are needed to perform accurate arithmetic or comparison.)
-		  //
-		  // To fix the problem, coerce this object or symbol value to a string before
-		  // passing it to React. The most reliable way is usually `String(value)`.
-		  //
-		  // To find which value is throwing, check the browser or debugger console.
-		  // Before this exception was thrown, there should be `console.error` output
-		  // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
-		  // problem and how that type was used: key, atrribute, input value prop, etc.
-		  // In most cases, this console output also shows the component and its
-		  // ancestor components where the exception happened.
-		  //
-		  // eslint-disable-next-line react-internal/safe-string-coercion
-		  return '' + value;
-		}
-		function checkKeyStringCoercion(value) {
-		  {
-		    if (willCoercionThrow(value)) {
-		      error('The provided key is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', typeName(value));
-
-		      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-		    }
-		  }
-		}
-
-		function getWrappedName(outerType, innerType, wrapperName) {
-		  var displayName = outerType.displayName;
-
-		  if (displayName) {
-		    return displayName;
-		  }
-
-		  var functionName = innerType.displayName || innerType.name || '';
-		  return functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName;
-		} // Keep in sync with react-reconciler/getComponentNameFromFiber
-
-
-		function getContextName(type) {
-		  return type.displayName || 'Context';
-		} // Note that the reconciler package should generally prefer to use getComponentNameFromFiber() instead.
-
-
-		function getComponentNameFromType(type) {
-		  if (type == null) {
-		    // Host root, text node or just invalid type.
-		    return null;
-		  }
-
-		  {
-		    if (typeof type.tag === 'number') {
-		      error('Received an unexpected object in getComponentNameFromType(). ' + 'This is likely a bug in React. Please file an issue.');
-		    }
-		  }
-
-		  if (typeof type === 'function') {
-		    return type.displayName || type.name || null;
-		  }
-
-		  if (typeof type === 'string') {
-		    return type;
-		  }
-
-		  switch (type) {
-		    case REACT_FRAGMENT_TYPE:
-		      return 'Fragment';
-
-		    case REACT_PORTAL_TYPE:
-		      return 'Portal';
-
-		    case REACT_PROFILER_TYPE:
-		      return 'Profiler';
-
-		    case REACT_STRICT_MODE_TYPE:
-		      return 'StrictMode';
-
-		    case REACT_SUSPENSE_TYPE:
-		      return 'Suspense';
-
-		    case REACT_SUSPENSE_LIST_TYPE:
-		      return 'SuspenseList';
-
-		  }
-
-		  if (typeof type === 'object') {
-		    switch (type.$$typeof) {
-		      case REACT_CONTEXT_TYPE:
-		        var context = type;
-		        return getContextName(context) + '.Consumer';
-
-		      case REACT_PROVIDER_TYPE:
-		        var provider = type;
-		        return getContextName(provider._context) + '.Provider';
-
-		      case REACT_FORWARD_REF_TYPE:
-		        return getWrappedName(type, type.render, 'ForwardRef');
-
-		      case REACT_MEMO_TYPE:
-		        var outerName = type.displayName || null;
-
-		        if (outerName !== null) {
-		          return outerName;
-		        }
-
-		        return getComponentNameFromType(type.type) || 'Memo';
-
-		      case REACT_LAZY_TYPE:
-		        {
-		          var lazyComponent = type;
-		          var payload = lazyComponent._payload;
-		          var init = lazyComponent._init;
-
-		          try {
-		            return getComponentNameFromType(init(payload));
-		          } catch (x) {
-		            return null;
-		          }
-		        }
-
-		      // eslint-disable-next-line no-fallthrough
-		    }
-		  }
-
-		  return null;
-		}
-
-		var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-		var RESERVED_PROPS = {
-		  key: true,
-		  ref: true,
-		  __self: true,
-		  __source: true
-		};
-		var specialPropKeyWarningShown, specialPropRefWarningShown, didWarnAboutStringRefs;
-
-		{
-		  didWarnAboutStringRefs = {};
-		}
-
-		function hasValidRef(config) {
-		  {
-		    if (hasOwnProperty.call(config, 'ref')) {
-		      var getter = Object.getOwnPropertyDescriptor(config, 'ref').get;
-
-		      if (getter && getter.isReactWarning) {
-		        return false;
-		      }
-		    }
-		  }
-
-		  return config.ref !== undefined;
-		}
-
-		function hasValidKey(config) {
-		  {
-		    if (hasOwnProperty.call(config, 'key')) {
-		      var getter = Object.getOwnPropertyDescriptor(config, 'key').get;
-
-		      if (getter && getter.isReactWarning) {
-		        return false;
-		      }
-		    }
-		  }
-
-		  return config.key !== undefined;
-		}
-
-		function defineKeyPropWarningGetter(props, displayName) {
-		  var warnAboutAccessingKey = function () {
-		    {
-		      if (!specialPropKeyWarningShown) {
-		        specialPropKeyWarningShown = true;
-
-		        error('%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-		      }
-		    }
-		  };
-
-		  warnAboutAccessingKey.isReactWarning = true;
-		  Object.defineProperty(props, 'key', {
-		    get: warnAboutAccessingKey,
-		    configurable: true
-		  });
-		}
-
-		function defineRefPropWarningGetter(props, displayName) {
-		  var warnAboutAccessingRef = function () {
-		    {
-		      if (!specialPropRefWarningShown) {
-		        specialPropRefWarningShown = true;
-
-		        error('%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-		      }
-		    }
-		  };
-
-		  warnAboutAccessingRef.isReactWarning = true;
-		  Object.defineProperty(props, 'ref', {
-		    get: warnAboutAccessingRef,
-		    configurable: true
-		  });
-		}
-
-		function warnIfStringRefCannotBeAutoConverted(config) {
-		  {
-		    if (typeof config.ref === 'string' && ReactCurrentOwner.current && config.__self && ReactCurrentOwner.current.stateNode !== config.__self) {
-		      var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
-
-		      if (!didWarnAboutStringRefs[componentName]) {
-		        error('Component "%s" contains the string ref "%s". ' + 'Support for string refs will be removed in a future major release. ' + 'This case cannot be automatically converted to an arrow function. ' + 'We ask you to manually fix this case by using useRef() or createRef() instead. ' + 'Learn more about using refs safely here: ' + 'https://reactjs.org/link/strict-mode-string-ref', componentName, config.ref);
-
-		        didWarnAboutStringRefs[componentName] = true;
-		      }
-		    }
-		  }
-		}
-		/**
-		 * Factory method to create a new React element. This no longer adheres to
-		 * the class pattern, so do not use new to call it. Also, instanceof check
-		 * will not work. Instead test $$typeof field against Symbol.for('react.element') to check
-		 * if something is a React Element.
-		 *
-		 * @param {*} type
-		 * @param {*} props
-		 * @param {*} key
-		 * @param {string|object} ref
-		 * @param {*} owner
-		 * @param {*} self A *temporary* helper to detect places where `this` is
-		 * different from the `owner` when React.createElement is called, so that we
-		 * can warn. We want to get rid of owner and replace string `ref`s with arrow
-		 * functions, and as long as `this` and owner are the same, there will be no
-		 * change in behavior.
-		 * @param {*} source An annotation object (added by a transpiler or otherwise)
-		 * indicating filename, line number, and/or other information.
-		 * @internal
-		 */
-
-
-		var ReactElement = function (type, key, ref, self, source, owner, props) {
-		  var element = {
-		    // This tag allows us to uniquely identify this as a React Element
-		    $$typeof: REACT_ELEMENT_TYPE,
-		    // Built-in properties that belong on the element
-		    type: type,
-		    key: key,
-		    ref: ref,
-		    props: props,
-		    // Record the component responsible for creating this element.
-		    _owner: owner
-		  };
-
-		  {
-		    // The validation flag is currently mutative. We put it on
-		    // an external backing store so that we can freeze the whole object.
-		    // This can be replaced with a WeakMap once they are implemented in
-		    // commonly used development environments.
-		    element._store = {}; // To make comparing ReactElements easier for testing purposes, we make
-		    // the validation flag non-enumerable (where possible, which should
-		    // include every environment we run tests in), so the test framework
-		    // ignores it.
-
-		    Object.defineProperty(element._store, 'validated', {
-		      configurable: false,
-		      enumerable: false,
-		      writable: true,
-		      value: false
-		    }); // self and source are DEV only properties.
-
-		    Object.defineProperty(element, '_self', {
-		      configurable: false,
-		      enumerable: false,
-		      writable: false,
-		      value: self
-		    }); // Two elements created in two different places should be considered
-		    // equal for testing purposes and therefore we hide it from enumeration.
-
-		    Object.defineProperty(element, '_source', {
-		      configurable: false,
-		      enumerable: false,
-		      writable: false,
-		      value: source
-		    });
-
-		    if (Object.freeze) {
-		      Object.freeze(element.props);
-		      Object.freeze(element);
-		    }
-		  }
-
-		  return element;
-		};
-		/**
-		 * Create and return a new ReactElement of the given type.
-		 * See https://reactjs.org/docs/react-api.html#createelement
-		 */
-
-		function createElement(type, config, children) {
-		  var propName; // Reserved names are extracted
-
-		  var props = {};
-		  var key = null;
-		  var ref = null;
-		  var self = null;
-		  var source = null;
-
-		  if (config != null) {
-		    if (hasValidRef(config)) {
-		      ref = config.ref;
-
-		      {
-		        warnIfStringRefCannotBeAutoConverted(config);
-		      }
-		    }
-
-		    if (hasValidKey(config)) {
-		      {
-		        checkKeyStringCoercion(config.key);
-		      }
-
-		      key = '' + config.key;
-		    }
-
-		    self = config.__self === undefined ? null : config.__self;
-		    source = config.__source === undefined ? null : config.__source; // Remaining properties are added to a new props object
-
-		    for (propName in config) {
-		      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-		        props[propName] = config[propName];
-		      }
-		    }
-		  } // Children can be more than one argument, and those are transferred onto
-		  // the newly allocated props object.
-
-
-		  var childrenLength = arguments.length - 2;
-
-		  if (childrenLength === 1) {
-		    props.children = children;
-		  } else if (childrenLength > 1) {
-		    var childArray = Array(childrenLength);
-
-		    for (var i = 0; i < childrenLength; i++) {
-		      childArray[i] = arguments[i + 2];
-		    }
-
-		    {
-		      if (Object.freeze) {
-		        Object.freeze(childArray);
-		      }
-		    }
-
-		    props.children = childArray;
-		  } // Resolve default props
-
-
-		  if (type && type.defaultProps) {
-		    var defaultProps = type.defaultProps;
-
-		    for (propName in defaultProps) {
-		      if (props[propName] === undefined) {
-		        props[propName] = defaultProps[propName];
-		      }
-		    }
-		  }
-
-		  {
-		    if (key || ref) {
-		      var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
-
-		      if (key) {
-		        defineKeyPropWarningGetter(props, displayName);
-		      }
-
-		      if (ref) {
-		        defineRefPropWarningGetter(props, displayName);
-		      }
-		    }
-		  }
-
-		  return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
-		}
-		function cloneAndReplaceKey(oldElement, newKey) {
-		  var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
-		  return newElement;
-		}
-		/**
-		 * Clone and return a new ReactElement using element as the starting point.
-		 * See https://reactjs.org/docs/react-api.html#cloneelement
-		 */
-
-		function cloneElement(element, config, children) {
-		  if (element === null || element === undefined) {
-		    throw new Error("React.cloneElement(...): The argument must be a React element, but you passed " + element + ".");
-		  }
-
-		  var propName; // Original props are copied
-
-		  var props = assign({}, element.props); // Reserved names are extracted
-
-		  var key = element.key;
-		  var ref = element.ref; // Self is preserved since the owner is preserved.
-
-		  var self = element._self; // Source is preserved since cloneElement is unlikely to be targeted by a
-		  // transpiler, and the original source is probably a better indicator of the
-		  // true owner.
-
-		  var source = element._source; // Owner will be preserved, unless ref is overridden
-
-		  var owner = element._owner;
-
-		  if (config != null) {
-		    if (hasValidRef(config)) {
-		      // Silently steal the ref from the parent.
-		      ref = config.ref;
-		      owner = ReactCurrentOwner.current;
-		    }
-
-		    if (hasValidKey(config)) {
-		      {
-		        checkKeyStringCoercion(config.key);
-		      }
-
-		      key = '' + config.key;
-		    } // Remaining properties override existing props
-
-
-		    var defaultProps;
-
-		    if (element.type && element.type.defaultProps) {
-		      defaultProps = element.type.defaultProps;
-		    }
-
-		    for (propName in config) {
-		      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-		        if (config[propName] === undefined && defaultProps !== undefined) {
-		          // Resolve default props
-		          props[propName] = defaultProps[propName];
-		        } else {
-		          props[propName] = config[propName];
-		        }
-		      }
-		    }
-		  } // Children can be more than one argument, and those are transferred onto
-		  // the newly allocated props object.
-
-
-		  var childrenLength = arguments.length - 2;
-
-		  if (childrenLength === 1) {
-		    props.children = children;
-		  } else if (childrenLength > 1) {
-		    var childArray = Array(childrenLength);
-
-		    for (var i = 0; i < childrenLength; i++) {
-		      childArray[i] = arguments[i + 2];
-		    }
-
-		    props.children = childArray;
-		  }
-
-		  return ReactElement(element.type, key, ref, self, source, owner, props);
-		}
-		/**
-		 * Verifies the object is a ReactElement.
-		 * See https://reactjs.org/docs/react-api.html#isvalidelement
-		 * @param {?object} object
-		 * @return {boolean} True if `object` is a ReactElement.
-		 * @final
-		 */
-
-		function isValidElement(object) {
-		  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-		}
-
-		var SEPARATOR = '.';
-		var SUBSEPARATOR = ':';
-		/**
-		 * Escape and wrap key so it is safe to use as a reactid
-		 *
-		 * @param {string} key to be escaped.
-		 * @return {string} the escaped key.
-		 */
-
-		function escape(key) {
-		  var escapeRegex = /[=:]/g;
-		  var escaperLookup = {
-		    '=': '=0',
-		    ':': '=2'
-		  };
-		  var escapedString = key.replace(escapeRegex, function (match) {
-		    return escaperLookup[match];
-		  });
-		  return '$' + escapedString;
-		}
-		/**
-		 * TODO: Test that a single child and an array with one item have the same key
-		 * pattern.
-		 */
-
-
-		var didWarnAboutMaps = false;
-		var userProvidedKeyEscapeRegex = /\/+/g;
-
-		function escapeUserProvidedKey(text) {
-		  return text.replace(userProvidedKeyEscapeRegex, '$&/');
-		}
-		/**
-		 * Generate a key string that identifies a element within a set.
-		 *
-		 * @param {*} element A element that could contain a manual key.
-		 * @param {number} index Index that is used if a manual key is not provided.
-		 * @return {string}
-		 */
-
-
-		function getElementKey(element, index) {
-		  // Do some typechecking here since we call this blindly. We want to ensure
-		  // that we don't block potential future ES APIs.
-		  if (typeof element === 'object' && element !== null && element.key != null) {
-		    // Explicit key
-		    {
-		      checkKeyStringCoercion(element.key);
-		    }
-
-		    return escape('' + element.key);
-		  } // Implicit key determined by the index in the set
-
-
-		  return index.toString(36);
-		}
-
-		function mapIntoArray(children, array, escapedPrefix, nameSoFar, callback) {
-		  var type = typeof children;
-
-		  if (type === 'undefined' || type === 'boolean') {
-		    // All of the above are perceived as null.
-		    children = null;
-		  }
-
-		  var invokeCallback = false;
-
-		  if (children === null) {
-		    invokeCallback = true;
-		  } else {
-		    switch (type) {
-		      case 'string':
-		      case 'number':
-		        invokeCallback = true;
-		        break;
-
-		      case 'object':
-		        switch (children.$$typeof) {
-		          case REACT_ELEMENT_TYPE:
-		          case REACT_PORTAL_TYPE:
-		            invokeCallback = true;
-		        }
-
-		    }
-		  }
-
-		  if (invokeCallback) {
-		    var _child = children;
-		    var mappedChild = callback(_child); // If it's the only child, treat the name as if it was wrapped in an array
-		    // so that it's consistent if the number of children grows:
-
-		    var childKey = nameSoFar === '' ? SEPARATOR + getElementKey(_child, 0) : nameSoFar;
-
-		    if (isArray(mappedChild)) {
-		      var escapedChildKey = '';
-
-		      if (childKey != null) {
-		        escapedChildKey = escapeUserProvidedKey(childKey) + '/';
-		      }
-
-		      mapIntoArray(mappedChild, array, escapedChildKey, '', function (c) {
-		        return c;
-		      });
-		    } else if (mappedChild != null) {
-		      if (isValidElement(mappedChild)) {
-		        {
-		          // The `if` statement here prevents auto-disabling of the safe
-		          // coercion ESLint rule, so we must manually disable it below.
-		          // $FlowFixMe Flow incorrectly thinks React.Portal doesn't have a key
-		          if (mappedChild.key && (!_child || _child.key !== mappedChild.key)) {
-		            checkKeyStringCoercion(mappedChild.key);
-		          }
-		        }
-
-		        mappedChild = cloneAndReplaceKey(mappedChild, // Keep both the (mapped) and old keys if they differ, just as
-		        // traverseAllChildren used to do for objects as children
-		        escapedPrefix + ( // $FlowFixMe Flow incorrectly thinks React.Portal doesn't have a key
-		        mappedChild.key && (!_child || _child.key !== mappedChild.key) ? // $FlowFixMe Flow incorrectly thinks existing element's key can be a number
-		        // eslint-disable-next-line react-internal/safe-string-coercion
-		        escapeUserProvidedKey('' + mappedChild.key) + '/' : '') + childKey);
-		      }
-
-		      array.push(mappedChild);
-		    }
-
-		    return 1;
-		  }
-
-		  var child;
-		  var nextName;
-		  var subtreeCount = 0; // Count of children found in the current subtree.
-
-		  var nextNamePrefix = nameSoFar === '' ? SEPARATOR : nameSoFar + SUBSEPARATOR;
-
-		  if (isArray(children)) {
-		    for (var i = 0; i < children.length; i++) {
-		      child = children[i];
-		      nextName = nextNamePrefix + getElementKey(child, i);
-		      subtreeCount += mapIntoArray(child, array, escapedPrefix, nextName, callback);
-		    }
-		  } else {
-		    var iteratorFn = getIteratorFn(children);
-
-		    if (typeof iteratorFn === 'function') {
-		      var iterableChildren = children;
-
-		      {
-		        // Warn about using Maps as children
-		        if (iteratorFn === iterableChildren.entries) {
-		          if (!didWarnAboutMaps) {
-		            warn('Using Maps as children is not supported. ' + 'Use an array of keyed ReactElements instead.');
-		          }
-
-		          didWarnAboutMaps = true;
-		        }
-		      }
-
-		      var iterator = iteratorFn.call(iterableChildren);
-		      var step;
-		      var ii = 0;
-
-		      while (!(step = iterator.next()).done) {
-		        child = step.value;
-		        nextName = nextNamePrefix + getElementKey(child, ii++);
-		        subtreeCount += mapIntoArray(child, array, escapedPrefix, nextName, callback);
-		      }
-		    } else if (type === 'object') {
-		      // eslint-disable-next-line react-internal/safe-string-coercion
-		      var childrenString = String(children);
-		      throw new Error("Objects are not valid as a React child (found: " + (childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString) + "). " + 'If you meant to render a collection of children, use an array ' + 'instead.');
-		    }
-		  }
-
-		  return subtreeCount;
-		}
-
-		/**
-		 * Maps children that are typically specified as `props.children`.
-		 *
-		 * See https://reactjs.org/docs/react-api.html#reactchildrenmap
-		 *
-		 * The provided mapFunction(child, index) will be called for each
-		 * leaf child.
-		 *
-		 * @param {?*} children Children tree container.
-		 * @param {function(*, int)} func The map function.
-		 * @param {*} context Context for mapFunction.
-		 * @return {object} Object containing the ordered map of results.
-		 */
-		function mapChildren(children, func, context) {
-		  if (children == null) {
-		    return children;
-		  }
-
-		  var result = [];
-		  var count = 0;
-		  mapIntoArray(children, result, '', '', function (child) {
-		    return func.call(context, child, count++);
-		  });
-		  return result;
-		}
-		/**
-		 * Count the number of children that are typically specified as
-		 * `props.children`.
-		 *
-		 * See https://reactjs.org/docs/react-api.html#reactchildrencount
-		 *
-		 * @param {?*} children Children tree container.
-		 * @return {number} The number of children.
-		 */
-
-
-		function countChildren(children) {
-		  var n = 0;
-		  mapChildren(children, function () {
-		    n++; // Don't return anything
-		  });
-		  return n;
-		}
-
-		/**
-		 * Iterates through children that are typically specified as `props.children`.
-		 *
-		 * See https://reactjs.org/docs/react-api.html#reactchildrenforeach
-		 *
-		 * The provided forEachFunc(child, index) will be called for each
-		 * leaf child.
-		 *
-		 * @param {?*} children Children tree container.
-		 * @param {function(*, int)} forEachFunc
-		 * @param {*} forEachContext Context for forEachContext.
-		 */
-		function forEachChildren(children, forEachFunc, forEachContext) {
-		  mapChildren(children, function () {
-		    forEachFunc.apply(this, arguments); // Don't return anything.
-		  }, forEachContext);
-		}
-		/**
-		 * Flatten a children object (typically specified as `props.children`) and
-		 * return an array with appropriately re-keyed children.
-		 *
-		 * See https://reactjs.org/docs/react-api.html#reactchildrentoarray
-		 */
-
-
-		function toArray(children) {
-		  return mapChildren(children, function (child) {
-		    return child;
-		  }) || [];
-		}
-		/**
-		 * Returns the first child in a collection of children and verifies that there
-		 * is only one child in the collection.
-		 *
-		 * See https://reactjs.org/docs/react-api.html#reactchildrenonly
-		 *
-		 * The current implementation of this function assumes that a single child gets
-		 * passed without a wrapper, but the purpose of this helper function is to
-		 * abstract away the particular structure of children.
-		 *
-		 * @param {?object} children Child collection structure.
-		 * @return {ReactElement} The first and only `ReactElement` contained in the
-		 * structure.
-		 */
-
-
-		function onlyChild(children) {
-		  if (!isValidElement(children)) {
-		    throw new Error('React.Children.only expected to receive a single React element child.');
-		  }
-
-		  return children;
-		}
-
-		function createContext(defaultValue) {
-		  // TODO: Second argument used to be an optional `calculateChangedBits`
-		  // function. Warn to reserve for future use?
-		  var context = {
-		    $$typeof: REACT_CONTEXT_TYPE,
-		    // As a workaround to support multiple concurrent renderers, we categorize
-		    // some renderers as primary and others as secondary. We only expect
-		    // there to be two concurrent renderers at most: React Native (primary) and
-		    // Fabric (secondary); React DOM (primary) and React ART (secondary).
-		    // Secondary renderers store their context values on separate fields.
-		    _currentValue: defaultValue,
-		    _currentValue2: defaultValue,
-		    // Used to track how many concurrent renderers this context currently
-		    // supports within in a single renderer. Such as parallel server rendering.
-		    _threadCount: 0,
-		    // These are circular
-		    Provider: null,
-		    Consumer: null,
-		    // Add these to use same hidden class in VM as ServerContext
-		    _defaultValue: null,
-		    _globalName: null
-		  };
-		  context.Provider = {
-		    $$typeof: REACT_PROVIDER_TYPE,
-		    _context: context
-		  };
-		  var hasWarnedAboutUsingNestedContextConsumers = false;
-		  var hasWarnedAboutUsingConsumerProvider = false;
-		  var hasWarnedAboutDisplayNameOnConsumer = false;
-
-		  {
-		    // A separate object, but proxies back to the original context object for
-		    // backwards compatibility. It has a different $$typeof, so we can properly
-		    // warn for the incorrect usage of Context as a Consumer.
-		    var Consumer = {
-		      $$typeof: REACT_CONTEXT_TYPE,
-		      _context: context
-		    }; // $FlowFixMe: Flow complains about not setting a value, which is intentional here
-
-		    Object.defineProperties(Consumer, {
-		      Provider: {
-		        get: function () {
-		          if (!hasWarnedAboutUsingConsumerProvider) {
-		            hasWarnedAboutUsingConsumerProvider = true;
-
-		            error('Rendering <Context.Consumer.Provider> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Provider> instead?');
-		          }
-
-		          return context.Provider;
-		        },
-		        set: function (_Provider) {
-		          context.Provider = _Provider;
-		        }
-		      },
-		      _currentValue: {
-		        get: function () {
-		          return context._currentValue;
-		        },
-		        set: function (_currentValue) {
-		          context._currentValue = _currentValue;
-		        }
-		      },
-		      _currentValue2: {
-		        get: function () {
-		          return context._currentValue2;
-		        },
-		        set: function (_currentValue2) {
-		          context._currentValue2 = _currentValue2;
-		        }
-		      },
-		      _threadCount: {
-		        get: function () {
-		          return context._threadCount;
-		        },
-		        set: function (_threadCount) {
-		          context._threadCount = _threadCount;
-		        }
-		      },
-		      Consumer: {
-		        get: function () {
-		          if (!hasWarnedAboutUsingNestedContextConsumers) {
-		            hasWarnedAboutUsingNestedContextConsumers = true;
-
-		            error('Rendering <Context.Consumer.Consumer> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Consumer> instead?');
-		          }
-
-		          return context.Consumer;
-		        }
-		      },
-		      displayName: {
-		        get: function () {
-		          return context.displayName;
-		        },
-		        set: function (displayName) {
-		          if (!hasWarnedAboutDisplayNameOnConsumer) {
-		            warn('Setting `displayName` on Context.Consumer has no effect. ' + "You should set it directly on the context with Context.displayName = '%s'.", displayName);
-
-		            hasWarnedAboutDisplayNameOnConsumer = true;
-		          }
-		        }
-		      }
-		    }); // $FlowFixMe: Flow complains about missing properties because it doesn't understand defineProperty
-
-		    context.Consumer = Consumer;
-		  }
-
-		  {
-		    context._currentRenderer = null;
-		    context._currentRenderer2 = null;
-		  }
-
-		  return context;
-		}
-
-		var Uninitialized = -1;
-		var Pending = 0;
-		var Resolved = 1;
-		var Rejected = 2;
-
-		function lazyInitializer(payload) {
-		  if (payload._status === Uninitialized) {
-		    var ctor = payload._result;
-		    var thenable = ctor(); // Transition to the next state.
-		    // This might throw either because it's missing or throws. If so, we treat it
-		    // as still uninitialized and try again next time. Which is the same as what
-		    // happens if the ctor or any wrappers processing the ctor throws. This might
-		    // end up fixing it if the resolution was a concurrency bug.
-
-		    thenable.then(function (moduleObject) {
-		      if (payload._status === Pending || payload._status === Uninitialized) {
-		        // Transition to the next state.
-		        var resolved = payload;
-		        resolved._status = Resolved;
-		        resolved._result = moduleObject;
-		      }
-		    }, function (error) {
-		      if (payload._status === Pending || payload._status === Uninitialized) {
-		        // Transition to the next state.
-		        var rejected = payload;
-		        rejected._status = Rejected;
-		        rejected._result = error;
-		      }
-		    });
-
-		    if (payload._status === Uninitialized) {
-		      // In case, we're still uninitialized, then we're waiting for the thenable
-		      // to resolve. Set it as pending in the meantime.
-		      var pending = payload;
-		      pending._status = Pending;
-		      pending._result = thenable;
-		    }
-		  }
-
-		  if (payload._status === Resolved) {
-		    var moduleObject = payload._result;
-
-		    {
-		      if (moduleObject === undefined) {
-		        error('lazy: Expected the result of a dynamic imp' + 'ort() call. ' + 'Instead received: %s\n\nYour code should look like: \n  ' + // Break up imports to avoid accidentally parsing them as dependencies.
-		        'const MyComponent = lazy(() => imp' + "ort('./MyComponent'))\n\n" + 'Did you accidentally put curly braces around the import?', moduleObject);
-		      }
-		    }
-
-		    {
-		      if (!('default' in moduleObject)) {
-		        error('lazy: Expected the result of a dynamic imp' + 'ort() call. ' + 'Instead received: %s\n\nYour code should look like: \n  ' + // Break up imports to avoid accidentally parsing them as dependencies.
-		        'const MyComponent = lazy(() => imp' + "ort('./MyComponent'))", moduleObject);
-		      }
-		    }
-
-		    return moduleObject.default;
-		  } else {
-		    throw payload._result;
-		  }
-		}
-
-		function lazy(ctor) {
-		  var payload = {
-		    // We use these fields to store the result.
-		    _status: Uninitialized,
-		    _result: ctor
-		  };
-		  var lazyType = {
-		    $$typeof: REACT_LAZY_TYPE,
-		    _payload: payload,
-		    _init: lazyInitializer
-		  };
-
-		  {
-		    // In production, this would just set it on the object.
-		    var defaultProps;
-		    var propTypes; // $FlowFixMe
-
-		    Object.defineProperties(lazyType, {
-		      defaultProps: {
-		        configurable: true,
-		        get: function () {
-		          return defaultProps;
-		        },
-		        set: function (newDefaultProps) {
-		          error('React.lazy(...): It is not supported to assign `defaultProps` to ' + 'a lazy component import. Either specify them where the component ' + 'is defined, or create a wrapping component around it.');
-
-		          defaultProps = newDefaultProps; // Match production behavior more closely:
-		          // $FlowFixMe
-
-		          Object.defineProperty(lazyType, 'defaultProps', {
-		            enumerable: true
-		          });
-		        }
-		      },
-		      propTypes: {
-		        configurable: true,
-		        get: function () {
-		          return propTypes;
-		        },
-		        set: function (newPropTypes) {
-		          error('React.lazy(...): It is not supported to assign `propTypes` to ' + 'a lazy component import. Either specify them where the component ' + 'is defined, or create a wrapping component around it.');
-
-		          propTypes = newPropTypes; // Match production behavior more closely:
-		          // $FlowFixMe
-
-		          Object.defineProperty(lazyType, 'propTypes', {
-		            enumerable: true
-		          });
-		        }
-		      }
-		    });
-		  }
-
-		  return lazyType;
-		}
-
-		function forwardRef(render) {
-		  {
-		    if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
-		      error('forwardRef requires a render function but received a `memo` ' + 'component. Instead of forwardRef(memo(...)), use ' + 'memo(forwardRef(...)).');
-		    } else if (typeof render !== 'function') {
-		      error('forwardRef requires a render function but was given %s.', render === null ? 'null' : typeof render);
-		    } else {
-		      if (render.length !== 0 && render.length !== 2) {
-		        error('forwardRef render functions accept exactly two parameters: props and ref. %s', render.length === 1 ? 'Did you forget to use the ref parameter?' : 'Any additional parameter will be undefined.');
-		      }
-		    }
-
-		    if (render != null) {
-		      if (render.defaultProps != null || render.propTypes != null) {
-		        error('forwardRef render functions do not support propTypes or defaultProps. ' + 'Did you accidentally pass a React component?');
-		      }
-		    }
-		  }
-
-		  var elementType = {
-		    $$typeof: REACT_FORWARD_REF_TYPE,
-		    render: render
-		  };
-
-		  {
-		    var ownName;
-		    Object.defineProperty(elementType, 'displayName', {
-		      enumerable: false,
-		      configurable: true,
-		      get: function () {
-		        return ownName;
-		      },
-		      set: function (name) {
-		        ownName = name; // The inner component shouldn't inherit this display name in most cases,
-		        // because the component may be used elsewhere.
-		        // But it's nice for anonymous functions to inherit the name,
-		        // so that our component-stack generation logic will display their frames.
-		        // An anonymous function generally suggests a pattern like:
-		        //   React.forwardRef((props, ref) => {...});
-		        // This kind of inner function is not used elsewhere so the side effect is okay.
-
-		        if (!render.name && !render.displayName) {
-		          render.displayName = name;
-		        }
-		      }
-		    });
-		  }
-
-		  return elementType;
-		}
-
-		var REACT_MODULE_REFERENCE;
-
-		{
-		  REACT_MODULE_REFERENCE = Symbol.for('react.module.reference');
-		}
-
-		function isValidElementType(type) {
-		  if (typeof type === 'string' || typeof type === 'function') {
-		    return true;
-		  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
-
-
-		  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || enableDebugTracing  || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || enableLegacyHidden  || type === REACT_OFFSCREEN_TYPE || enableScopeAPI  || enableCacheElement  || enableTransitionTracing ) {
-		    return true;
-		  }
-
-		  if (typeof type === 'object' && type !== null) {
-		    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
-		    // types supported by any Flight configuration anywhere since
-		    // we don't know which Flight build this will end up being used
-		    // with.
-		    type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== undefined) {
-		      return true;
-		    }
-		  }
-
-		  return false;
-		}
-
-		function memo(type, compare) {
-		  {
-		    if (!isValidElementType(type)) {
-		      error('memo: The first argument must be a component. Instead ' + 'received: %s', type === null ? 'null' : typeof type);
-		    }
-		  }
-
-		  var elementType = {
-		    $$typeof: REACT_MEMO_TYPE,
-		    type: type,
-		    compare: compare === undefined ? null : compare
-		  };
-
-		  {
-		    var ownName;
-		    Object.defineProperty(elementType, 'displayName', {
-		      enumerable: false,
-		      configurable: true,
-		      get: function () {
-		        return ownName;
-		      },
-		      set: function (name) {
-		        ownName = name; // The inner component shouldn't inherit this display name in most cases,
-		        // because the component may be used elsewhere.
-		        // But it's nice for anonymous functions to inherit the name,
-		        // so that our component-stack generation logic will display their frames.
-		        // An anonymous function generally suggests a pattern like:
-		        //   React.memo((props) => {...});
-		        // This kind of inner function is not used elsewhere so the side effect is okay.
-
-		        if (!type.name && !type.displayName) {
-		          type.displayName = name;
-		        }
-		      }
-		    });
-		  }
-
-		  return elementType;
-		}
-
-		function resolveDispatcher() {
-		  var dispatcher = ReactCurrentDispatcher.current;
-
-		  {
-		    if (dispatcher === null) {
-		      error('Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for' + ' one of the following reasons:\n' + '1. You might have mismatching versions of React and the renderer (such as React DOM)\n' + '2. You might be breaking the Rules of Hooks\n' + '3. You might have more than one copy of React in the same app\n' + 'See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.');
-		    }
-		  } // Will result in a null access error if accessed outside render phase. We
-		  // intentionally don't throw our own error because this is in a hot path.
-		  // Also helps ensure this is inlined.
-
-
-		  return dispatcher;
-		}
-		function useContext(Context) {
-		  var dispatcher = resolveDispatcher();
-
-		  {
-		    // TODO: add a more generic warning for invalid values.
-		    if (Context._context !== undefined) {
-		      var realContext = Context._context; // Don't deduplicate because this legitimately causes bugs
-		      // and nobody should be using this in existing code.
-
-		      if (realContext.Consumer === Context) {
-		        error('Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be ' + 'removed in a future major release. Did you mean to call useContext(Context) instead?');
-		      } else if (realContext.Provider === Context) {
-		        error('Calling useContext(Context.Provider) is not supported. ' + 'Did you mean to call useContext(Context) instead?');
-		      }
-		    }
-		  }
-
-		  return dispatcher.useContext(Context);
-		}
-		function useState(initialState) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useState(initialState);
-		}
-		function useReducer(reducer, initialArg, init) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useReducer(reducer, initialArg, init);
-		}
-		function useRef(initialValue) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useRef(initialValue);
-		}
-		function useEffect(create, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useEffect(create, deps);
-		}
-		function useInsertionEffect(create, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useInsertionEffect(create, deps);
-		}
-		function useLayoutEffect(create, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useLayoutEffect(create, deps);
-		}
-		function useCallback(callback, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useCallback(callback, deps);
-		}
-		function useMemo(create, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useMemo(create, deps);
-		}
-		function useImperativeHandle(ref, create, deps) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useImperativeHandle(ref, create, deps);
-		}
-		function useDebugValue(value, formatterFn) {
-		  {
-		    var dispatcher = resolveDispatcher();
-		    return dispatcher.useDebugValue(value, formatterFn);
-		  }
-		}
-		function useTransition() {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useTransition();
-		}
-		function useDeferredValue(value) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useDeferredValue(value);
-		}
-		function useId() {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useId();
-		}
-		function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
-		  var dispatcher = resolveDispatcher();
-		  return dispatcher.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-		}
-
-		// Helpers to patch console.logs to avoid logging during side-effect free
-		// replaying on render function. This currently only patches the object
-		// lazily which won't cover if the log function was extracted eagerly.
-		// We could also eagerly patch the method.
-		var disabledDepth = 0;
-		var prevLog;
-		var prevInfo;
-		var prevWarn;
-		var prevError;
-		var prevGroup;
-		var prevGroupCollapsed;
-		var prevGroupEnd;
-
-		function disabledLog() {}
-
-		disabledLog.__reactDisabledLog = true;
-		function disableLogs() {
-		  {
-		    if (disabledDepth === 0) {
-		      /* eslint-disable react-internal/no-production-logging */
-		      prevLog = console.log;
-		      prevInfo = console.info;
-		      prevWarn = console.warn;
-		      prevError = console.error;
-		      prevGroup = console.group;
-		      prevGroupCollapsed = console.groupCollapsed;
-		      prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
-
-		      var props = {
-		        configurable: true,
-		        enumerable: true,
-		        value: disabledLog,
-		        writable: true
-		      }; // $FlowFixMe Flow thinks console is immutable.
-
-		      Object.defineProperties(console, {
-		        info: props,
-		        log: props,
-		        warn: props,
-		        error: props,
-		        group: props,
-		        groupCollapsed: props,
-		        groupEnd: props
-		      });
-		      /* eslint-enable react-internal/no-production-logging */
-		    }
-
-		    disabledDepth++;
-		  }
-		}
-		function reenableLogs() {
-		  {
-		    disabledDepth--;
-
-		    if (disabledDepth === 0) {
-		      /* eslint-disable react-internal/no-production-logging */
-		      var props = {
-		        configurable: true,
-		        enumerable: true,
-		        writable: true
-		      }; // $FlowFixMe Flow thinks console is immutable.
-
-		      Object.defineProperties(console, {
-		        log: assign({}, props, {
-		          value: prevLog
-		        }),
-		        info: assign({}, props, {
-		          value: prevInfo
-		        }),
-		        warn: assign({}, props, {
-		          value: prevWarn
-		        }),
-		        error: assign({}, props, {
-		          value: prevError
-		        }),
-		        group: assign({}, props, {
-		          value: prevGroup
-		        }),
-		        groupCollapsed: assign({}, props, {
-		          value: prevGroupCollapsed
-		        }),
-		        groupEnd: assign({}, props, {
-		          value: prevGroupEnd
-		        })
-		      });
-		      /* eslint-enable react-internal/no-production-logging */
-		    }
-
-		    if (disabledDepth < 0) {
-		      error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
-		    }
-		  }
-		}
-
-		var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
-		var prefix;
-		function describeBuiltInComponentFrame(name, source, ownerFn) {
-		  {
-		    if (prefix === undefined) {
-		      // Extract the VM specific prefix used by each line.
-		      try {
-		        throw Error();
-		      } catch (x) {
-		        var match = x.stack.trim().match(/\n( *(at )?)/);
-		        prefix = match && match[1] || '';
-		      }
-		    } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-		    return '\n' + prefix + name;
-		  }
-		}
-		var reentry = false;
-		var componentFrameCache;
-
-		{
-		  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
-		  componentFrameCache = new PossiblyWeakMap();
-		}
-
-		function describeNativeComponentFrame(fn, construct) {
-		  // If something asked for a stack inside a fake render, it should get ignored.
-		  if ( !fn || reentry) {
-		    return '';
-		  }
-
-		  {
-		    var frame = componentFrameCache.get(fn);
-
-		    if (frame !== undefined) {
-		      return frame;
-		    }
-		  }
-
-		  var control;
-		  reentry = true;
-		  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
-
-		  Error.prepareStackTrace = undefined;
-		  var previousDispatcher;
-
-		  {
-		    previousDispatcher = ReactCurrentDispatcher$1.current; // Set the dispatcher in DEV because this might be call in the render function
-		    // for warnings.
-
-		    ReactCurrentDispatcher$1.current = null;
-		    disableLogs();
-		  }
-
-		  try {
-		    // This should throw.
-		    if (construct) {
-		      // Something should be setting the props in the constructor.
-		      var Fake = function () {
-		        throw Error();
-		      }; // $FlowFixMe
-
-
-		      Object.defineProperty(Fake.prototype, 'props', {
-		        set: function () {
-		          // We use a throwing setter instead of frozen or non-writable props
-		          // because that won't throw in a non-strict mode function.
-		          throw Error();
-		        }
-		      });
-
-		      if (typeof Reflect === 'object' && Reflect.construct) {
-		        // We construct a different control for this case to include any extra
-		        // frames added by the construct call.
-		        try {
-		          Reflect.construct(Fake, []);
-		        } catch (x) {
-		          control = x;
-		        }
-
-		        Reflect.construct(fn, [], Fake);
-		      } else {
-		        try {
-		          Fake.call();
-		        } catch (x) {
-		          control = x;
-		        }
-
-		        fn.call(Fake.prototype);
-		      }
-		    } else {
-		      try {
-		        throw Error();
-		      } catch (x) {
-		        control = x;
-		      }
-
-		      fn();
-		    }
-		  } catch (sample) {
-		    // This is inlined manually because closure doesn't do it for us.
-		    if (sample && control && typeof sample.stack === 'string') {
-		      // This extracts the first frame from the sample that isn't also in the control.
-		      // Skipping one frame that we assume is the frame that calls the two.
-		      var sampleLines = sample.stack.split('\n');
-		      var controlLines = control.stack.split('\n');
-		      var s = sampleLines.length - 1;
-		      var c = controlLines.length - 1;
-
-		      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-		        // We expect at least one stack frame to be shared.
-		        // Typically this will be the root most one. However, stack frames may be
-		        // cut off due to maximum stack limits. In this case, one maybe cut off
-		        // earlier than the other. We assume that the sample is longer or the same
-		        // and there for cut off earlier. So we should find the root most frame in
-		        // the sample somewhere in the control.
-		        c--;
-		      }
-
-		      for (; s >= 1 && c >= 0; s--, c--) {
-		        // Next we find the first one that isn't the same which should be the
-		        // frame that called our sample function and the control.
-		        if (sampleLines[s] !== controlLines[c]) {
-		          // In V8, the first line is describing the message but other VMs don't.
-		          // If we're about to return the first line, and the control is also on the same
-		          // line, that's a pretty good indicator that our sample threw at same line as
-		          // the control. I.e. before we entered the sample frame. So we ignore this result.
-		          // This can happen if you passed a class to function component, or non-function.
-		          if (s !== 1 || c !== 1) {
-		            do {
-		              s--;
-		              c--; // We may still have similar intermediate frames from the construct call.
-		              // The next one that isn't the same should be our match though.
-
-		              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-		                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-		                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at '); // If our component frame is labeled "<anonymous>"
-		                // but we have a user-provided "displayName"
-		                // splice it in to make the stack more readable.
-
-
-		                if (fn.displayName && _frame.includes('<anonymous>')) {
-		                  _frame = _frame.replace('<anonymous>', fn.displayName);
-		                }
-
-		                {
-		                  if (typeof fn === 'function') {
-		                    componentFrameCache.set(fn, _frame);
-		                  }
-		                } // Return the line we found.
-
-
-		                return _frame;
-		              }
-		            } while (s >= 1 && c >= 0);
-		          }
-
-		          break;
-		        }
-		      }
-		    }
-		  } finally {
-		    reentry = false;
-
-		    {
-		      ReactCurrentDispatcher$1.current = previousDispatcher;
-		      reenableLogs();
-		    }
-
-		    Error.prepareStackTrace = previousPrepareStackTrace;
-		  } // Fallback to just using the name if we couldn't make it throw.
-
-
-		  var name = fn ? fn.displayName || fn.name : '';
-		  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-		  {
-		    if (typeof fn === 'function') {
-		      componentFrameCache.set(fn, syntheticFrame);
-		    }
-		  }
-
-		  return syntheticFrame;
-		}
-		function describeFunctionComponentFrame(fn, source, ownerFn) {
-		  {
-		    return describeNativeComponentFrame(fn, false);
-		  }
-		}
-
-		function shouldConstruct(Component) {
-		  var prototype = Component.prototype;
-		  return !!(prototype && prototype.isReactComponent);
-		}
-
-		function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-
-		  if (type == null) {
-		    return '';
-		  }
-
-		  if (typeof type === 'function') {
-		    {
-		      return describeNativeComponentFrame(type, shouldConstruct(type));
-		    }
-		  }
-
-		  if (typeof type === 'string') {
-		    return describeBuiltInComponentFrame(type);
-		  }
-
-		  switch (type) {
-		    case REACT_SUSPENSE_TYPE:
-		      return describeBuiltInComponentFrame('Suspense');
-
-		    case REACT_SUSPENSE_LIST_TYPE:
-		      return describeBuiltInComponentFrame('SuspenseList');
-		  }
-
-		  if (typeof type === 'object') {
-		    switch (type.$$typeof) {
-		      case REACT_FORWARD_REF_TYPE:
-		        return describeFunctionComponentFrame(type.render);
-
-		      case REACT_MEMO_TYPE:
-		        // Memo may contain any component type so we recursively resolve it.
-		        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
-
-		      case REACT_LAZY_TYPE:
-		        {
-		          var lazyComponent = type;
-		          var payload = lazyComponent._payload;
-		          var init = lazyComponent._init;
-
-		          try {
-		            // Lazy may contain any component type so we recursively resolve it.
-		            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-		          } catch (x) {}
-		        }
-		    }
-		  }
-
-		  return '';
-		}
-
-		var loggedTypeFailures = {};
-		var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
-
-		function setCurrentlyValidatingElement(element) {
-		  {
-		    if (element) {
-		      var owner = element._owner;
-		      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-		      ReactDebugCurrentFrame$1.setExtraStackFrame(stack);
-		    } else {
-		      ReactDebugCurrentFrame$1.setExtraStackFrame(null);
-		    }
-		  }
-		}
-
-		function checkPropTypes(typeSpecs, values, location, componentName, element) {
-		  {
-		    // $FlowFixMe This is okay but Flow doesn't know it.
-		    var has = Function.call.bind(hasOwnProperty);
-
-		    for (var typeSpecName in typeSpecs) {
-		      if (has(typeSpecs, typeSpecName)) {
-		        var error$1 = void 0; // Prop type validation may throw. In case they do, we don't want to
-		        // fail the render phase where it didn't fail before. So we log it.
-		        // After these have been cleaned up, we'll let them throw.
-
-		        try {
-		          // This is intentionally an invariant that gets caught. It's the same
-		          // behavior as without this statement except with a better message.
-		          if (typeof typeSpecs[typeSpecName] !== 'function') {
-		            // eslint-disable-next-line react-internal/prod-error-codes
-		            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-		            err.name = 'Invariant Violation';
-		            throw err;
-		          }
-
-		          error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
-		        } catch (ex) {
-		          error$1 = ex;
-		        }
-
-		        if (error$1 && !(error$1 instanceof Error)) {
-		          setCurrentlyValidatingElement(element);
-
-		          error('%s: type specification of %s' + ' `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error$1);
-
-		          setCurrentlyValidatingElement(null);
-		        }
-
-		        if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
-		          // Only monitor this failure once because there tends to be a lot of the
-		          // same error.
-		          loggedTypeFailures[error$1.message] = true;
-		          setCurrentlyValidatingElement(element);
-
-		          error('Failed %s type: %s', location, error$1.message);
-
-		          setCurrentlyValidatingElement(null);
-		        }
-		      }
-		    }
-		  }
-		}
-
-		function setCurrentlyValidatingElement$1(element) {
-		  {
-		    if (element) {
-		      var owner = element._owner;
-		      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-		      setExtraStackFrame(stack);
-		    } else {
-		      setExtraStackFrame(null);
-		    }
-		  }
-		}
-
-		var propTypesMisspellWarningShown;
-
-		{
-		  propTypesMisspellWarningShown = false;
-		}
-
-		function getDeclarationErrorAddendum() {
-		  if (ReactCurrentOwner.current) {
-		    var name = getComponentNameFromType(ReactCurrentOwner.current.type);
-
-		    if (name) {
-		      return '\n\nCheck the render method of `' + name + '`.';
-		    }
-		  }
-
-		  return '';
-		}
-
-		function getSourceInfoErrorAddendum(source) {
-		  if (source !== undefined) {
-		    var fileName = source.fileName.replace(/^.*[\\\/]/, '');
-		    var lineNumber = source.lineNumber;
-		    return '\n\nCheck your code at ' + fileName + ':' + lineNumber + '.';
-		  }
-
-		  return '';
-		}
-
-		function getSourceInfoErrorAddendumForProps(elementProps) {
-		  if (elementProps !== null && elementProps !== undefined) {
-		    return getSourceInfoErrorAddendum(elementProps.__source);
-		  }
-
-		  return '';
-		}
-		/**
-		 * Warn if there's no key explicitly set on dynamic arrays of children or
-		 * object keys are not valid. This allows us to keep track of children between
-		 * updates.
-		 */
-
-
-		var ownerHasKeyUseWarning = {};
-
-		function getCurrentComponentErrorInfo(parentType) {
-		  var info = getDeclarationErrorAddendum();
-
-		  if (!info) {
-		    var parentName = typeof parentType === 'string' ? parentType : parentType.displayName || parentType.name;
-
-		    if (parentName) {
-		      info = "\n\nCheck the top-level render call using <" + parentName + ">.";
-		    }
-		  }
-
-		  return info;
-		}
-		/**
-		 * Warn if the element doesn't have an explicit key assigned to it.
-		 * This element is in an array. The array could grow and shrink or be
-		 * reordered. All children that haven't already been validated are required to
-		 * have a "key" property assigned to it. Error statuses are cached so a warning
-		 * will only be shown once.
-		 *
-		 * @internal
-		 * @param {ReactElement} element Element that requires a key.
-		 * @param {*} parentType element's parent's type.
-		 */
-
-
-		function validateExplicitKey(element, parentType) {
-		  if (!element._store || element._store.validated || element.key != null) {
-		    return;
-		  }
-
-		  element._store.validated = true;
-		  var currentComponentErrorInfo = getCurrentComponentErrorInfo(parentType);
-
-		  if (ownerHasKeyUseWarning[currentComponentErrorInfo]) {
-		    return;
-		  }
-
-		  ownerHasKeyUseWarning[currentComponentErrorInfo] = true; // Usually the current owner is the offender, but if it accepts children as a
-		  // property, it may be the creator of the child that's responsible for
-		  // assigning it a key.
-
-		  var childOwner = '';
-
-		  if (element && element._owner && element._owner !== ReactCurrentOwner.current) {
-		    // Give the component that originally created this child.
-		    childOwner = " It was passed a child from " + getComponentNameFromType(element._owner.type) + ".";
-		  }
-
-		  {
-		    setCurrentlyValidatingElement$1(element);
-
-		    error('Each child in a list should have a unique "key" prop.' + '%s%s See https://reactjs.org/link/warning-keys for more information.', currentComponentErrorInfo, childOwner);
-
-		    setCurrentlyValidatingElement$1(null);
-		  }
-		}
-		/**
-		 * Ensure that every element either is passed in a static location, in an
-		 * array with an explicit keys property defined, or in an object literal
-		 * with valid key property.
-		 *
-		 * @internal
-		 * @param {ReactNode} node Statically passed child of any type.
-		 * @param {*} parentType node's parent's type.
-		 */
-
-
-		function validateChildKeys(node, parentType) {
-		  if (typeof node !== 'object') {
-		    return;
-		  }
-
-		  if (isArray(node)) {
-		    for (var i = 0; i < node.length; i++) {
-		      var child = node[i];
-
-		      if (isValidElement(child)) {
-		        validateExplicitKey(child, parentType);
-		      }
-		    }
-		  } else if (isValidElement(node)) {
-		    // This element was passed in a valid location.
-		    if (node._store) {
-		      node._store.validated = true;
-		    }
-		  } else if (node) {
-		    var iteratorFn = getIteratorFn(node);
-
-		    if (typeof iteratorFn === 'function') {
-		      // Entry iterators used to provide implicit keys,
-		      // but now we print a separate warning for them later.
-		      if (iteratorFn !== node.entries) {
-		        var iterator = iteratorFn.call(node);
-		        var step;
-
-		        while (!(step = iterator.next()).done) {
-		          if (isValidElement(step.value)) {
-		            validateExplicitKey(step.value, parentType);
-		          }
-		        }
-		      }
-		    }
-		  }
-		}
-		/**
-		 * Given an element, validate that its props follow the propTypes definition,
-		 * provided by the type.
-		 *
-		 * @param {ReactElement} element
-		 */
-
-
-		function validatePropTypes(element) {
-		  {
-		    var type = element.type;
-
-		    if (type === null || type === undefined || typeof type === 'string') {
-		      return;
-		    }
-
-		    var propTypes;
-
-		    if (typeof type === 'function') {
-		      propTypes = type.propTypes;
-		    } else if (typeof type === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE || // Note: Memo only checks outer props here.
-		    // Inner props are checked in the reconciler.
-		    type.$$typeof === REACT_MEMO_TYPE)) {
-		      propTypes = type.propTypes;
-		    } else {
-		      return;
-		    }
-
-		    if (propTypes) {
-		      // Intentionally inside to avoid triggering lazy initializers:
-		      var name = getComponentNameFromType(type);
-		      checkPropTypes(propTypes, element.props, 'prop', name, element);
-		    } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
-		      propTypesMisspellWarningShown = true; // Intentionally inside to avoid triggering lazy initializers:
-
-		      var _name = getComponentNameFromType(type);
-
-		      error('Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', _name || 'Unknown');
-		    }
-
-		    if (typeof type.getDefaultProps === 'function' && !type.getDefaultProps.isReactClassApproved) {
-		      error('getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.');
-		    }
-		  }
-		}
-		/**
-		 * Given a fragment, validate that it can only be provided with fragment props
-		 * @param {ReactElement} fragment
-		 */
-
-
-		function validateFragmentProps(fragment) {
-		  {
-		    var keys = Object.keys(fragment.props);
-
-		    for (var i = 0; i < keys.length; i++) {
-		      var key = keys[i];
-
-		      if (key !== 'children' && key !== 'key') {
-		        setCurrentlyValidatingElement$1(fragment);
-
-		        error('Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.', key);
-
-		        setCurrentlyValidatingElement$1(null);
-		        break;
-		      }
-		    }
-
-		    if (fragment.ref !== null) {
-		      setCurrentlyValidatingElement$1(fragment);
-
-		      error('Invalid attribute `ref` supplied to `React.Fragment`.');
-
-		      setCurrentlyValidatingElement$1(null);
-		    }
-		  }
-		}
-		function createElementWithValidation(type, props, children) {
-		  var validType = isValidElementType(type); // We warn in this case but don't throw. We expect the element creation to
-		  // succeed and there will likely be errors in render.
-
-		  if (!validType) {
-		    var info = '';
-
-		    if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-		      info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and named imports.";
-		    }
-
-		    var sourceInfo = getSourceInfoErrorAddendumForProps(props);
-
-		    if (sourceInfo) {
-		      info += sourceInfo;
-		    } else {
-		      info += getDeclarationErrorAddendum();
-		    }
-
-		    var typeString;
-
-		    if (type === null) {
-		      typeString = 'null';
-		    } else if (isArray(type)) {
-		      typeString = 'array';
-		    } else if (type !== undefined && type.$$typeof === REACT_ELEMENT_TYPE) {
-		      typeString = "<" + (getComponentNameFromType(type.type) || 'Unknown') + " />";
-		      info = ' Did you accidentally export a JSX literal instead of a component?';
-		    } else {
-		      typeString = typeof type;
-		    }
-
-		    {
-		      error('React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
-		    }
-		  }
-
-		  var element = createElement.apply(this, arguments); // The result can be nullish if a mock or a custom function is used.
-		  // TODO: Drop this when these are no longer allowed as the type argument.
-
-		  if (element == null) {
-		    return element;
-		  } // Skip key warning if the type isn't valid since our key validation logic
-		  // doesn't expect a non-string/function type and can throw confusing errors.
-		  // We don't want exception behavior to differ between dev and prod.
-		  // (Rendering will throw with a helpful message and as soon as the type is
-		  // fixed, the key warnings will appear.)
-
-
-		  if (validType) {
-		    for (var i = 2; i < arguments.length; i++) {
-		      validateChildKeys(arguments[i], type);
-		    }
-		  }
-
-		  if (type === REACT_FRAGMENT_TYPE) {
-		    validateFragmentProps(element);
-		  } else {
-		    validatePropTypes(element);
-		  }
-
-		  return element;
-		}
-		var didWarnAboutDeprecatedCreateFactory = false;
-		function createFactoryWithValidation(type) {
-		  var validatedFactory = createElementWithValidation.bind(null, type);
-		  validatedFactory.type = type;
-
-		  {
-		    if (!didWarnAboutDeprecatedCreateFactory) {
-		      didWarnAboutDeprecatedCreateFactory = true;
-
-		      warn('React.createFactory() is deprecated and will be removed in ' + 'a future major release. Consider using JSX ' + 'or use React.createElement() directly instead.');
-		    } // Legacy hook: remove it
-
-
-		    Object.defineProperty(validatedFactory, 'type', {
-		      enumerable: false,
-		      get: function () {
-		        warn('Factory.type is deprecated. Access the class directly ' + 'before passing it to createFactory.');
-
-		        Object.defineProperty(this, 'type', {
-		          value: type
-		        });
-		        return type;
-		      }
-		    });
-		  }
-
-		  return validatedFactory;
-		}
-		function cloneElementWithValidation(element, props, children) {
-		  var newElement = cloneElement.apply(this, arguments);
-
-		  for (var i = 2; i < arguments.length; i++) {
-		    validateChildKeys(arguments[i], newElement.type);
-		  }
-
-		  validatePropTypes(newElement);
-		  return newElement;
-		}
-
-		function startTransition(scope, options) {
-		  var prevTransition = ReactCurrentBatchConfig.transition;
-		  ReactCurrentBatchConfig.transition = {};
-		  var currentTransition = ReactCurrentBatchConfig.transition;
-
-		  {
-		    ReactCurrentBatchConfig.transition._updatedFibers = new Set();
-		  }
-
-		  try {
-		    scope();
-		  } finally {
-		    ReactCurrentBatchConfig.transition = prevTransition;
-
-		    {
-		      if (prevTransition === null && currentTransition._updatedFibers) {
-		        var updatedFibersCount = currentTransition._updatedFibers.size;
-
-		        if (updatedFibersCount > 10) {
-		          warn('Detected a large number of updates inside startTransition. ' + 'If this is due to a subscription please re-write it to use React provided hooks. ' + 'Otherwise concurrent mode guarantees are off the table.');
-		        }
-
-		        currentTransition._updatedFibers.clear();
-		      }
-		    }
-		  }
-		}
-
-		var didWarnAboutMessageChannel = false;
-		var enqueueTaskImpl = null;
-		function enqueueTask(task) {
-		  if (enqueueTaskImpl === null) {
-		    try {
-		      // read require off the module object to get around the bundlers.
-		      // we don't want them to detect a require and bundle a Node polyfill.
-		      var requireString = ('require' + Math.random()).slice(0, 7);
-		      var nodeRequire = module && module[requireString]; // assuming we're in node, let's try to get node's
-		      // version of setImmediate, bypassing fake timers if any.
-
-		      enqueueTaskImpl = nodeRequire.call(module, 'timers').setImmediate;
-		    } catch (_err) {
-		      // we're in a browser
-		      // we can't use regular timers because they may still be faked
-		      // so we try MessageChannel+postMessage instead
-		      enqueueTaskImpl = function (callback) {
-		        {
-		          if (didWarnAboutMessageChannel === false) {
-		            didWarnAboutMessageChannel = true;
-
-		            if (typeof MessageChannel === 'undefined') {
-		              error('This browser does not have a MessageChannel implementation, ' + 'so enqueuing tasks via await act(async () => ...) will fail. ' + 'Please file an issue at https://github.com/facebook/react/issues ' + 'if you encounter this warning.');
-		            }
-		          }
-		        }
-
-		        var channel = new MessageChannel();
-		        channel.port1.onmessage = callback;
-		        channel.port2.postMessage(undefined);
-		      };
-		    }
-		  }
-
-		  return enqueueTaskImpl(task);
-		}
-
-		var actScopeDepth = 0;
-		var didWarnNoAwaitAct = false;
-		function act(callback) {
-		  {
-		    // `act` calls can be nested, so we track the depth. This represents the
-		    // number of `act` scopes on the stack.
-		    var prevActScopeDepth = actScopeDepth;
-		    actScopeDepth++;
-
-		    if (ReactCurrentActQueue.current === null) {
-		      // This is the outermost `act` scope. Initialize the queue. The reconciler
-		      // will detect the queue and use it instead of Scheduler.
-		      ReactCurrentActQueue.current = [];
-		    }
-
-		    var prevIsBatchingLegacy = ReactCurrentActQueue.isBatchingLegacy;
-		    var result;
-
-		    try {
-		      // Used to reproduce behavior of `batchedUpdates` in legacy mode. Only
-		      // set to `true` while the given callback is executed, not for updates
-		      // triggered during an async event, because this is how the legacy
-		      // implementation of `act` behaved.
-		      ReactCurrentActQueue.isBatchingLegacy = true;
-		      result = callback(); // Replicate behavior of original `act` implementation in legacy mode,
-		      // which flushed updates immediately after the scope function exits, even
-		      // if it's an async function.
-
-		      if (!prevIsBatchingLegacy && ReactCurrentActQueue.didScheduleLegacyUpdate) {
-		        var queue = ReactCurrentActQueue.current;
-
-		        if (queue !== null) {
-		          ReactCurrentActQueue.didScheduleLegacyUpdate = false;
-		          flushActQueue(queue);
-		        }
-		      }
-		    } catch (error) {
-		      popActScope(prevActScopeDepth);
-		      throw error;
-		    } finally {
-		      ReactCurrentActQueue.isBatchingLegacy = prevIsBatchingLegacy;
-		    }
-
-		    if (result !== null && typeof result === 'object' && typeof result.then === 'function') {
-		      var thenableResult = result; // The callback is an async function (i.e. returned a promise). Wait
-		      // for it to resolve before exiting the current scope.
-
-		      var wasAwaited = false;
-		      var thenable = {
-		        then: function (resolve, reject) {
-		          wasAwaited = true;
-		          thenableResult.then(function (returnValue) {
-		            popActScope(prevActScopeDepth);
-
-		            if (actScopeDepth === 0) {
-		              // We've exited the outermost act scope. Recursively flush the
-		              // queue until there's no remaining work.
-		              recursivelyFlushAsyncActWork(returnValue, resolve, reject);
-		            } else {
-		              resolve(returnValue);
-		            }
-		          }, function (error) {
-		            // The callback threw an error.
-		            popActScope(prevActScopeDepth);
-		            reject(error);
-		          });
-		        }
-		      };
-
-		      {
-		        if (!didWarnNoAwaitAct && typeof Promise !== 'undefined') {
-		          // eslint-disable-next-line no-undef
-		          Promise.resolve().then(function () {}).then(function () {
-		            if (!wasAwaited) {
-		              didWarnNoAwaitAct = true;
-
-		              error('You called act(async () => ...) without await. ' + 'This could lead to unexpected testing behaviour, ' + 'interleaving multiple act calls and mixing their ' + 'scopes. ' + 'You should - await act(async () => ...);');
-		            }
-		          });
-		        }
-		      }
-
-		      return thenable;
-		    } else {
-		      var returnValue = result; // The callback is not an async function. Exit the current scope
-		      // immediately, without awaiting.
-
-		      popActScope(prevActScopeDepth);
-
-		      if (actScopeDepth === 0) {
-		        // Exiting the outermost act scope. Flush the queue.
-		        var _queue = ReactCurrentActQueue.current;
-
-		        if (_queue !== null) {
-		          flushActQueue(_queue);
-		          ReactCurrentActQueue.current = null;
-		        } // Return a thenable. If the user awaits it, we'll flush again in
-		        // case additional work was scheduled by a microtask.
-
-
-		        var _thenable = {
-		          then: function (resolve, reject) {
-		            // Confirm we haven't re-entered another `act` scope, in case
-		            // the user does something weird like await the thenable
-		            // multiple times.
-		            if (ReactCurrentActQueue.current === null) {
-		              // Recursively flush the queue until there's no remaining work.
-		              ReactCurrentActQueue.current = [];
-		              recursivelyFlushAsyncActWork(returnValue, resolve, reject);
-		            } else {
-		              resolve(returnValue);
-		            }
-		          }
-		        };
-		        return _thenable;
-		      } else {
-		        // Since we're inside a nested `act` scope, the returned thenable
-		        // immediately resolves. The outer scope will flush the queue.
-		        var _thenable2 = {
-		          then: function (resolve, reject) {
-		            resolve(returnValue);
-		          }
-		        };
-		        return _thenable2;
-		      }
-		    }
-		  }
-		}
-
-		function popActScope(prevActScopeDepth) {
-		  {
-		    if (prevActScopeDepth !== actScopeDepth - 1) {
-		      error('You seem to have overlapping act() calls, this is not supported. ' + 'Be sure to await previous act() calls before making a new one. ');
-		    }
-
-		    actScopeDepth = prevActScopeDepth;
-		  }
-		}
-
-		function recursivelyFlushAsyncActWork(returnValue, resolve, reject) {
-		  {
-		    var queue = ReactCurrentActQueue.current;
-
-		    if (queue !== null) {
-		      try {
-		        flushActQueue(queue);
-		        enqueueTask(function () {
-		          if (queue.length === 0) {
-		            // No additional work was scheduled. Finish.
-		            ReactCurrentActQueue.current = null;
-		            resolve(returnValue);
-		          } else {
-		            // Keep flushing work until there's none left.
-		            recursivelyFlushAsyncActWork(returnValue, resolve, reject);
-		          }
-		        });
-		      } catch (error) {
-		        reject(error);
-		      }
-		    } else {
-		      resolve(returnValue);
-		    }
-		  }
-		}
-
-		var isFlushing = false;
-
-		function flushActQueue(queue) {
-		  {
-		    if (!isFlushing) {
-		      // Prevent re-entrance.
-		      isFlushing = true;
-		      var i = 0;
-
-		      try {
-		        for (; i < queue.length; i++) {
-		          var callback = queue[i];
-
-		          do {
-		            callback = callback(true);
-		          } while (callback !== null);
-		        }
-
-		        queue.length = 0;
-		      } catch (error) {
-		        // If something throws, leave the remaining callbacks on the queue.
-		        queue = queue.slice(i + 1);
-		        throw error;
-		      } finally {
-		        isFlushing = false;
-		      }
-		    }
-		  }
-		}
-
-		var createElement$1 =  createElementWithValidation ;
-		var cloneElement$1 =  cloneElementWithValidation ;
-		var createFactory =  createFactoryWithValidation ;
-		var Children = {
-		  map: mapChildren,
-		  forEach: forEachChildren,
-		  count: countChildren,
-		  toArray: toArray,
-		  only: onlyChild
-		};
-
-		exports.Children = Children;
-		exports.Component = Component;
-		exports.Fragment = REACT_FRAGMENT_TYPE;
-		exports.Profiler = REACT_PROFILER_TYPE;
-		exports.PureComponent = PureComponent;
-		exports.StrictMode = REACT_STRICT_MODE_TYPE;
-		exports.Suspense = REACT_SUSPENSE_TYPE;
-		exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals;
-		exports.cloneElement = cloneElement$1;
-		exports.createContext = createContext;
-		exports.createElement = createElement$1;
-		exports.createFactory = createFactory;
-		exports.createRef = createRef;
-		exports.forwardRef = forwardRef;
-		exports.isValidElement = isValidElement;
-		exports.lazy = lazy;
-		exports.memo = memo;
-		exports.startTransition = startTransition;
-		exports.unstable_act = act;
-		exports.useCallback = useCallback;
-		exports.useContext = useContext;
-		exports.useDebugValue = useDebugValue;
-		exports.useDeferredValue = useDeferredValue;
-		exports.useEffect = useEffect;
-		exports.useId = useId;
-		exports.useImperativeHandle = useImperativeHandle;
-		exports.useInsertionEffect = useInsertionEffect;
-		exports.useLayoutEffect = useLayoutEffect;
-		exports.useMemo = useMemo;
-		exports.useReducer = useReducer;
-		exports.useRef = useRef;
-		exports.useState = useState;
-		exports.useSyncExternalStore = useSyncExternalStore;
-		exports.useTransition = useTransition;
-		exports.version = ReactVersion;
-		          /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-		if (
-		  typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' &&
-		  typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop ===
-		    'function'
-		) {
-		  __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
-		}
-		        
-		  })();
-		}
-	} (react_development, react_developmentExports));
-
-	(function (module) {
-
-		{
-		  module.exports = react_developmentExports;
-		}
-	} (react));
-
-	var React = /*@__PURE__*/getDefaultExportFromCjs(reactExports);
-
-	function useCreateInput(formBase, name, defaultParams = {}) {
-	    const result = formBase.createInput(name, {
-	        defaultValue: defaultParams.defaultValue,
-	        validation: defaultParams.validation,
-	    });
-	    reactExports.useInsertionEffect(() => {
-	        return () => formBase.deleteInput(name);
-	    }, [formBase, name]);
-	    return result;
-	}
-
-	function useErrorForGlobal(formBase) {
-	    const [state, setState] = reactExports.useState(() => formBase.store.state.formState?.error);
-	    reactExports.useEffect(() => {
-	        setState(formBase.store.state.formState?.error);
-	    }, [formBase]);
-	    reactExports.useEffect(() => {
-	        const callback = () => {
-	            const formState = formBase.store.state.formState;
-	            setState(formState?.error);
-	        };
-	        return formBase.store.subscribe(callback);
-	    }, [formBase]);
-	    return state;
-	}
-
-	function useErrorForInput(formBase, name) {
-	    const [state, setState] = reactExports.useState(() => formBase.store.state.inputStates[name]?.error);
-	    const [loading, setLoading] = reactExports.useState(() => formBase.store.state.inputStates[name]?.validateLoading);
-	    reactExports.useEffect(() => {
-	        const inputState = formBase.store.state.inputStates[name];
-	        setState(inputState?.error);
-	        setLoading(inputState?.validateLoading);
-	    }, [formBase, name]);
-	    reactExports.useEffect(() => {
-	        const callback = () => {
-	            const inputState = formBase.store.state.inputStates[name];
-	            setState(inputState?.error);
-	            setLoading(inputState?.validateLoading);
-	        };
-	        return formBase.store.subscribe(callback);
-	    }, [formBase, name]);
-	    return { error: state && state[0], loading };
-	}
-
-	const FormContext = reactExports.createContext(null);
-	function FormContextProvider(props) {
-	    const formBase = reactExports.useMemo(() => new FormBase({
-	        refreshType: props?.refreshType,
-	        shouldValidate: props?.shouldValidate,
-	        debounceNumber: props?.debounceNumber,
-	        dev: props?.dev,
-	    }), [props?.refreshType, props?.shouldValidate, props?.debounceNumber, props?.dev]);
-	    return React.createElement(FormContext.Provider, { value: { formBase } }, props.children);
-	}
-
-	function useContextFormBase() {
-	    const context = reactExports.useContext(FormContext);
-	    if (!context) {
-	        throw throwContextError("useContextFormBase");
-	    }
-	    return context.formBase;
-	}
-
-	const InnerForm = React.memo((props) => {
-	    const formBase = useContextFormBase();
-	    const { ...htmlProps } = props;
-	    return (React.createElement("form", { ...htmlProps, onSubmit: (e) => {
-	            e.preventDefault();
-	            formBase
-	                .onSubmit((res, utils) => {
-	                if (props.onSubmit) {
-	                    return props.onSubmit(res, utils);
-	                }
-	            })
-	                .then();
-	        } }));
-	});
-	const Form = React.memo((props) => {
-	    const { formBaseOptions, ...formProps } = props;
-	    //TODO: solve ts-ignore
-	    return (React.createElement(FormContextProvider, { ...formBaseOptions },
-	        React.createElement(InnerForm, { ...formProps }, props.children)));
-	});
-
-	function useCreateDomInput(formBase, name, defaultParams = {}) {
-	    const result = useCreateInput(formBase, name, defaultParams);
-	    result.ref = reactExports.useRef();
-	    const errorNameInput = useErrorForInput(formBase, "name");
-	    reactExports.useEffect(() => {
-	        if (!name)
-	            return;
-	        const callback = (state) => {
-	            if (result.ref.current) {
-	                result.ref.current.value = state.inputStates[name]?._refreshValue || "";
-	            }
-	        };
-	        return formBase.store.subscribeInstant(callback);
-	    }, [formBase, result.ref, name]);
-	    return { ...result, ...errorNameInput };
-	}
-
-	const Input$2 = React.memo((inputProps) => {
-	    const { name, validation, defaultValue, inputRef, ...htmlProps } = inputProps;
-	    const formBase = useContextFormBase();
-	    const id = reactExports.useId();
-	    const { onChange, onBlur, ref } = useCreateDomInput(formBase, name || id, {
-	        validation,
-	        defaultValue,
-	    });
-	    const __htmlProps = htmlProps;
-	    return (React.createElement("input", { ...__htmlProps, ref: (el) => {
-	            ref.current = el;
-	            if (inputRef) {
-	                inputRef.current = el;
-	            }
-	        }, onChange: (e) => {
-	            const value = e.target.value;
-	            onChange(value);
-	            htmlProps.onChange && htmlProps.onChange(e);
-	        }, onBlur: (e) => {
-	            onBlur();
-	            htmlProps.onBlur && htmlProps.onBlur(e);
-	        } }));
-	});
-
-	React.memo((textareaProps) => {
-	    const { name, validation, defaultValue, inputRef, ...htmlProps } = textareaProps;
-	    const formBase = useContextFormBase();
-	    const id = reactExports.useId();
-	    const { onChange, onBlur, ref } = useCreateDomInput(formBase, name || id);
-	    const __htmlProps = htmlProps;
-	    return (React.createElement("textarea", { ...__htmlProps, ref: (el) => {
-	            ref.current = el;
-	            if (inputRef) {
-	                console.log("el", el);
-	                inputRef.current = el;
-	            }
-	        }, onChange: (e) => {
-	            const value = e.target.value;
-	            onChange(value);
-	            htmlProps.onChange && htmlProps.onChange(e);
-	        }, onBlur: (e) => {
-	            onBlur();
-	            htmlProps.onBlur && htmlProps.onBlur(e);
-	        } }));
-	});
-
-	const FormError = React.memo(({ errorMessage = "Something went wrong" }) => {
-	    const formBase = useContextFormBase();
-	    const error = useErrorForGlobal(formBase);
-	    if (!error)
-	        return null;
-	    return React.createElement("p", null, typeof error === "string" ? error : error.message || errorMessage);
-	});
-
-	const InputError = React.memo(({ name, customErrorText }) => {
-	    const formBase = useContextFormBase();
-	    const { error, loading } = useErrorForInput(formBase, name);
-	    if (!customErrorText) {
-	        customErrorText = (errorInner) => {
-	            return getErrorDefaultText(errorInner);
-	        };
-	    }
-	    return React.createElement("p", null, loading ? React.createElement("span", null, "Loading") : error ? customErrorText(error) : null);
-	});
+	var c,d,h;function m(t){return new Error(`"${t}" is not registered`)}!function(t){t.blur="blur",t.instant="instant";}(c||(c={})),function(t){t.YES="YES",t.AFTER_FIRST_SUBMIT_ATTEMPT="AFTER_FIRST_SUBMIT_ATTEMPT",t.NO="NO";}(d||(d={})),c.instant,function(t){t.INIT="INIT",t.NEW_VALUE="NEW_VALUE",t.BLURRED="BLURRED",t.ASYNC_VALIDATION="ASYNC_VALIDATION",t.SUBMIT_STARTED="SUBMIT_STARTED",t.SUBMIT_ERROR="SUBMIT_ERROR",t.SUBMIT_SUCCEED="SUBMIT_SUCCEED",t.NEW_VALUE_DEBOUNCED="NEW_VALUE_DEBOUNCED",t.BLURRED_DEBOUNCED="BLURRED_DEBOUNCED",t.CONFIRM_SELECTED="CONFIRM_SELECTED";}(h||(h={}));class f{time;__select_time;constructor(t=800){this.time=t,this.__select_time=0;}cb(t){this.reset(),this.__select_time=setTimeout((()=>{t&&t();}),this.time);}reset(){clearTimeout(this.__select_time);}}function p(t,e){function r(e){e.error?t.formState.formStatus="ERROR":"ERROR"!==t.formState.formStatus?t.formState.formStatus="NOT-CLEAN":t.formState.formStatus=Object.values(t.inputStates).reduce(((t,e)=>t&&!!e.error),!1)?"ERROR":"NOT-CLEAN";}let a=null;switch(t.formState.dev&&(a=JSON.parse(JSON.stringify(t))),e.type){case h.INIT:t.formState.formStatus="CLEAN";break;case h.BLURRED_DEBOUNCED:case h.NEW_VALUE_DEBOUNCED:{const a=e.payload,s=a.error,n=a.validateRequired,i=t.inputStates[a.name];if(!i)throw m(a.name);if(i.value=i._refreshValue,s&&!Array.isArray(s))throw new Error("error must be array");i.error=s,i.validateRequired=n??i.validateRequired,r(i);break}case h.NEW_VALUE:{const a=e.payload,s=a.value,n=a.error,i=a.validateRequired,o=t.inputStates[a.name];if(!o)throw m(a.name);if(o._refreshValue=s,t.formState.refreshType===c.instant&&(t.formState.debounceNumber&&0!==t.formState.debounceNumber||(o.value=s)),n&&!Array.isArray(n))throw new Error("error must be array");o.error=n,o.validateRequired=i??o.validateRequired,r(o);break}case h.BLURRED:{if(t.formState.refreshType!==c.blur)break;const a=e.payload,s=a.error,n=a.validateRequired,i=t.inputStates[a.name];if(!i)throw m(a.name);if(i.value=i._refreshValue,s&&!Array.isArray(s))throw new Error("error must be array");i.error=s,i.validateRequired=n??i.validateRequired,r(i);break}case h.SUBMIT_STARTED:t.formState.loading=!0,t.formState.submitAttemptNumber++;break;case h.CONFIRM_SELECTED:t.formState.confirmActive=!0;break;case h.SUBMIT_SUCCEED:t.formState.confirmActive=!1,t.formState.loading=!1,Object.values(t.inputStates).forEach((t=>{t.validateRequired=!1;})),t.formState.formStatus="SUCCESS";break;case h.SUBMIT_ERROR:{const r=e.payload;t.formState.confirmActive=!1,t.formState.loading=!1,Object.values(t.inputStates).forEach((t=>{t.validateRequired=!1;})),t.formState.formStatus="ERROR";const a=r.error;if(a)if(Array.isArray(a))a.forEach((e=>{if(e instanceof Error||!e.name)t.formState.error=e;else {const r=t.inputStates[e.name];r&&(r.error=Array.isArray(e)?e:[e]);}}));else if(a instanceof Error||!a.name)t.formState.error=a;else {const e=t.inputStates[a.name];e&&(e.error=[a]);}else console.warn("Wrong usage, error must be filled if success is false");break}case h.ASYNC_VALIDATION:{const r=e.payload,a=t.inputStates[r.name];if(!a)throw m(r.name);r.forSubmit&&(t.formState.loading=r.value),a.validateLoading=r.value;break}default:throw new Error("Unexpected Action Type")}return t.formState.dev&&console.info("FORM",e.type,{payload:e.payload,oldState:a,newState:t}),t}class S{state;reducer;listeners=[];instantListeners=[];debounce;__inputValidationFunctions__={};__lastEvent__={actionProps:{type:h.INIT,payload:void 0},index:0};constructor(t,e){this.state=t,this.reducer=e,this.debounce=t.formState.debounceNumber&&t.formState.debounceNumber>0?new f(t.formState.debounceNumber):void 0;}subscribe(t){return this.listeners.push(t),()=>{this.listeners.splice(this.listeners.indexOf(t),1);}}subscribeInstant(t){return this.instantListeners.push(t),()=>{this.listeners.splice(this.instantListeners.indexOf(t),1);}}dispatch(t){this.__lastEvent__={actionProps:{type:t.type,payload:t.payload},index:this.__lastEvent__.index+1},(t.type===h.NEW_VALUE&&this.state.formState.refreshType===c.instant||t.type===h.BLURRED&&this.state.formState.refreshType===c.blur)&&this.state.formState.debounceNumber&&this.state.formState.debounceNumber>0?(console.log("debounce",t,this.state.formState.refreshType),this.debounce?.cb((()=>{t.type===h.BLURRED?this.dispatch({type:h.NEW_VALUE_DEBOUNCED,payload:t.payload}):this.dispatch({type:h.BLURRED_DEBOUNCED,payload:t.payload});}))):(this.state=this.reducer(this.state,t),this.instantBroadcast(),this.broadcast());}getValidationData(){return Object.entries(this.state.inputStates).filter((([,t])=>t.validateRequired)).reduce(((t,[e,r])=>(t[e]=r.value,t)),{})}createInput(t,e){if(this.state.inputStates[t])return this.state.inputStates[t];this.state.inputStates[t]={name:t,value:e.defaultValue,validateLoading:!1,_refreshValue:e.defaultValue,validateRequired:!0,error:void 0};}broadcast(){this.listeners.forEach((t=>t(this.state)));}instantBroadcast(){this.instantListeners.forEach((t=>t(this.state)));}getRawData(){return Object.entries(this.state.inputStates).reduce(((t,[e,r])=>(t[e]=r.value,t)),{})}getShouldValidateAgain(){return Object.values(this.state.inputStates).reduce(((t,e)=>t||e.validateRequired),!1)}addValidation(t,e){this.__inputValidationFunctions__[t]=e||void 0;}}const v=/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im,E=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,y=/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/;function _(t){return !!t}function b(t,e){if(!t)return !0;let r=Number(t);return !isNaN(r)&&r>e}function g(t,e){return !t||"string"==typeof t&&t.length>e}function R(t,e){if(!t)return !0;let r=Number(t);return !isNaN(r)&&r<e}function T(t,e){return !t||"string"==typeof t&&t.length<e}function A(t){return !t||"string"==typeof t&&!!t.toLowerCase().match(E)}function N(t){return !t||"string"==typeof t&&!!t.match(v)}function V(t,e){return !e||t===e}function I(t){return !t||"string"==typeof t&&!!t.match(y)}function L(t,e){return !t||"string"==typeof t&&e.test(t)}var D;!function(t){t.required="required",t.min="min",t.minLength="minLength",t.max="max",t.maxLength="maxLength",t.email="email",t.phone="phone",t.repeatPassword="repeatPassword",t.url="url",t.regex="regex";}(D||(D={}));class w$1{store;validateName;validations={};settings={validateAll:!1};constructor(t,e){this.store=t,this.validateName=e;}required(){return this.register(D.required,_)}min(t){return this.register(D.min,b,t)}minLength(t){return this.register(D.minLength,g,t)}max(t){return this.register(D.max,R,t)}maxLength(t){return this.register(D.maxLength,T,t)}email(){return this.register(D.email,A)}phone(){return this.register(D.phone,N)}repeatPassword(t){const e=this.store.getRawData();return this.register(D.repeatPassword,V,e?e[t]:void 0)}url(){return this.register(D.url,I)}regex(t){return this.register(D.regex,L,t)}validate(t,e,r){return this.register("custom_"+this.validateName,e,Number(r))}async(t,e,r){return this.registerAsync(t,e,r)}set(t){return this.settings={...this.settings,validateAll:t.validateAll},this}register(t,e,r){return this.validations[t]={fn:e,payload:r,async:!1},this}registerAsync(t,e,r){return this.validations[t]={fn:e,payload:r,async:!0},this}}function B(t){switch(console.log("error",t),t.type){case D.required:return "This Field is required.";case D.min:return "Minimum required number is "+t.payload;case D.minLength:return "Minimum "+t.payload+" "+(1===t.payload?"character":"characters")+" are allowed";case D.max:return "Maximum required number is "+t.payload;case D.maxLength:return "Maximum "+t.payload+" "+(1===t.payload?"character":"characters")+" are allowed";case D.email:return "Please enter a valid email address.";case D.phone:return "Please enter a valid phone number.";case D.repeatPassword:return (t&&t.name?t.name:"Password ")+" is not matched.";case D.url:return "Please enter a valid url."}return t.payload?.message||"Invalid field"}class U{confirm=null;store;constructor({refreshType:t=c.blur,shouldValidate:e=d.AFTER_FIRST_SUBMIT_ATTEMPT,debounceNumber:r,dev:a=!1}){this.store=new S({formState:{formStatus:"CLEAN",confirmActive:!1,error:null,loading:!1,debounceNumber:r,refreshType:t,shouldValidate:e,submitAttemptNumber:0,dev:a},inputStates:{}},p),this.onSubmit=this.onSubmit.bind(this);}getDataWithoutValidation(){const t=this.store.getRawData();return {isValid:void 0,validateErrors:void 0,shouldValidateAgain:this.store.getShouldValidateAgain(),loading:this.store.state.formState.loading,data:t}}async getDataWithValidation(t,{validateLoading:e}){const r=this.store.getRawData(),a={isValid:void 0,validateErrors:void 0,shouldValidateAgain:this.store.getShouldValidateAgain(),loading:this.store.state.formState.loading,data:r};if(t){const t=await this.validate(r,{validateLoading:e});a.isValid=!(t&&t.length),a.validateErrors=t;}return a}async onSubmit(t){const e=this.store.state,r=e.formState;Object.values(e.inputStates).forEach((t=>{t.value=t._refreshValue;})),r.loading&&console.warn("Double click detect"),r.confirmActive&&console.warn("Form submitted when confirm active"),this.store.dispatch({type:h.SUBMIT_STARTED});const a=await this.getDataWithValidation(!0,{validateLoading:!0});if(a.isValid)try{const e=t=>{this.confirm=(e,r)=>{if(this.store.dispatch({type:h.CONFIRM_SELECTED}),e){const e=t(r);this.onSubmitResult(e);}else this.store.dispatch({type:h.SUBMIT_ERROR,payload:{payload:{error:r}}});};},s=t&&t(a,{confirm:e});if(r.confirmActive)return;this.onSubmitResult(s);}catch(t){this.store.dispatch({type:h.SUBMIT_ERROR,payload:{payload:{error:t}}});}else {const t=[];if(a.validateErrors){for(let e=0;e<a.validateErrors.length;e++){const r=a.validateErrors[e];t.push({value:r.value,name:r.name,payload:r.payload,type:r.type});}this.store.dispatch({type:h.SUBMIT_ERROR,payload:{error:t}});}}}shouldValidate(t){const e=this.store.state.formState.shouldValidate;let r=!1;if("function"==typeof e)r=e(this);else {const a=e;(a===d.YES||a===d.AFTER_FIRST_SUBMIT_ATTEMPT&&t.submitAttemptNumber>0)&&(r=!0);}return r}createInput(t,e){return this.store.createInput(t,e),e.validation?this.store.__inputValidationFunctions__[t]=e.validation:this.store.__inputValidationFunctions__[t]=void 0,{onChange:e=>{this.setValue(t,e).then();},onBlur:async()=>{console.log("this.store.state.formState.refreshType",this.store.state.formState.refreshType),this.store.state.formState.refreshType===c.blur&&setTimeout((async()=>{let e;const r=this.store.state.inputStates[t],a=r?._refreshValue;r?.validateRequired&&(e=await this.validateInput(t,a)),this.store.dispatch({type:h.BLURRED,payload:{name:t,error:e,validateRequired:void 0===e}});}),50);},addValidation:e=>{this.store.addValidation(t,e);}}}deleteInput(t){this.checkNameExist(t),delete this.store.state.inputStates[t];}async setValue(t,e){this.checkNameExist(t);let r=null,a=!1;this.store.state.formState.refreshType===c.instant&&(r=await this.validateInput(t,e),a=!0),this.store.dispatch({type:h.NEW_VALUE,payload:{value:e,name:t,error:r,validateRequired:!a}});}async validateInput(t,e){this.checkNameExist(t);const r=this.store.state.formState,a=this.store.__inputValidationFunctions__[t];if(!a)return null;if(!this.shouldValidate(r))return;const s=a(new w$1(this.store,"validator_"+t));if(!s)return null;let n=[];const i=Object.keys(s.validations);for(let r=0;r<i.length;r++){if(n.length&&!s.settings.validateAll)return n;const a=i[r],o=s.validations[a],u=o.fn(e,o.payload);if(u||n.push([{name:t,type:a,value:e,payload:o.payload}]),u&&u.then){this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:t,value:!0,forSubmit:!1}});const r=await u;this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:t,value:!1,forSubmit:!1}}),r||n.push({name:t,type:a,value:e,payload:o.payload});}}return n}async validate(t,{validateLoading:e}){const r=[],a=Object.keys(t);for(let s=0;s<a.length;s++){const n=a[s],i=this.store.__inputValidationFunctions__[n];if(!i)continue;const o=i(new w$1(this.store,"validator_"+n));if(!o)continue;const u=Object.keys(o.validations);for(let a=0;a<u.length;a++){const s=u[a],i=o.validations[s],l=t[n],c=i.fn(l,i.payload);if(c||r.push({name:n,type:s,value:l,payload:i.payload}),c&&c.then){e&&this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:n,value:!0,forSubmit:!0}});const t=await c;e&&this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:n,value:!1,forSubmit:!0}}),t||r.push({name:n,type:s,value:l,payload:i.payload});}}}return r}checkNameExist(t){if(!this.store.state.inputStates[t])throw m(t)}onSubmitResult(t){if(t&&void 0!==t.then){t.then((()=>{this.store.dispatch({type:h.SUBMIT_SUCCEED});})).catch((t=>{this.store.dispatch({type:h.SUBMIT_ERROR,payload:{error:t}});}));}else this.store.dispatch({type:h.SUBMIT_SUCCEED});}}function C(t){const[s,n]=reactExports.useState((()=>t.store.state.formState.confirmActive)),i=reactExports.useCallback((e=>{t.confirm&&t.confirm(!0,e);}),[t]),o=reactExports.useCallback((()=>{t.confirm&&t.confirm(!1);}),[t]);return reactExports.useEffect((()=>t.store.subscribe((e=>{n(t.store.state.formState.confirmActive);}))),[t]),{active:s,resolve:i,reject:o}}function O(t,e,r={}){const a=t.createInput(e,{defaultValue:r.defaultValue,validation:r.validation});return reactExports.useInsertionEffect((()=>()=>t.deleteInput(e)),[t,e]),a}function M(t){const[r,s]=reactExports.useState((()=>t.store.state.formState?.error));return reactExports.useEffect((()=>{s(t.store.state.formState?.error);}),[t]),reactExports.useEffect((()=>t.store.subscribe((()=>{const e=t.store.state.formState;s(e?.error);}))),[t]),r}function x(t,r){const[s,n]=reactExports.useState((()=>t.store.state.inputStates[r]?.error)),[i,o]=reactExports.useState((()=>t.store.state.inputStates[r]?.validateLoading));return reactExports.useEffect((()=>{const e=t.store.state.inputStates[r];n(e?.error),o(e?.validateLoading);}),[t,r]),reactExports.useEffect((()=>t.store.subscribe((()=>{const e=t.store.state.inputStates[r];n(e?.error),o(e?.validateLoading);}))),[t,r]),{error:s&&s[0],loading:i}}function j$1(t,r){const[s,n]=reactExports.useState((()=>r?t.store.state.inputStates[r]?._refreshValue:void 0));return reactExports.useEffect((()=>{r&&n(t.store.state.inputStates[r]?._refreshValue);}),[t,r]),reactExports.useEffect((()=>{if(!r)return;return t.store.subscribeInstant((t=>{n(t.inputStates[r]?._refreshValue);}))}),[t,r]),s}function Y(t){const[r,s]=reactExports.useState({loading:!1,error:null}),n=reactExports.useMemo((()=>new U({refreshType:t?.refreshType})),[t?.refreshType,t?.shouldValidate]);return reactExports.useEffect((()=>n.store.subscribe((()=>{const t=n.store.state.formState;s({error:t?.error,loading:t?.loading});}))),[n]),reactExports.useMemo((()=>({formBase:n,loading:r.loading,error:r.error})),[])}const z=reactExports.createContext(null);function Z(e){const r=reactExports.useMemo((()=>new U({refreshType:e?.refreshType,shouldValidate:e?.shouldValidate,debounceNumber:e?.debounceNumber,dev:e?.dev})),[e?.refreshType,e?.shouldValidate,e?.debounceNumber,e?.dev]);return React.createElement(z.Provider,{value:{formBase:r}},e.children)}function $(){const t=reactExports.useContext(z);if(!t)throw new Error(`You cannot use ${"useContextFormBase"} outside of Form Component`);return t.formBase}const J=React.memo((e=>{const r=$(),{...a}=e;return React.createElement("form",{...a,onSubmit:t=>{t.preventDefault(),r.onSubmit(((t,r)=>{if(e.onSubmit)return e.onSubmit(t,r)})).then();}})})),G=React.memo((e=>{const{formBaseOptions:r,...a}=e;return React.createElement(Z,{...r},React.createElement(J,{...a},e.children))}));function H(t,e,r={}){const s=O(t,e,r);s.ref=reactExports.useRef();const i=x(t,"name");return reactExports.useEffect((()=>{if(!e)return;return t.store.subscribeInstant((t=>{s.ref.current&&(s.ref.current.value=t.inputStates[e]?._refreshValue||"");}))}),[t,s.ref,e]),{...s,...i}}const K=React.memo((e=>{const{name:r,validation:a,defaultValue:s,inputRef:n,...i}=e,o=$(),u=reactExports.useId(),{onChange:c,onBlur:d,ref:h}=H(o,r||u,{validation:a,defaultValue:s}),m=i;return React.createElement("input",{...m,ref:t=>{h.current=t,n&&(n.current=t);},onChange:t=>{const e=t.target.value;c(e),i.onChange&&i.onChange(t);},onBlur:t=>{d(),i.onBlur&&i.onBlur(t);}})})),Q=React.memo((e=>{const{name:r,validation:a,defaultValue:s,inputRef:n,...i}=e,o=$(),u=reactExports.useId(),{onChange:c,onBlur:d,ref:h}=H(o,r||u),m=i;return React.createElement("textarea",{...m,ref:t=>{h.current=t,n&&(console.log("el",t),n.current=t);},onChange:t=>{const e=t.target.value;c(e),i.onChange&&i.onChange(t);},onBlur:t=>{d(),i.onBlur&&i.onBlur(t);}})})),X=React.memo((({errorMessage:e="Something went wrong"})=>{const r=M($());return r?React.createElement("p",null,"string"==typeof r?r:r.message||e):null})),tt=React.memo((({name:e,customErrorText:r})=>{const a=$(),{error:s,loading:n}=x(a,e);return r||(r=t=>B(t)),React.createElement("p",null,n?React.createElement("span",null,"Loading"):s?r(s):null)}));
 
 	function BasicPage() {
-	    return (React$1.createElement(Form, { formBaseOptions: {
-	            refreshType: FormRefreshType.blur,
-	            shouldValidate: FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT,
-	            dev: true,
-	        }, onSubmit: (data) => { } },
-	        React$1.createElement(FormError, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(Input$2, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(InputError, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Last Name"),
-	            React$1.createElement(Input$2, { validation: (v) => v.set({ validateAll: true }).minLength(2), name: "lastname" }),
-	            React$1.createElement(InputError, { name: "lastname" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Email"),
-	            React$1.createElement(Input$2, { validation: (v) => v.email(), name: "email" }),
-	            React$1.createElement(InputError, { name: "email" })),
-	        React$1.createElement("button", null, "SEND")));
+	    return (React.createElement(G, { formBaseOptions: {
+	            refreshType: c.blur,
+	            shouldValidate: d.AFTER_FIRST_SUBMIT_ATTEMPT,
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Last Name"),
+	            React.createElement(K, { validation: (v) => v.set({ validateAll: true }).minLength(2), name: "lastname" }),
+	            React.createElement(tt, { name: "lastname" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Email"),
+	            React.createElement(K, { validation: (v) => v.email(), name: "email" }),
+	            React.createElement(tt, { name: "email" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
-	var c,d,h;function m(t){return new Error(`"${t}" is not registered`)}!function(t){t.blur="blur",t.instant="instant";}(c||(c={})),function(t){t.YES="YES",t.AFTER_FIRST_SUBMIT_ATTEMPT="AFTER_FIRST_SUBMIT_ATTEMPT",t.NO="NO";}(d||(d={})),c.instant,function(t){t.INIT="INIT",t.NEW_VALUE="NEW_VALUE",t.BLURRED="BLURRED",t.ASYNC_VALIDATION="ASYNC_VALIDATION",t.SUBMIT_STARTED="SUBMIT_STARTED",t.SUBMIT_ERROR="SUBMIT_ERROR",t.SUBMIT_SUCCEED="SUBMIT_SUCCEED",t.NEW_VALUE_DEBOUNCED="NEW_VALUE_DEBOUNCED",t.BLURRED_DEBOUNCED="BLURRED_DEBOUNCED",t.CONFIRM_SELECTED="CONFIRM_SELECTED";}(h||(h={}));class f{time;__select_time;constructor(t=800){this.time=t,this.__select_time=0;}cb(t){this.reset(),this.__select_time=setTimeout((()=>{t&&t();}),this.time);}reset(){clearTimeout(this.__select_time);}}function p(t,e){function r(e){e.error?t.formState.formStatus="ERROR":"ERROR"!==t.formState.formStatus?t.formState.formStatus="NOT-CLEAN":t.formState.formStatus=Object.values(t.inputStates).reduce(((t,e)=>t&&!!e.error),!1)?"ERROR":"NOT-CLEAN";}switch(e.type){case h.INIT:t.formState.formStatus="CLEAN";break;case h.BLURRED_DEBOUNCED:case h.NEW_VALUE_DEBOUNCED:{const a=e.payload,s=a.error,n=a.validateRequired,i=t.inputStates[a.name];if(!i)throw m(a.name);if(i.value=i._refreshValue,s&&!Array.isArray(s))throw new Error("error must be array");i.error=s,i.validateRequired=n??i.validateRequired,r(i);break}case h.NEW_VALUE:{const a=e.payload,s=a.value,n=a.error,i=a.validateRequired,o=t.inputStates[a.name];if(!o)throw m(a.name);if(o._refreshValue=s,t.formState.refreshType===c.instant&&(t.formState.debounceNumber&&0!==t.formState.debounceNumber||(o.value=s)),n&&!Array.isArray(n))throw new Error("error must be array");o.error=n,o.validateRequired=i??o.validateRequired,r(o);break}case h.BLURRED:{if(t.formState.refreshType!==c.blur)break;const a=e.payload,s=a.error,n=a.validateRequired,i=t.inputStates[a.name];if(!i)throw m(a.name);if(i.value=i._refreshValue,s&&!Array.isArray(s))throw new Error("error must be array");i.error=s,i.validateRequired=n??i.validateRequired,r(i);break}case h.SUBMIT_STARTED:t.formState.loading=!0,t.formState.submitAttemptNumber++;break;case h.CONFIRM_SELECTED:t.formState.confirmActive=!0;break;case h.SUBMIT_SUCCEED:t.formState.confirmActive=!1,t.formState.loading=!1,Object.values(t.inputStates).forEach((t=>{t.validateRequired=!1;})),t.formState.formStatus="SUCCESS";break;case h.SUBMIT_ERROR:{const r=e.payload;t.formState.confirmActive=!1,t.formState.loading=!1,Object.values(t.inputStates).forEach((t=>{t.validateRequired=!1;})),t.formState.formStatus="ERROR";const a=r.error;if(a)if(Array.isArray(a))a.forEach((e=>{if(e instanceof Error||!e.name)t.formState.error=e;else {const r=t.inputStates[e.name];r&&(r.error=Array.isArray(e)?e:[e]);}}));else if(a instanceof Error||!a.name)t.formState.error=a;else {const e=t.inputStates[a.name];e&&(e.error=[a]);}else console.warn("Wrong usage, error must be filled if success is false");break}case h.ASYNC_VALIDATION:{const r=e.payload,a=t.inputStates[r.name];if(!a)throw m(r.name);r.forSubmit&&(t.formState.loading=r.value),a.validateLoading=r.value;break}default:throw new Error("Unexpected Action Type")}return t}class S{state;reducer;listeners=[];instantListeners=[];debounce;__inputValidationFunctions__={};__lastEvent__={actionProps:{type:h.INIT,payload:void 0},index:0};constructor(t,e){this.state=t,this.reducer=e,this.debounce=t.formState.debounceNumber&&t.formState.debounceNumber>0?new f(t.formState.debounceNumber):void 0;}subscribe(t){return this.listeners.push(t),()=>{this.listeners.splice(this.listeners.indexOf(t),1);}}subscribeInstant(t){return this.instantListeners.push(t),()=>{this.listeners.splice(this.instantListeners.indexOf(t),1);}}dispatch(t){this.__lastEvent__={actionProps:{type:t.type,payload:t.payload},index:this.__lastEvent__.index+1},(t.type===h.NEW_VALUE&&this.state.formState.refreshType===c.instant||t.type===h.BLURRED&&this.state.formState.refreshType===c.blur)&&this.state.formState.debounceNumber&&this.state.formState.debounceNumber>0?(console.log("debounce",t,this.state.formState.refreshType),this.debounce?.cb((()=>{t.type===h.BLURRED?this.dispatch({type:h.NEW_VALUE_DEBOUNCED,payload:t.payload}):this.dispatch({type:h.BLURRED_DEBOUNCED,payload:t.payload});}))):(this.state=this.reducer(this.state,t),this.instantBroadcast(),this.broadcast());}getValidationData(){return Object.entries(this.state.inputStates).filter((([,t])=>t.validateRequired)).reduce(((t,[e,r])=>(t[e]=r.value,t)),{})}createInput(t,e){if(this.state.inputStates[t])return this.state.inputStates[t];this.state.inputStates[t]={name:t,value:e.defaultValue,validateLoading:!1,_refreshValue:e.defaultValue,validateRequired:!0,error:void 0};}broadcast(){this.listeners.forEach((t=>t(this.state)));}instantBroadcast(){this.instantListeners.forEach((t=>t(this.state)));}getRawData(){return Object.entries(this.state.inputStates).reduce(((t,[e,r])=>(t[e]=r.value,t)),{})}getShouldValidateAgain(){return Object.values(this.state.inputStates).reduce(((t,e)=>t||e.validateRequired),!1)}addValidation(t,e){this.__inputValidationFunctions__[t]=e||void 0;}}const E=/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im,v=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,y=/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/;function _(t){return !!t}function b(t,e){if(!t)return !0;let r=Number(t);return !isNaN(r)&&r>e}function g(t,e){return !t||"string"==typeof t&&t.length>e}function R(t,e){if(!t)return !0;let r=Number(t);return !isNaN(r)&&r<e}function T(t,e){return !t||"string"==typeof t&&t.length<e}function A(t){return !t||"string"==typeof t&&!!t.toLowerCase().match(v)}function N(t){return !t||"string"==typeof t&&!!t.match(E)}function V(t,e){return !e||t===e}function I(t){return !t||"string"==typeof t&&!!t.match(y)}function L(t,e){return !t||"string"==typeof t&&e.test(t)}var D;!function(t){t.required="required",t.min="min",t.minLength="minLength",t.max="max",t.maxLength="maxLength",t.email="email",t.phone="phone",t.repeatPassword="repeatPassword",t.url="url",t.regex="regex";}(D||(D={}));class B{store;validateName;validations={};settings={validateAll:!1};constructor(t,e){this.store=t,this.validateName=e;}required(){return this.register(D.required,_)}min(t){return this.register(D.min,b,t)}minLength(t){return this.register(D.minLength,g,t)}max(t){return this.register(D.max,R,t)}maxLength(t){return this.register(D.maxLength,T,t)}email(){return this.register(D.email,A)}phone(){return this.register(D.phone,N)}repeatPassword(t){const e=this.store.getRawData();return this.register(D.repeatPassword,V,e?e[t]:void 0)}url(){return this.register(D.url,I)}regex(t){return this.register(D.regex,L,t)}validate(t,e,r){return this.register("custom_"+this.validateName,e,Number(r))}async(t,e,r){return this.registerAsync(t,e,r)}set(t){return this.settings={...this.settings,validateAll:t.validateAll},this}register(t,e,r){return this.validations[t]={fn:e,payload:r,async:!1},this}registerAsync(t,e,r){return this.validations[t]={fn:e,payload:r,async:!0},this}}function U(t){switch(console.log("error",t),t.type){case D.required:return "This Field is required.";case D.min:return "Minimum required number is "+t.payload;case D.minLength:return "Minimum "+t.payload+" "+(1===t.payload?"character":"characters")+" are allowed";case D.max:return "Maximum required number is "+t.payload;case D.maxLength:return "Maximum "+t.payload+" "+(1===t.payload?"character":"characters")+" are allowed";case D.email:return "Please enter a valid email address.";case D.phone:return "Please enter a valid phone number.";case D.repeatPassword:return (t&&t.name?t.name:"Password ")+" is not matched.";case D.url:return "Please enter a valid url."}return t.payload?.message||"Invalid field"}class w$1{confirm=null;store;constructor({refreshType:t=c.blur,shouldValidate:e=d.AFTER_FIRST_SUBMIT_ATTEMPT,debounceNumber:r}){this.store=new S({formState:{formStatus:"CLEAN",confirmActive:!1,error:null,loading:!1,debounceNumber:r,refreshType:t,shouldValidate:e,submitAttemptNumber:0},inputStates:{}},p),this.onSubmit=this.onSubmit.bind(this);}getDataWithoutValidation(){const t=this.store.getRawData();return {isValid:void 0,validateErrors:void 0,shouldValidateAgain:this.store.getShouldValidateAgain(),loading:this.store.state.formState.loading,data:t}}async getDataWithValidation(t,{validateLoading:e}){const r=this.store.getRawData(),a={isValid:void 0,validateErrors:void 0,shouldValidateAgain:this.store.getShouldValidateAgain(),loading:this.store.state.formState.loading,data:r};if(t){const t=await this.validate(r,{validateLoading:e});a.isValid=!(t&&t.length),a.validateErrors=t;}return a}async onSubmit(t){const e=this.store.state,r=e.formState;Object.values(e.inputStates).forEach((t=>{t.value=t._refreshValue;})),r.loading&&console.warn("Double click detect"),r.confirmActive&&console.warn("Form submitted when confirm active"),this.store.dispatch({type:h.SUBMIT_STARTED});const a=await this.getDataWithValidation(!0,{validateLoading:!0});if(a.isValid)try{const e=t=>{this.confirm=(e,r)=>{if(this.store.dispatch({type:h.CONFIRM_SELECTED}),e){const e=t(r);this.onSubmitResult(e);}else this.store.dispatch({type:h.SUBMIT_ERROR,payload:{payload:{error:r}}});};},s=t&&t(a,{confirm:e});if(r.confirmActive)return;this.onSubmitResult(s);}catch(t){this.store.dispatch({type:h.SUBMIT_ERROR,payload:{payload:{error:t}}});}else {const t=[];if(a.validateErrors){for(let e=0;e<a.validateErrors.length;e++){const r=a.validateErrors[e];t.push({value:r.value,name:r.name,payload:r.payload,type:r.type});}this.store.dispatch({type:h.SUBMIT_ERROR,payload:{error:t}});}}}shouldValidate(t){const e=this.store.state.formState.shouldValidate;let r=!1;if("function"==typeof e)r=e(this);else {const a=e;(a===d.YES||a===d.AFTER_FIRST_SUBMIT_ATTEMPT&&t.submitAttemptNumber>0)&&(r=!0);}return r}createInput(t,e){return this.store.createInput(t,e),e.validation?this.store.__inputValidationFunctions__[t]=e.validation:this.store.__inputValidationFunctions__[t]=void 0,{onChange:e=>{this.setValue(t,e).then();},onBlur:async()=>{console.log("this.store.state.formState.refreshType",this.store.state.formState.refreshType),this.store.state.formState.refreshType===c.blur&&setTimeout((async()=>{let e;const r=this.store.state.inputStates[t],a=r?._refreshValue;r?.validateRequired&&(e=await this.validateInput(t,a)),this.store.dispatch({type:h.BLURRED,payload:{name:t,error:e,validateRequired:void 0===e}});}),50);},addValidation:e=>{this.store.addValidation(t,e);}}}deleteInput(t){this.checkNameExist(t),delete this.store.state.inputStates[t];}async setValue(t,e){this.checkNameExist(t);let r=null,a=!1;this.store.state.formState.refreshType===c.instant&&(r=await this.validateInput(t,e),a=!0),this.store.dispatch({type:h.NEW_VALUE,payload:{value:e,name:t,error:r,validateRequired:!a}});}async validateInput(t,e){this.checkNameExist(t);const r=this.store.state.formState,a=this.store.__inputValidationFunctions__[t];if(!a)return null;if(!this.shouldValidate(r))return;const s=a(new B(this.store,"validator_"+t));if(!s)return null;let n=[];const i=Object.keys(s.validations);for(let r=0;r<i.length;r++){if(n.length&&!s.settings.validateAll)return n;const a=i[r],o=s.validations[a],u=o.fn(e,o.payload);if(u||n.push([{name:t,type:a,value:e,payload:o.payload}]),u&&u.then){this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:t,value:!0,forSubmit:!1}});const r=await u;this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:t,value:!1,forSubmit:!1}}),r||n.push({name:t,type:a,value:e,payload:o.payload});}}return n}async validate(t,{validateLoading:e}){const r=[],a=Object.keys(t);for(let s=0;s<a.length;s++){const n=a[s],i=this.store.__inputValidationFunctions__[n];if(!i)continue;const o=i(new B(this.store,"validator_"+n));if(!o)continue;const u=Object.keys(o.validations);for(let a=0;a<u.length;a++){const s=u[a],i=o.validations[s],l=t[n],c=i.fn(l,i.payload);if(c||r.push({name:n,type:s,value:l,payload:i.payload}),c&&c.then){e&&this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:n,value:!0,forSubmit:!0}});const t=await c;e&&this.store.dispatch({type:h.ASYNC_VALIDATION,payload:{name:n,value:!1,forSubmit:!0}}),t||r.push({name:n,type:s,value:l,payload:i.payload});}}}return r}checkNameExist(t){if(!this.store.state.inputStates[t])throw m(t)}onSubmitResult(t){if(t&&void 0!==t.then){t.then((()=>{this.store.dispatch({type:h.SUBMIT_SUCCEED});})).catch((t=>{this.store.dispatch({type:h.SUBMIT_ERROR,payload:{error:t}});}));}else this.store.dispatch({type:h.SUBMIT_SUCCEED});}}function C(t){const[s,n]=reactExports$1.useState((()=>t.store.state.formState.confirmActive)),i=reactExports$1.useCallback((e=>{t.confirm&&t.confirm(!0,e);}),[t]),o=reactExports$1.useCallback((()=>{t.confirm&&t.confirm(!1);}),[t]);return reactExports$1.useEffect((()=>t.store.subscribe((e=>{n(t.store.state.formState.confirmActive);}))),[t]),{active:s,resolve:i,reject:o}}function O(t,e,r={}){const a=t.createInput(e,{defaultValue:r.defaultValue,validation:r.validation});return reactExports$1.useInsertionEffect((()=>()=>t.deleteInput(e)),[t,e]),a}function M(t){const[r,s]=reactExports$1.useState((()=>t.store.state.formState?.error));return reactExports$1.useEffect((()=>{s(t.store.state.formState?.error);}),[t]),reactExports$1.useEffect((()=>t.store.subscribe((()=>{const e=t.store.state.formState;s(e?.error);}))),[t]),r}function x(t,r){const[s,n]=reactExports$1.useState((()=>t.store.state.inputStates[r]?.error)),[i,o]=reactExports$1.useState((()=>t.store.state.inputStates[r]?.validateLoading));return reactExports$1.useEffect((()=>{const e=t.store.state.inputStates[r];n(e?.error),o(e?.validateLoading);}),[t,r]),reactExports$1.useEffect((()=>t.store.subscribe((()=>{const e=t.store.state.inputStates[r];n(e?.error),o(e?.validateLoading);}))),[t,r]),{error:s&&s[0],loading:i}}function j$1(t,r){const[s,n]=reactExports$1.useState((()=>r?t.store.state.inputStates[r]?._refreshValue:void 0));return reactExports$1.useEffect((()=>{r&&n(t.store.state.inputStates[r]?._refreshValue);}),[t,r]),reactExports$1.useEffect((()=>{if(!r)return;return t.store.subscribeInstant((t=>{n(t.inputStates[r]?._refreshValue);}))}),[t,r]),s}function Y(t){const[r,s]=reactExports$1.useState({loading:!1,error:null}),n=reactExports$1.useMemo((()=>new w$1({refreshType:t?.refreshType})),[t?.refreshType,t?.shouldValidate]);return reactExports$1.useEffect((()=>n.store.subscribe((()=>{const t=n.store.state.formState;s({error:t?.error,loading:t?.loading});}))),[n]),reactExports$1.useMemo((()=>({formBase:n,loading:r.loading,error:r.error})),[])}const z=reactExports$1.createContext(null);function Z(e){const r=reactExports$1.useMemo((()=>new w$1({refreshType:e?.refreshType,shouldValidate:e?.shouldValidate,debounceNumber:e?.debounceNumber})),[e?.refreshType,e?.shouldValidate]);return React$1.createElement(z.Provider,{value:{formBase:r}},e.children)}function $(){const t=reactExports$1.useContext(z);if(!t)throw new Error(`You cannot use ${"useContextFormBase"} outside of Form Component`);return t.formBase}const G=React$1.memo((e=>{const r=$(),{...a}=e;return React$1.createElement("form",{...a,onSubmit:t=>{t.preventDefault(),r.onSubmit(((t,r)=>{if(e.onSubmit)return e.onSubmit(t,r)})).then();}})})),H=React$1.memo((e=>{const{formBaseOptions:r,...a}=e;return React$1.createElement(Z,{...r},React$1.createElement(G,{...a},e.children))}));function J(t,e,r={}){const s=O(t,e,r);s.ref=reactExports$1.useRef();const i=x(t,"name");return reactExports$1.useEffect((()=>{if(!e)return;return t.store.subscribeInstant((t=>{s.ref.current&&(s.ref.current.value=t.inputStates[e]?._refreshValue||"");}))}),[t,s.ref,e]),{...s,...i}}const K=React$1.memo((e=>{const{name:r,validation:a,defaultValue:s,inputRef:n,...i}=e,o=$(),u=reactExports$1.useId(),{onChange:c,onBlur:d,ref:h}=J(o,r||u,{validation:a,defaultValue:s}),m=i;return React$1.createElement("input",{...m,ref:t=>{h.current=t,n&&(n.current=t);},onChange:t=>{const e=t.target.value;c(e),i.onChange&&i.onChange(t);},onBlur:t=>{d(),i.onBlur&&i.onBlur(t);}})})),Q=React$1.memo((e=>{const{name:r,validation:a,defaultValue:s,inputRef:n,...i}=e,o=$(),u=reactExports$1.useId(),{onChange:c,onBlur:d,ref:h}=J(o,r||u),m=i;return React$1.createElement("textarea",{...m,ref:t=>{h.current=t,n&&(console.log("el",t),n.current=t);},onChange:t=>{const e=t.target.value;c(e),i.onChange&&i.onChange(t);},onBlur:t=>{d(),i.onBlur&&i.onBlur(t);}})})),X=React$1.memo((({errorMessage:e="Something went wrong"})=>{const r=M($());return r?React$1.createElement("p",null,"string"==typeof r?r:r.message||e):null})),tt=React$1.memo((({name:e,customErrorText:r})=>{const a=$(),{error:s,loading:n}=x(a,e);return r||(r=t=>U(t)),React$1.createElement("p",null,n?React$1.createElement("span",null,"Loading"):s?r(s):null)}));
-
 	function AllValidationsPage() {
-	    return (React$1.createElement(H, null,
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Password"),
-	            React$1.createElement(K, { type: "password", validation: (v) => v.required().minLength(2).maxLength(10), name: "password" }),
-	            React$1.createElement(tt, { name: "password" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Password Repeat"),
-	            React$1.createElement(K, { type: "password", validation: (v) => v.repeatPassword("password"), name: "repeatPassword" }),
-	            React$1.createElement(tt, { name: "repeatPassword" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name*"),
-	            React$1.createElement(K, { validation: (v) => v.required(), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Last Name*"),
-	            React$1.createElement(K, { validation: (v) => v.required(), name: "lastname" }),
-	            React$1.createElement(tt, { name: "lastname" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Address"),
-	            React$1.createElement(Q, { validation: (v) => v.minLength(2).maxLength(10), name: "address" }),
-	            React$1.createElement(tt, { name: "address" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Age (+18)"),
-	            React$1.createElement(K, { validation: (v) => v.min(18), name: "age" }),
-	            React$1.createElement(tt, { name: "age" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Max number 5"),
-	            React$1.createElement(K, { validation: (v) => v.max(5), name: "max" }),
-	            React$1.createElement(tt, { name: "max" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Phone"),
-	            React$1.createElement(K, { validation: (v) => v.phone(), name: "phone" }),
-	            React$1.createElement(tt, { name: "phone" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Regex include 1 number 1 char*"),
-	            React$1.createElement(K, { validation: (v) => v.required().regex(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/), name: "regex" }),
-	            React$1.createElement(tt, { name: "regex" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Email"),
-	            React$1.createElement(K, { validation: (v) => v.email(), name: "email" }),
-	            React$1.createElement(tt, { name: "email" })),
-	        React$1.createElement("button", null, "SEND")));
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Password"),
+	            React.createElement(K, { type: "password", validation: (v) => v.required().minLength(2).maxLength(10), name: "password" }),
+	            React.createElement(tt, { name: "password" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Password Repeat"),
+	            React.createElement(K, { type: "password", validation: (v) => v.repeatPassword("password"), name: "repeatPassword" }),
+	            React.createElement(tt, { name: "repeatPassword" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name*"),
+	            React.createElement(K, { validation: (v) => v.required(), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Last Name*"),
+	            React.createElement(K, { validation: (v) => v.required(), name: "lastname" }),
+	            React.createElement(tt, { name: "lastname" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Address"),
+	            React.createElement(Q, { validation: (v) => v.minLength(2).maxLength(10), name: "address" }),
+	            React.createElement(tt, { name: "address" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Age (+18)"),
+	            React.createElement(K, { validation: (v) => v.min(18), name: "age" }),
+	            React.createElement(tt, { name: "age" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Max number 5"),
+	            React.createElement(K, { validation: (v) => v.max(5), name: "max" }),
+	            React.createElement(tt, { name: "max" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Phone"),
+	            React.createElement(K, { validation: (v) => v.phone(), name: "phone" }),
+	            React.createElement(tt, { name: "phone" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Regex include 1 number 1 char*"),
+	            React.createElement(K, { validation: (v) => v.required().regex(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/), name: "regex" }),
+	            React.createElement(tt, { name: "regex" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Email"),
+	            React.createElement(K, { validation: (v) => v.email(), name: "email" }),
+	            React.createElement(tt, { name: "email" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	//https://stackoverflow.com/a/43467144
@@ -39285,17 +35555,21 @@
 	    return url.protocol === "http:" || url.protocol === "https:";
 	}
 	function CustomValidationPage() {
-	    return (React$1.createElement(H, null,
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Title Case"),
-	            React$1.createElement(K, { validation: (v) => v.validate("isValidHttpUrl", isValidHttpUrl), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Title Case"),
-	            React$1.createElement(K, { validation: (v) => v.validate("isValidHttpUrl", isValidHttpUrl), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("button", null, "SEND")));
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Title Case"),
+	            React.createElement(K, { validation: (v) => v.validate("isValidHttpUrl", isValidHttpUrl), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Title Case"),
+	            React.createElement(K, { validation: (v) => v.validate("isValidHttpUrl", isValidHttpUrl), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function sleep$1(number) {
@@ -39308,23 +35582,26 @@
 	    return value === "author";
 	}
 	function AsyncValidationPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {} },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required(), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Username (value must be \"author\")"),
-	            React$1.createElement(K, { validation: (v) => v.async("checkUserNameExists", checkUserNameExists), name: "username" }),
-	            React$1.createElement(tt, { customErrorText: (error) => {
-	                    console.log("aaa errror", error);
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required(), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Username (value must be \"author\")"),
+	            React.createElement(K, { validation: (v) => v.async("checkUserNameExists", checkUserNameExists), name: "username" }),
+	            React.createElement(tt, { customErrorText: (error) => {
 	                    if (error.type === "checkUserNameExists") {
 	                        return "Username doesn't exist";
 	                    }
-	                    return U(error);
+	                    return B(error);
 	                }, name: "username" })),
-	        React$1.createElement("button", null, "SEND")));
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function sleep(number = 2000) {
@@ -39337,26 +35614,28 @@
 	    return sleep(2000).then(() => true);
 	}
 	function AsyncSubmitPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
-	            refreshType: c.blur,
-	            shouldValidate: d.AFTER_FIRST_SUBMIT_ATTEMPT,
-	        }, onSubmit: (res) => {
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
 	            return fakeLogin().then(() => {
-	                if (res.data.error) {
+	                if (data.error) {
 	                    throw new Error("Error is on");
+	                }
+	                else {
+	                    console.info("Submit", data);
 	                }
 	            });
 	        } },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Error"),
-	            React$1.createElement(K, { type: "checkbox", name: "error" }),
-	            React$1.createElement(tt, { name: "error" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("button", null, "SEND")));
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Error"),
+	            React.createElement(K, { type: "checkbox", name: "error" }),
+	            React.createElement(tt, { name: "error" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function _typeof(obj) {
@@ -39522,38 +35801,38 @@
 	    propsOnMenuOpen = _ref.onMenuOpen,
 	    propsValue = _ref.value,
 	    restSelectProps = _objectWithoutProperties(_ref, _excluded$5);
-	  var _useState = reactExports$1.useState(propsInputValue !== undefined ? propsInputValue : defaultInputValue),
+	  var _useState = reactExports.useState(propsInputValue !== undefined ? propsInputValue : defaultInputValue),
 	    _useState2 = _slicedToArray(_useState, 2),
 	    stateInputValue = _useState2[0],
 	    setStateInputValue = _useState2[1];
-	  var _useState3 = reactExports$1.useState(propsMenuIsOpen !== undefined ? propsMenuIsOpen : defaultMenuIsOpen),
+	  var _useState3 = reactExports.useState(propsMenuIsOpen !== undefined ? propsMenuIsOpen : defaultMenuIsOpen),
 	    _useState4 = _slicedToArray(_useState3, 2),
 	    stateMenuIsOpen = _useState4[0],
 	    setStateMenuIsOpen = _useState4[1];
-	  var _useState5 = reactExports$1.useState(propsValue !== undefined ? propsValue : defaultValue),
+	  var _useState5 = reactExports.useState(propsValue !== undefined ? propsValue : defaultValue),
 	    _useState6 = _slicedToArray(_useState5, 2),
 	    stateValue = _useState6[0],
 	    setStateValue = _useState6[1];
-	  var onChange = reactExports$1.useCallback(function (value, actionMeta) {
+	  var onChange = reactExports.useCallback(function (value, actionMeta) {
 	    if (typeof propsOnChange === 'function') {
 	      propsOnChange(value, actionMeta);
 	    }
 	    setStateValue(value);
 	  }, [propsOnChange]);
-	  var onInputChange = reactExports$1.useCallback(function (value, actionMeta) {
+	  var onInputChange = reactExports.useCallback(function (value, actionMeta) {
 	    var newValue;
 	    if (typeof propsOnInputChange === 'function') {
 	      newValue = propsOnInputChange(value, actionMeta);
 	    }
 	    setStateInputValue(newValue !== undefined ? newValue : value);
 	  }, [propsOnInputChange]);
-	  var onMenuOpen = reactExports$1.useCallback(function () {
+	  var onMenuOpen = reactExports.useCallback(function () {
 	    if (typeof propsOnMenuOpen === 'function') {
 	      propsOnMenuOpen();
 	    }
 	    setStateMenuIsOpen(true);
 	  }, [propsOnMenuOpen]);
-	  var onMenuClose = reactExports$1.useCallback(function () {
+	  var onMenuClose = reactExports.useCallback(function () {
 	    if (typeof propsOnMenuClose === 'function') {
 	      propsOnMenuClose();
 	    }
@@ -41786,14 +38065,14 @@
 	  return create();
 	};
 
-	var useInsertionEffect = React$2['useInsertion' + 'Effect'] ? React$2['useInsertion' + 'Effect'] : false;
+	var useInsertionEffect = React$1['useInsertion' + 'Effect'] ? React$1['useInsertion' + 'Effect'] : false;
 	var useInsertionEffectAlwaysWithSyncFallback = !isBrowser$2 ? syncFallback : useInsertionEffect || syncFallback;
-	var useInsertionEffectWithLayoutFallback = useInsertionEffect || reactExports$1.useLayoutEffect;
+	var useInsertionEffectWithLayoutFallback = useInsertionEffect || reactExports.useLayoutEffect;
 
 	var isBrowser$1 = typeof document !== 'undefined';
 	var hasOwnProperty = {}.hasOwnProperty;
 
-	var EmotionCacheContext = /* #__PURE__ */reactExports$1.createContext( // we're doing this to avoid preconstruct's dead code elimination in this one case
+	var EmotionCacheContext = /* #__PURE__ */reactExports.createContext( // we're doing this to avoid preconstruct's dead code elimination in this one case
 	// because this module is primarily intended for the browser and node
 	// but it's also required in react native and similar environments sometimes
 	// and we could have a special build just for that
@@ -41811,9 +38090,9 @@
 
 	var withEmotionCache = function withEmotionCache(func) {
 	  // $FlowFixMe
-	  return /*#__PURE__*/reactExports$1.forwardRef(function (props, ref) {
+	  return /*#__PURE__*/reactExports.forwardRef(function (props, ref) {
 	    // the cache will never be null in the browser
-	    var cache = reactExports$1.useContext(EmotionCacheContext);
+	    var cache = reactExports.useContext(EmotionCacheContext);
 	    return func(props, cache, ref);
 	  });
 	};
@@ -41821,7 +38100,7 @@
 	if (!isBrowser$1) {
 	  withEmotionCache = function withEmotionCache(func) {
 	    return function (props) {
-	      var cache = reactExports$1.useContext(EmotionCacheContext);
+	      var cache = reactExports.useContext(EmotionCacheContext);
 
 	      if (cache === null) {
 	        // yes, we're potentially creating this on every render
@@ -41832,7 +38111,7 @@
 	        cache = createCache({
 	          key: 'css'
 	        });
-	        return /*#__PURE__*/reactExports$1.createElement(EmotionCacheContext.Provider, {
+	        return /*#__PURE__*/reactExports.createElement(EmotionCacheContext.Provider, {
 	          value: cache
 	        }, func(props, cache));
 	      } else {
@@ -41842,7 +38121,7 @@
 	  };
 	}
 
-	var ThemeContext = /* #__PURE__ */reactExports$1.createContext({});
+	var ThemeContext = /* #__PURE__ */reactExports.createContext({});
 
 	{
 	  ThemeContext.displayName = 'EmotionThemeContext';
@@ -41938,7 +38217,7 @@
 	      next = next.next;
 	    }
 
-	    return /*#__PURE__*/reactExports$1.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
+	    return /*#__PURE__*/reactExports.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedNames, _ref2.dangerouslySetInnerHTML = {
 	      __html: rules
 	    }, _ref2.nonce = cache.sheet.nonce, _ref2));
 	  }
@@ -41965,7 +38244,7 @@
 	    className = props.className + " ";
 	  }
 
-	  var serialized = serializeStyles(registeredStyles, undefined, reactExports$1.useContext(ThemeContext));
+	  var serialized = serializeStyles(registeredStyles, undefined, reactExports.useContext(ThemeContext));
 
 	  if (serialized.name.indexOf('-') === -1) {
 	    var labelFromStack = props[labelPropName];
@@ -41986,11 +38265,11 @@
 
 	  newProps.ref = ref;
 	  newProps.className = className;
-	  return /*#__PURE__*/reactExports$1.createElement(reactExports$1.Fragment, null, /*#__PURE__*/reactExports$1.createElement(Insertion$1, {
+	  return /*#__PURE__*/reactExports.createElement(reactExports.Fragment, null, /*#__PURE__*/reactExports.createElement(Insertion$1, {
 	    cache: cache,
 	    serialized: serialized,
 	    isStringTag: typeof WrappedComponent === 'string'
-	  }), /*#__PURE__*/reactExports$1.createElement(WrappedComponent, newProps));
+	  }), /*#__PURE__*/reactExports.createElement(WrappedComponent, newProps));
 	});
 
 	{
@@ -42136,7 +38415,7 @@
 
 	  if (props == null || !hasOwnProperty.call(props, 'css')) {
 	    // $FlowFixMe
-	    return reactExports$1.createElement.apply(undefined, args);
+	    return reactExports.createElement.apply(undefined, args);
 	  }
 
 	  var argsLength = args.length;
@@ -42149,7 +38428,7 @@
 	  } // $FlowFixMe
 
 
-	  return reactExports$1.createElement.apply(null, createElementArgArray);
+	  return reactExports.createElement.apply(null, createElementArgArray);
 	};
 
 	var warnedAboutCssPropForGlobal = false; // maintain place over rerenders.
@@ -42167,7 +38446,7 @@
 	  }
 
 	  var styles = props.styles;
-	  var serialized = serializeStyles([styles], undefined, reactExports$1.useContext(ThemeContext));
+	  var serialized = serializeStyles([styles], undefined, reactExports.useContext(ThemeContext));
 
 	  if (!isBrowser$1) {
 	    var _ref;
@@ -42192,7 +38471,7 @@
 	      return null;
 	    }
 
-	    return /*#__PURE__*/reactExports$1.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+	    return /*#__PURE__*/reactExports.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
 	      __html: rules
 	    }, _ref.nonce = cache.sheet.nonce, _ref));
 	  } // yes, i know these hooks are used conditionally
@@ -42201,7 +38480,7 @@
 	  // so it's not actually breaking anything
 
 
-	  var sheetRef = reactExports$1.useRef();
+	  var sheetRef = reactExports.useRef();
 	  useInsertionEffectWithLayoutFallback(function () {
 	    var key = cache.key + "-global"; // use case of https://github.com/emotion-js/emotion/issues/2675
 
@@ -42368,7 +38647,7 @@
 	  if (!isBrowser$1 && rules.length !== 0) {
 	    var _ref2;
 
-	    return /*#__PURE__*/reactExports$1.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function (serialized) {
+	    return /*#__PURE__*/reactExports.createElement("style", (_ref2 = {}, _ref2["data-emotion"] = cache.key + " " + serializedArr.map(function (serialized) {
 	      return serialized.name;
 	    }).join(' '), _ref2.dangerouslySetInnerHTML = {
 	      __html: rules
@@ -42413,11 +38692,11 @@
 	  var content = {
 	    css: css,
 	    cx: cx,
-	    theme: reactExports$1.useContext(ThemeContext)
+	    theme: reactExports.useContext(ThemeContext)
 	  };
 	  var ele = props.children(content);
 	  hasRendered = true;
-	  return /*#__PURE__*/reactExports$1.createElement(reactExports$1.Fragment, null, /*#__PURE__*/reactExports$1.createElement(Insertion, {
+	  return /*#__PURE__*/reactExports.createElement(reactExports.Fragment, null, /*#__PURE__*/reactExports.createElement(Insertion, {
 	    cache: cache,
 	    serializedArr: serializedArr
 	  }), ele);
@@ -42848,7 +39127,7 @@
 	  };
 	}
 
-	var index = typeof document !== 'undefined' ? reactExports$1.useLayoutEffect : reactExports$1.useEffect;
+	var index = typeof document !== 'undefined' ? reactExports.useLayoutEffect : reactExports.useEffect;
 
 	var _excluded$3 = ["className", "clearValue", "cx", "getStyles", "getClassNames", "getValue", "hasValue", "isMulti", "isRtl", "options", "selectOption", "selectProps", "setValue", "theme"];
 	// ==============================
@@ -43324,7 +39603,7 @@
 	    marginTop: spacing.menuGutter
 	  });
 	};
-	var PortalPlacementContext = /*#__PURE__*/reactExports$1.createContext(null);
+	var PortalPlacementContext = /*#__PURE__*/reactExports.createContext(null);
 
 	// NOTE: internal only
 	var MenuPlacer = function MenuPlacer(props) {
@@ -43335,14 +39614,14 @@
 	    menuPosition = props.menuPosition,
 	    menuShouldScrollIntoView = props.menuShouldScrollIntoView,
 	    theme = props.theme;
-	  var _ref3 = reactExports$1.useContext(PortalPlacementContext) || {},
+	  var _ref3 = reactExports.useContext(PortalPlacementContext) || {},
 	    setPortalPlacement = _ref3.setPortalPlacement;
-	  var ref = reactExports$1.useRef(null);
-	  var _useState = reactExports$1.useState(maxMenuHeight),
+	  var ref = reactExports.useRef(null);
+	  var _useState = reactExports.useState(maxMenuHeight),
 	    _useState2 = _slicedToArray(_useState, 2),
 	    maxHeight = _useState2[0],
 	    setMaxHeight = _useState2[1];
-	  var _useState3 = reactExports$1.useState(null),
+	  var _useState3 = reactExports.useState(null),
 	    _useState4 = _slicedToArray(_useState3, 2),
 	    placement = _useState4[0],
 	    setPlacement = _useState4[1];
@@ -43481,22 +39760,22 @@
 	    innerProps = props.innerProps,
 	    menuPlacement = props.menuPlacement,
 	    menuPosition = props.menuPosition;
-	  var menuPortalRef = reactExports$1.useRef(null);
-	  var cleanupRef = reactExports$1.useRef(null);
-	  var _useState5 = reactExports$1.useState(coercePlacement(menuPlacement)),
+	  var menuPortalRef = reactExports.useRef(null);
+	  var cleanupRef = reactExports.useRef(null);
+	  var _useState5 = reactExports.useState(coercePlacement(menuPlacement)),
 	    _useState6 = _slicedToArray(_useState5, 2),
 	    placement = _useState6[0],
 	    setPortalPlacement = _useState6[1];
-	  var portalPlacementContext = reactExports$1.useMemo(function () {
+	  var portalPlacementContext = reactExports.useMemo(function () {
 	    return {
 	      setPortalPlacement: setPortalPlacement
 	    };
 	  }, []);
-	  var _useState7 = reactExports$1.useState(null),
+	  var _useState7 = reactExports.useState(null),
 	    _useState8 = _slicedToArray(_useState7, 2),
 	    computedPosition = _useState8[0],
 	    setComputedPosition = _useState8[1];
-	  var updateComputedPosition = reactExports$1.useCallback(function () {
+	  var updateComputedPosition = reactExports.useCallback(function () {
 	    if (!controlElement) return;
 	    var rect = getBoundingClientObj(controlElement);
 	    var scrollDistance = menuPosition === 'fixed' ? 0 : window.pageYOffset;
@@ -43511,7 +39790,7 @@
 	  index(function () {
 	    updateComputedPosition();
 	  }, [updateComputedPosition]);
-	  var runAutoUpdate = reactExports$1.useCallback(function () {
+	  var runAutoUpdate = reactExports.useCallback(function () {
 	    if (typeof cleanupRef.current === 'function') {
 	      cleanupRef.current();
 	      cleanupRef.current = null;
@@ -43525,7 +39804,7 @@
 	  index(function () {
 	    runAutoUpdate();
 	  }, [runAutoUpdate]);
-	  var setMenuPortalElement = reactExports$1.useCallback(function (menuPortalElement) {
+	  var setMenuPortalElement = reactExports.useCallback(function (menuPortalElement) {
 	    menuPortalRef.current = menuPortalElement;
 	    runAutoUpdate();
 	  }, [runAutoUpdate]);
@@ -44360,12 +40639,12 @@
 	  var ariaLive = selectProps['aria-live'];
 
 	  // Update aria live message configuration when prop changes
-	  var messages = reactExports$1.useMemo(function () {
+	  var messages = reactExports.useMemo(function () {
 	    return _objectSpread2(_objectSpread2({}, defaultAriaLiveMessages), ariaLiveMessages || {});
 	  }, [ariaLiveMessages]);
 
 	  // Update aria live selected option when prop changes
-	  var ariaSelected = reactExports$1.useMemo(function () {
+	  var ariaSelected = reactExports.useMemo(function () {
 	    var message = '';
 	    if (ariaSelection && messages.onChange) {
 	      var option = ariaSelection.option,
@@ -44396,7 +40675,7 @@
 	    }
 	    return message;
 	  }, [ariaSelection, messages, isOptionDisabled, selectValue, getOptionLabel]);
-	  var ariaFocused = reactExports$1.useMemo(function () {
+	  var ariaFocused = reactExports.useMemo(function () {
 	    var focusMsg = '';
 	    var focused = focusedOption || focusedValue;
 	    var isSelected = !!(focusedOption && selectValue && selectValue.includes(focusedOption));
@@ -44414,7 +40693,7 @@
 	    }
 	    return focusMsg;
 	  }, [focusedOption, focusedValue, getOptionLabel, isOptionDisabled, messages, focusableOptions, selectValue]);
-	  var ariaResults = reactExports$1.useMemo(function () {
+	  var ariaResults = reactExports.useMemo(function () {
 	    var resultsMsg = '';
 	    if (menuIsOpen && options.length && messages.onFilter) {
 	      var resultsMessage = screenReaderStatus({
@@ -44427,7 +40706,7 @@
 	    }
 	    return resultsMsg;
 	  }, [focusableOptions, inputValue, menuIsOpen, messages, options, screenReaderStatus]);
-	  var ariaGuidance = reactExports$1.useMemo(function () {
+	  var ariaGuidance = reactExports.useMemo(function () {
 	    var guidanceMsg = '';
 	    if (messages.guidance) {
 	      var context = focusedValue ? 'value' : menuIsOpen ? 'menu' : 'input';
@@ -44443,13 +40722,13 @@
 	    return guidanceMsg;
 	  }, [ariaLabel, focusedOption, focusedValue, isMulti, isOptionDisabled, isSearchable, menuIsOpen, messages, selectValue, tabSelectsValue]);
 	  var ariaContext = "".concat(ariaFocused, " ").concat(ariaResults, " ").concat(ariaGuidance);
-	  var ScreenReaderText = jsx(reactExports$1.Fragment, null, jsx("span", {
+	  var ScreenReaderText = jsx(reactExports.Fragment, null, jsx("span", {
 	    id: "aria-selection"
 	  }, ariaSelected), jsx("span", {
 	    id: "aria-context"
 	  }, ariaContext));
 	  var isInitialFocus = (ariaSelection === null || ariaSelection === void 0 ? void 0 : ariaSelection.action) === 'initial-input-focus';
-	  return jsx(reactExports$1.Fragment, null, jsx(A11yText$1, {
+	  return jsx(reactExports.Fragment, null, jsx(A11yText$1, {
 	    id: id
 	  }, isInitialFocus && ScreenReaderText), jsx(A11yText$1, {
 	    "aria-live": ariaLive,
@@ -44808,11 +41087,11 @@
 	    onBottomLeave = _ref.onBottomLeave,
 	    onTopArrive = _ref.onTopArrive,
 	    onTopLeave = _ref.onTopLeave;
-	  var isBottom = reactExports$1.useRef(false);
-	  var isTop = reactExports$1.useRef(false);
-	  var touchStart = reactExports$1.useRef(0);
-	  var scrollTarget = reactExports$1.useRef(null);
-	  var handleEventDelta = reactExports$1.useCallback(function (event, delta) {
+	  var isBottom = reactExports.useRef(false);
+	  var isTop = reactExports.useRef(false);
+	  var touchStart = reactExports.useRef(0);
+	  var scrollTarget = reactExports.useRef(null);
+	  var handleEventDelta = reactExports.useCallback(function (event, delta) {
 	    if (scrollTarget.current === null) return;
 	    var _scrollTarget$current = scrollTarget.current,
 	      scrollTop = _scrollTarget$current.scrollTop,
@@ -44857,18 +41136,18 @@
 	      cancelScroll(event);
 	    }
 	  }, [onBottomArrive, onBottomLeave, onTopArrive, onTopLeave]);
-	  var onWheel = reactExports$1.useCallback(function (event) {
+	  var onWheel = reactExports.useCallback(function (event) {
 	    handleEventDelta(event, event.deltaY);
 	  }, [handleEventDelta]);
-	  var onTouchStart = reactExports$1.useCallback(function (event) {
+	  var onTouchStart = reactExports.useCallback(function (event) {
 	    // set touch start so we can calculate touchmove delta
 	    touchStart.current = event.changedTouches[0].clientY;
 	  }, []);
-	  var onTouchMove = reactExports$1.useCallback(function (event) {
+	  var onTouchMove = reactExports.useCallback(function (event) {
 	    var deltaY = touchStart.current - event.changedTouches[0].clientY;
 	    handleEventDelta(event, deltaY);
 	  }, [handleEventDelta]);
-	  var startListening = reactExports$1.useCallback(function (el) {
+	  var startListening = reactExports.useCallback(function (el) {
 	    // bail early if no element is available to attach to
 	    if (!el) return;
 	    var notPassive = supportsPassiveEvents ? {
@@ -44878,14 +41157,14 @@
 	    el.addEventListener('touchstart', onTouchStart, notPassive);
 	    el.addEventListener('touchmove', onTouchMove, notPassive);
 	  }, [onTouchMove, onTouchStart, onWheel]);
-	  var stopListening = reactExports$1.useCallback(function (el) {
+	  var stopListening = reactExports.useCallback(function (el) {
 	    // bail early if no element is available to detach from
 	    if (!el) return;
 	    el.removeEventListener('wheel', onWheel, false);
 	    el.removeEventListener('touchstart', onTouchStart, false);
 	    el.removeEventListener('touchmove', onTouchMove, false);
 	  }, [onTouchMove, onTouchStart, onWheel]);
-	  reactExports$1.useEffect(function () {
+	  reactExports.useEffect(function () {
 	    if (!isEnabled) return;
 	    var element = scrollTarget.current;
 	    startListening(element);
@@ -44938,9 +41217,9 @@
 	  var isEnabled = _ref.isEnabled,
 	    _ref$accountForScroll = _ref.accountForScrollbars,
 	    accountForScrollbars = _ref$accountForScroll === void 0 ? true : _ref$accountForScroll;
-	  var originalStyles = reactExports$1.useRef({});
-	  var scrollTarget = reactExports$1.useRef(null);
-	  var addScrollLock = reactExports$1.useCallback(function (touchScrollTarget) {
+	  var originalStyles = reactExports.useRef({});
+	  var scrollTarget = reactExports.useRef(null);
+	  var addScrollLock = reactExports.useCallback(function (touchScrollTarget) {
 	    if (!canUseDOM) return;
 	    var target = document.body;
 	    var targetStyle = target && target.style;
@@ -44983,7 +41262,7 @@
 	    // increment active scroll locks
 	    activeScrollLocks += 1;
 	  }, [accountForScrollbars]);
-	  var removeScrollLock = reactExports$1.useCallback(function (touchScrollTarget) {
+	  var removeScrollLock = reactExports.useCallback(function (touchScrollTarget) {
 	    if (!canUseDOM) return;
 	    var target = document.body;
 	    var targetStyle = target && target.style;
@@ -45010,7 +41289,7 @@
 	      }
 	    }
 	  }, [accountForScrollbars]);
-	  reactExports$1.useEffect(function () {
+	  reactExports.useEffect(function () {
 	    if (!isEnabled) return;
 	    var element = scrollTarget.current;
 	    addScrollLock(element);
@@ -45056,7 +41335,7 @@
 	    setScrollCaptureTarget(element);
 	    setScrollLockTarget(element);
 	  };
-	  return jsx(reactExports$1.Fragment, null, lockEnabled && jsx("div", {
+	  return jsx(reactExports.Fragment, null, lockEnabled && jsx("div", {
 	    onClick: blurSelectInput,
 	    css: _ref2$1
 	  }), children(targetRef));
@@ -46273,7 +42552,7 @@
 	      });
 	      if (!isSearchable) {
 	        // use a dummy input to maintain focus/blur functionality
-	        return /*#__PURE__*/reactExports$1.createElement(DummyInput, _extends({
+	        return /*#__PURE__*/reactExports.createElement(DummyInput, _extends({
 	          id: id,
 	          innerRef: this.getInputRef,
 	          onBlur: this.onInputBlur,
@@ -46286,7 +42565,7 @@
 	          value: ""
 	        }, ariaAttributes));
 	      }
-	      return /*#__PURE__*/reactExports$1.createElement(Input, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(Input, _extends({}, commonProps, {
 	        autoCapitalize: "none",
 	        autoComplete: "off",
 	        autoCorrect: "off",
@@ -46327,7 +42606,7 @@
 	        focusedValue = _this$state5.focusedValue,
 	        isFocused = _this$state5.isFocused;
 	      if (!this.hasValue() || !controlShouldRenderValue) {
-	        return inputValue ? null : /*#__PURE__*/reactExports$1.createElement(Placeholder, _extends({}, commonProps, {
+	        return inputValue ? null : /*#__PURE__*/reactExports.createElement(Placeholder, _extends({}, commonProps, {
 	          key: "placeholder",
 	          isDisabled: isDisabled,
 	          isFocused: isFocused,
@@ -46340,7 +42619,7 @@
 	        return selectValue.map(function (opt, index) {
 	          var isOptionFocused = opt === focusedValue;
 	          var key = "".concat(_this3.getOptionLabel(opt), "-").concat(_this3.getOptionValue(opt));
-	          return /*#__PURE__*/reactExports$1.createElement(MultiValue, _extends({}, commonProps, {
+	          return /*#__PURE__*/reactExports.createElement(MultiValue, _extends({}, commonProps, {
 	            components: {
 	              Container: MultiValueContainer,
 	              Label: MultiValueLabel,
@@ -46369,7 +42648,7 @@
 	        return null;
 	      }
 	      var singleValue = selectValue[0];
-	      return /*#__PURE__*/reactExports$1.createElement(SingleValue, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(SingleValue, _extends({}, commonProps, {
 	        data: singleValue,
 	        isDisabled: isDisabled
 	      }), this.formatOptionLabel(singleValue, 'value'));
@@ -46392,7 +42671,7 @@
 	        onTouchEnd: this.onClearIndicatorTouchEnd,
 	        'aria-hidden': 'true'
 	      };
-	      return /*#__PURE__*/reactExports$1.createElement(ClearIndicator, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(ClearIndicator, _extends({}, commonProps, {
 	        innerProps: innerProps,
 	        isFocused: isFocused
 	      }));
@@ -46411,7 +42690,7 @@
 	      var innerProps = {
 	        'aria-hidden': 'true'
 	      };
-	      return /*#__PURE__*/reactExports$1.createElement(LoadingIndicator, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(LoadingIndicator, _extends({}, commonProps, {
 	        innerProps: innerProps,
 	        isDisabled: isDisabled,
 	        isFocused: isFocused
@@ -46429,7 +42708,7 @@
 	      var commonProps = this.commonProps;
 	      var isDisabled = this.props.isDisabled;
 	      var isFocused = this.state.isFocused;
-	      return /*#__PURE__*/reactExports$1.createElement(IndicatorSeparator, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(IndicatorSeparator, _extends({}, commonProps, {
 	        isDisabled: isDisabled,
 	        isFocused: isFocused
 	      }));
@@ -46448,7 +42727,7 @@
 	        onTouchEnd: this.onDropdownIndicatorTouchEnd,
 	        'aria-hidden': 'true'
 	      };
-	      return /*#__PURE__*/reactExports$1.createElement(DropdownIndicator, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(DropdownIndicator, _extends({}, commonProps, {
 	        innerProps: innerProps,
 	        isDisabled: isDisabled,
 	        isFocused: isFocused
@@ -46510,7 +42789,7 @@
 	          onMouseOver: onHover,
 	          tabIndex: -1
 	        };
-	        return /*#__PURE__*/reactExports$1.createElement(Option, _extends({}, commonProps, {
+	        return /*#__PURE__*/reactExports.createElement(Option, _extends({}, commonProps, {
 	          innerProps: innerProps,
 	          data: data,
 	          isDisabled: isDisabled,
@@ -46532,7 +42811,7 @@
 	              groupIndex = item.index;
 	            var groupId = "".concat(_this4.getElementId('group'), "-").concat(groupIndex);
 	            var headingId = "".concat(groupId, "-heading");
-	            return /*#__PURE__*/reactExports$1.createElement(Group, _extends({}, commonProps, {
+	            return /*#__PURE__*/reactExports.createElement(Group, _extends({}, commonProps, {
 	              key: groupId,
 	              data: _data,
 	              options: options,
@@ -46554,13 +42833,13 @@
 	          inputValue: inputValue
 	        });
 	        if (message === null) return null;
-	        menuUI = /*#__PURE__*/reactExports$1.createElement(LoadingMessage, commonProps, message);
+	        menuUI = /*#__PURE__*/reactExports.createElement(LoadingMessage, commonProps, message);
 	      } else {
 	        var _message = noOptionsMessage({
 	          inputValue: inputValue
 	        });
 	        if (_message === null) return null;
-	        menuUI = /*#__PURE__*/reactExports$1.createElement(NoOptionsMessage, commonProps, _message);
+	        menuUI = /*#__PURE__*/reactExports.createElement(NoOptionsMessage, commonProps, _message);
 	      }
 	      var menuPlacementProps = {
 	        minMenuHeight: minMenuHeight,
@@ -46569,12 +42848,12 @@
 	        menuPosition: menuPosition,
 	        menuShouldScrollIntoView: menuShouldScrollIntoView
 	      };
-	      var menuElement = /*#__PURE__*/reactExports$1.createElement(MenuPlacer, _extends({}, commonProps, menuPlacementProps), function (_ref4) {
+	      var menuElement = /*#__PURE__*/reactExports.createElement(MenuPlacer, _extends({}, commonProps, menuPlacementProps), function (_ref4) {
 	        var ref = _ref4.ref,
 	          _ref4$placerProps = _ref4.placerProps,
 	          placement = _ref4$placerProps.placement,
 	          maxHeight = _ref4$placerProps.maxHeight;
-	        return /*#__PURE__*/reactExports$1.createElement(Menu, _extends({}, commonProps, menuPlacementProps, {
+	        return /*#__PURE__*/reactExports.createElement(Menu, _extends({}, commonProps, menuPlacementProps, {
 	          innerRef: ref,
 	          innerProps: {
 	            onMouseDown: _this4.onMenuMouseDown,
@@ -46583,13 +42862,13 @@
 	          },
 	          isLoading: isLoading,
 	          placement: placement
-	        }), /*#__PURE__*/reactExports$1.createElement(ScrollManager, {
+	        }), /*#__PURE__*/reactExports.createElement(ScrollManager, {
 	          captureEnabled: captureMenuScroll,
 	          onTopArrive: onMenuScrollToTop,
 	          onBottomArrive: onMenuScrollToBottom,
 	          lockEnabled: menuShouldBlockScroll
 	        }, function (scrollTargetRef) {
-	          return /*#__PURE__*/reactExports$1.createElement(MenuList, _extends({}, commonProps, {
+	          return /*#__PURE__*/reactExports.createElement(MenuList, _extends({}, commonProps, {
 	            innerRef: function innerRef(instance) {
 	              _this4.getMenuListRef(instance);
 	              scrollTargetRef(instance);
@@ -46604,7 +42883,7 @@
 	      // positioning behaviour is almost identical for portalled and fixed,
 	      // so we use the same component. the actual portalling logic is forked
 	      // within the component based on `menuPosition`
-	      return menuPortalTarget || menuPosition === 'fixed' ? /*#__PURE__*/reactExports$1.createElement(MenuPortal, _extends({}, commonProps, {
+	      return menuPortalTarget || menuPosition === 'fixed' ? /*#__PURE__*/reactExports.createElement(MenuPortal, _extends({}, commonProps, {
 	        appendTo: menuPortalTarget,
 	        controlElement: this.controlRef,
 	        menuPlacement: menuPlacement,
@@ -46623,7 +42902,7 @@
 	        required = _this$props13.required;
 	      var selectValue = this.state.selectValue;
 	      if (required && !this.hasValue() && !isDisabled) {
-	        return /*#__PURE__*/reactExports$1.createElement(RequiredInput$1, {
+	        return /*#__PURE__*/reactExports.createElement(RequiredInput$1, {
 	          name: name,
 	          onFocus: this.onValueInputFocus
 	        });
@@ -46634,29 +42913,29 @@
 	          var value = selectValue.map(function (opt) {
 	            return _this5.getOptionValue(opt);
 	          }).join(delimiter);
-	          return /*#__PURE__*/reactExports$1.createElement("input", {
+	          return /*#__PURE__*/reactExports.createElement("input", {
 	            name: name,
 	            type: "hidden",
 	            value: value
 	          });
 	        } else {
 	          var input = selectValue.length > 0 ? selectValue.map(function (opt, i) {
-	            return /*#__PURE__*/reactExports$1.createElement("input", {
+	            return /*#__PURE__*/reactExports.createElement("input", {
 	              key: "i-".concat(i),
 	              name: name,
 	              type: "hidden",
 	              value: _this5.getOptionValue(opt)
 	            });
-	          }) : /*#__PURE__*/reactExports$1.createElement("input", {
+	          }) : /*#__PURE__*/reactExports.createElement("input", {
 	            name: name,
 	            type: "hidden",
 	            value: ""
 	          });
-	          return /*#__PURE__*/reactExports$1.createElement("div", null, input);
+	          return /*#__PURE__*/reactExports.createElement("div", null, input);
 	        }
 	      } else {
 	        var _value = selectValue[0] ? this.getOptionValue(selectValue[0]) : '';
-	        return /*#__PURE__*/reactExports$1.createElement("input", {
+	        return /*#__PURE__*/reactExports.createElement("input", {
 	          name: name,
 	          type: "hidden",
 	          value: _value
@@ -46674,7 +42953,7 @@
 	        isFocused = _this$state6.isFocused,
 	        selectValue = _this$state6.selectValue;
 	      var focusableOptions = this.getFocusableOptions();
-	      return /*#__PURE__*/reactExports$1.createElement(LiveRegion$1, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(LiveRegion$1, _extends({}, commonProps, {
 	        id: this.getElementId('live-region'),
 	        ariaSelection: ariaSelection,
 	        focusedOption: focusedOption,
@@ -46699,7 +42978,7 @@
 	        menuIsOpen = _this$props14.menuIsOpen;
 	      var isFocused = this.state.isFocused;
 	      var commonProps = this.commonProps = this.getCommonProps();
-	      return /*#__PURE__*/reactExports$1.createElement(SelectContainer, _extends({}, commonProps, {
+	      return /*#__PURE__*/reactExports.createElement(SelectContainer, _extends({}, commonProps, {
 	        className: className,
 	        innerProps: {
 	          id: id,
@@ -46707,7 +42986,7 @@
 	        },
 	        isDisabled: isDisabled,
 	        isFocused: isFocused
-	      }), this.renderLiveRegion(), /*#__PURE__*/reactExports$1.createElement(Control, _extends({}, commonProps, {
+	      }), this.renderLiveRegion(), /*#__PURE__*/reactExports.createElement(Control, _extends({}, commonProps, {
 	        innerRef: this.getControlRef,
 	        innerProps: {
 	          onMouseDown: this.onControlMouseDown,
@@ -46716,9 +42995,9 @@
 	        isDisabled: isDisabled,
 	        isFocused: isFocused,
 	        menuIsOpen: menuIsOpen
-	      }), /*#__PURE__*/reactExports$1.createElement(ValueContainer, _extends({}, commonProps, {
+	      }), /*#__PURE__*/reactExports.createElement(ValueContainer, _extends({}, commonProps, {
 	        isDisabled: isDisabled
-	      }), this.renderPlaceholderOrValue(), this.renderInput()), /*#__PURE__*/reactExports$1.createElement(IndicatorsContainer, _extends({}, commonProps, {
+	      }), this.renderPlaceholderOrValue(), this.renderInput()), /*#__PURE__*/reactExports.createElement(IndicatorsContainer, _extends({}, commonProps, {
 	        isDisabled: isDisabled
 	      }), this.renderClearIndicator(), this.renderLoadingIndicator(), this.renderIndicatorSeparator(), this.renderDropdownIndicator())), this.renderMenu(), this.renderFormField());
 	    }
@@ -46780,12 +43059,12 @@
 	    }
 	  }]);
 	  return Select;
-	}(reactExports$1.Component);
+	}(reactExports.Component);
 	Select.defaultProps = defaultProps;
 
-	var StateManagedSelect = /*#__PURE__*/reactExports$1.forwardRef(function (props, ref) {
+	var StateManagedSelect = /*#__PURE__*/reactExports.forwardRef(function (props, ref) {
 	  var baseSelectProps = useStateManager(props);
-	  return /*#__PURE__*/reactExports$1.createElement(Select, _extends({
+	  return /*#__PURE__*/reactExports.createElement(Select, _extends({
 	    ref: ref
 	  }, baseSelectProps));
 	});
@@ -46797,7 +43076,7 @@
 	        validation: (v) => v.required(),
 	    });
 	    const value = j$1(formBase, "customSelect");
-	    return (React$1.createElement(StateManagedSelect$1, { onChange: (newValue) => {
+	    return (React.createElement(StateManagedSelect$1, { onChange: (newValue) => {
 	            input.onChange(newValue?.value);
 	        }, onBlur: () => input.onBlur(), value: value, options: [
 	            { value: "chocolate", label: "Chocolate" },
@@ -46806,52 +43085,57 @@
 	        ] }));
 	}
 	function CustomComponentPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
-	            refreshType: c.blur,
-	            shouldValidate: d.AFTER_FIRST_SUBMIT_ATTEMPT,
-	        }, onSubmit: () => { } },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "CustomSelect"),
-	            React$1.createElement(CustomSelect, null),
-	            React$1.createElement(tt, { name: "customSelect" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Email"),
-	            React$1.createElement(K, { validation: (v) => v.email(), name: "email" }),
-	            React$1.createElement(tt, { name: "email" })),
-	        React$1.createElement("button", null, "SEND")));
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "CustomSelect"),
+	            React.createElement(CustomSelect, null),
+	            React.createElement(tt, { name: "customSelect" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Email"),
+	            React.createElement(K, { validation: (v) => v.email(), name: "email" }),
+	            React.createElement(tt, { name: "email" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function SimpleWithoutContextPage() {
-	    const { formBase, error, loading } = Y();
-	    // @ts-ignore
-	    const name = J(formBase, "name", {
+	    const { formBase, error, loading } = Y({
+	        dev: false, //it logs everything
+	    });
+	    const name = H(formBase, "name", {
 	        validation: (v) => v.required(),
 	    });
-	    // @ts-ignore
-	    const surname = J(formBase, "surname", {
+	    const surname = H(formBase, "surname", {
 	        validation: (v) => v.required().minLength(2),
 	    });
-	    return (React$1.createElement("form", { onSubmit: (e) => {
+	    return (React.createElement("form", { onSubmit: (e) => {
 	            e.preventDefault();
 	            if (!loading) {
-	                formBase.onSubmit(() => { }).then();
+	                formBase
+	                    .onSubmit((data) => {
+	                    console.info("Submit", data);
+	                })
+	                    .then();
 	            }
 	        } },
-	        React$1.createElement("p", null, error ? error.message || "something went wrong" : ""),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement("input", { onChange: (e) => name.onChange(e.target.value), onBlur: name.onBlur }),
-	            React$1.createElement("span", null, name.error ? U(name.error) : name.loading ? "loading" : "")),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Surname"),
-	            React$1.createElement("input", { onChange: (e) => surname.onChange(e.target.value), onBlur: surname.onBlur }),
-	            React$1.createElement("span", null, surname.error ? U(surname.error) : surname.loading ? "loading" : "")),
-	        React$1.createElement("button", null, "Submit")));
+	        React.createElement("p", null, error ? error.message || "something went wrong" : ""),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement("input", { onChange: (e) => name.onChange(e.target.value), onBlur: name.onBlur }),
+	            React.createElement("span", null, name.error ? B(name.error) : name.loading ? "loading" : "")),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Surname"),
+	            React.createElement("input", { onChange: (e) => surname.onChange(e.target.value), onBlur: surname.onBlur }),
+	            React.createElement("span", null, surname.error ? B(surname.error) : surname.loading ? "loading" : "")),
+	        React.createElement("button", null, "Submit")));
 	}
 
 	function stringToSlug(str) {
@@ -46872,125 +43156,128 @@
 
 	function TitleInput() {
 	    const formBase = $();
-	    return (React$1.createElement(K, { onChange: (e) => {
+	    return (React.createElement(K, { onChange: (e) => {
 	            formBase.setValue("slug", stringToSlug(e.target.value)).then();
 	        }, validation: (v) => v.required().minLength(2), name: "name" }));
 	}
 	function SlugInput() {
-	    return React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "slug" });
+	    return React.createElement(K, { validation: (v) => v.required().minLength(2), name: "slug" });
 	}
 	function WatcherFormPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
-	            refreshType: c.blur,
-	            shouldValidate: d.AFTER_FIRST_SUBMIT_ATTEMPT,
-	        }, onSubmit: () => { } },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Product Name"),
-	            React$1.createElement(TitleInput, null),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Slug"),
-	            React$1.createElement(SlugInput, null),
-	            React$1.createElement(tt, { name: "slug" })),
-	        React$1.createElement("button", null, "SEND")));
+	    return (React.createElement(G, { formBaseOptions: {
+	            dev: false, //it logs everything
+	        }, onSubmit: (data) => {
+	            console.info("Submit", data);
+	        } },
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Product Name"),
+	            React.createElement(TitleInput, null),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Slug"),
+	            React.createElement(SlugInput, null),
+	            React.createElement(tt, { name: "slug" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function ConfirmPopup() {
 	    const formBase = $();
 	    const { active, reject, resolve } = C(formBase);
 	    if (active) {
-	        return (React$1.createElement("div", null,
-	            React$1.createElement("button", { type: "button", onClick: () => {
+	        return (React.createElement("div", null,
+	            React.createElement("button", { type: "button", onClick: () => {
 	                    resolve();
 	                } }, "Accept"),
-	            React$1.createElement("button", { type: "button", onClick: () => {
+	            React.createElement("button", { type: "button", onClick: () => {
 	                    reject();
 	                } }, "Reject")));
 	    }
 	    return null;
 	}
 	function ConfirmPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
+	    return (React.createElement(G, { formBaseOptions: {
 	            refreshType: c.blur,
 	            shouldValidate: d.YES,
+	            dev: false, //it logs everything
 	        }, onSubmit: (data, utils) => {
 	            utils.confirm((payload) => {
-	                console.log("inside");
-	                console.info("data", data);
+	                console.info("Submit", data);
 	            });
 	        } },
-	        React$1.createElement(X, null),
-	        React$1.createElement(ConfirmPopup, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Last Name"),
-	            React$1.createElement(K, { validation: (v) => v.set({ validateAll: true }).minLength(2), name: "lastname" }),
-	            React$1.createElement(tt, { name: "lastname" })),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Email"),
-	            React$1.createElement(K, { validation: (v) => v.email(), name: "email" }),
-	            React$1.createElement(tt, { name: "email" })),
-	        React$1.createElement("button", null, "SEND")));
+	        React.createElement(X, null),
+	        React.createElement(ConfirmPopup, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Last Name"),
+	            React.createElement(K, { validation: (v) => v.set({ validateAll: true }).minLength(2), name: "lastname" }),
+	            React.createElement(tt, { name: "lastname" })),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Email"),
+	            React.createElement(K, { validation: (v) => v.email(), name: "email" }),
+	            React.createElement(tt, { name: "email" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function DebouncePage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
+	    return (React.createElement(G, { formBaseOptions: {
 	            refreshType: c.blur,
 	            shouldValidate: d.YES,
 	            debounceNumber: 2000,
+	            dev: false, //it logs everything
 	        }, onSubmit: (data) => {
-	            console.info("data", data);
+	            console.info("Submit", data);
 	        } },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("button", null, "SEND")));
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function SubmitConditionPage() {
-	    return (React$1.createElement(H, { formBaseOptions: {
+	    return (React.createElement(G, { formBaseOptions: {
 	            refreshType: c.blur,
 	            shouldValidate: (formBase) => {
 	                return formBase.store.state.formState.submitAttemptNumber > 3;
 	            },
+	            dev: false, //it logs everything
 	        }, onSubmit: (data) => {
-	            console.info("data", data);
+	            console.info("Submit", data);
 	        } },
-	        React$1.createElement(X, null),
-	        React$1.createElement("div", null,
-	            React$1.createElement("label", null, "Name"),
-	            React$1.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
-	            React$1.createElement(tt, { name: "name" })),
-	        React$1.createElement("button", null, "SEND")));
+	        React.createElement(X, null),
+	        React.createElement("div", null,
+	            React.createElement("label", null, "Name"),
+	            React.createElement(K, { validation: (v) => v.required().minLength(2), name: "name" }),
+	            React.createElement(tt, { name: "name" })),
+	        React.createElement("button", null, "SEND")));
 	}
 
 	function App() {
-	    return (React$1.createElement(React$1.StrictMode, null,
-	        React$1.createElement(BrowserRouter, null,
-	            React$1.createElement("div", { className: "app" },
-	                React$1.createElement(Routes, null,
-	                    React$1.createElement(Route, { path: "/", element: React$1.createElement(MenuPage, null) }),
-	                    React$1.createElement(Route, { path: "/basic", element: React$1.createElement(BasicPage, null) }),
-	                    React$1.createElement(Route, { path: "/debounce", element: React$1.createElement(DebouncePage, null) }),
-	                    React$1.createElement(Route, { path: "/submit-condition", element: React$1.createElement(SubmitConditionPage, null) }),
-	                    React$1.createElement(Route, { path: "/all-validations", element: React$1.createElement(AllValidationsPage, null) }),
-	                    React$1.createElement(Route, { path: "/custom-validation", element: React$1.createElement(CustomValidationPage, null) }),
-	                    React$1.createElement(Route, { path: "/async-validation", element: React$1.createElement(AsyncValidationPage, null) }),
-	                    React$1.createElement(Route, { path: "/async-submit", element: React$1.createElement(AsyncSubmitPage, null) }),
-	                    React$1.createElement(Route, { path: "/custom-component", element: React$1.createElement(CustomComponentPage, null) }),
-	                    React$1.createElement(Route, { path: "/watcher-form-page", element: React$1.createElement(WatcherFormPage, null) }),
-	                    React$1.createElement(Route, { path: "/simple-without-context", element: React$1.createElement(SimpleWithoutContextPage, null) }),
-	                    React$1.createElement(Route, { path: "/confirm", element: React$1.createElement(ConfirmPage, null) }))))));
+	    return (React.createElement(React.StrictMode, null,
+	        React.createElement(BrowserRouter, null,
+	            React.createElement("div", { className: "app" },
+	                React.createElement(Routes, null,
+	                    React.createElement(Route, { path: "/", element: React.createElement(MenuPage, null) }),
+	                    React.createElement(Route, { path: "/basic", element: React.createElement(BasicPage, null) }),
+	                    React.createElement(Route, { path: "/debounce", element: React.createElement(DebouncePage, null) }),
+	                    React.createElement(Route, { path: "/submit-condition", element: React.createElement(SubmitConditionPage, null) }),
+	                    React.createElement(Route, { path: "/all-validations", element: React.createElement(AllValidationsPage, null) }),
+	                    React.createElement(Route, { path: "/custom-validation", element: React.createElement(CustomValidationPage, null) }),
+	                    React.createElement(Route, { path: "/async-validation", element: React.createElement(AsyncValidationPage, null) }),
+	                    React.createElement(Route, { path: "/async-submit", element: React.createElement(AsyncSubmitPage, null) }),
+	                    React.createElement(Route, { path: "/custom-component", element: React.createElement(CustomComponentPage, null) }),
+	                    React.createElement(Route, { path: "/watcher-form-page", element: React.createElement(WatcherFormPage, null) }),
+	                    React.createElement(Route, { path: "/simple-without-context", element: React.createElement(SimpleWithoutContextPage, null) }),
+	                    React.createElement(Route, { path: "/confirm", element: React.createElement(ConfirmPage, null) }))))));
 	}
 
 	const root = client.createRoot(document.getElementById("root"));
-	root.render(React$1.createElement(App, null));
+	root.render(React.createElement(App, null));
 
 })();
 //# sourceMappingURL=index.js.map

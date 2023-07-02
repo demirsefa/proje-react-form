@@ -1028,10 +1028,10 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
-proje-react-form@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/proje-react-form/-/proje-react-form-1.0.6.tgz"
-  integrity sha512-ayVFXdjvpu2cr0VDtnsZ81lDzbXhFQLMdAxdC9iMIXC2JmVWgmetZQZFvaphfeMliIegsdNaH2tHrpdWK05Q5A==
+proje-react-form@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proje-react-form/-/proje-react-form-1.1.0.tgz#9e0026cbce00b98ec62402d47d983f4c0b980e8a"
+  integrity sha512-Bk9u/jy2/BfnO/mD3RhT1S19nHMUf4HgZSGsZ9Lfh5P7UuMFHqHZzPA7LTRaPQkbL2ygJXV41AKn20bJDQD4rg==
   dependencies:
     react "^18.2.0"
 

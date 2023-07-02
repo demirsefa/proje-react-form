@@ -7,7 +7,7 @@ export default function BasicPage() {
 			formBaseOptions={{
 				refreshType: FormRefreshType.blur,
 				shouldValidate: FormShouldValidateType.AFTER_FIRST_SUBMIT_ATTEMPT,
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				console.info("Submit", data);

@@ -9,7 +9,7 @@ export default function SubmitConditionPage() {
 				shouldValidate: (formBase) => {
 					return formBase.store.state.formState.submitAttemptNumber > 3;
 				},
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				console.info("Submit", data);

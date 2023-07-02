@@ -10,7 +10,7 @@ export default function AsyncSubmitPage() {
 	return (
 		<Form
 			formBaseOptions={{
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				return fakeLogin().then(() => {

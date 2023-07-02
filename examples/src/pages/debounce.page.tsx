@@ -8,7 +8,7 @@ export default function DebouncePage() {
 				refreshType: FormRefreshType.blur,
 				shouldValidate: FormShouldValidateType.YES,
 				debounceNumber: 2000,
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				console.info("Submit", data);

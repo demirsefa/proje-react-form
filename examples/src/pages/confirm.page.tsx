@@ -42,7 +42,7 @@ export default function ConfirmPage() {
 			formBaseOptions={{
 				refreshType: FormRefreshType.blur,
 				shouldValidate: FormShouldValidateType.YES,
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data, utils) => {
 				utils.confirm((payload) => {

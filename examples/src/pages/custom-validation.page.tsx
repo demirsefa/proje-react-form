@@ -19,7 +19,7 @@ export default function CustomValidationPage() {
 	return (
 		<Form
 			formBaseOptions={{
-				dev: true,
+				dev: false, //it logs everything
 			}}
 			onSubmit={(data) => {
 				console.info("Submit", data);

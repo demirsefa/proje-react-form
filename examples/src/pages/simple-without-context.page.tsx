@@ -3,13 +3,11 @@ import { getErrorDefaultText, useCreateDomInput, useCreateFormBase, Validator } 
 
 export default function SimpleWithoutContextPage() {
 	const { formBase, error, loading } = useCreateFormBase({
-		dev: true,
+		dev: false, //it logs everything
 	});
-	// @ts-ignore
 	const name = useCreateDomInput(formBase, "name", {
 		validation: (v: Validator) => v.required(),
 	});
-	// @ts-ignore
 	const surname = useCreateDomInput(formBase, "surname", {
 		validation: (v: Validator) => v.required().minLength(2),
 	});
