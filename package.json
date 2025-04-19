@@ -13,8 +13,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c   ",
-    "build/examples": "rollup -c ./examples/rollup.config.mjs  -w --sourcemap"
+    "build": "rollup -c   "
   },
   "repository": {
     "type": "git",
